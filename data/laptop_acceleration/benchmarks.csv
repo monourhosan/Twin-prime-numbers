@@ -1,0 +1,39 @@
+category,n,sieve_depth,workers,throughput_cands_sec,speedup_or_efficiency,metric_detail
+sieve_cpu,3328,30000,1,3200665.7,1.0,survivors=473
+sieve_gpu_mx250,3328,30000,1,18977132.4,5.93,PTX sm_61 driver JIT
+sieve_cpu,3328,50000,1,2347362.7,1.0,survivors=438
+sieve_gpu_mx250,3328,50000,1,26274303.6,11.19,PTX sm_61 driver JIT
+sieve_cpu,3328,100000,1,1454757.1,1.0,survivors=389
+sieve_gpu_mx250,3328,100000,1,25926885.9,17.82,PTX sm_61 driver JIT
+sieve_cpu,4992,30000,1,3738387.6,1.0,survivors=478
+sieve_gpu_mx250,4992,30000,1,15403573.6,4.12,PTX sm_61 driver JIT
+sieve_cpu,4992,50000,1,2475707.1,1.0,survivors=442
+sieve_gpu_mx250,4992,50000,1,21450021.5,8.66,PTX sm_61 driver JIT
+sieve_cpu,4992,100000,1,1566477.4,1.0,survivors=392
+sieve_gpu_mx250,4992,100000,1,15524334.4,9.91,PTX sm_61 driver JIT
+sieve_cpu,6656,30000,1,3653902.4,1.0,survivors=471
+sieve_gpu_mx250,6656,30000,1,24333860.5,6.66,PTX sm_61 driver JIT
+sieve_cpu,6656,50000,1,1955320.9,1.0,survivors=420
+sieve_gpu_mx250,6656,50000,1,24761669.1,12.66,PTX sm_61 driver JIT
+sieve_cpu,6656,100000,1,1373400.0,1.0,survivors=366
+sieve_gpu_mx250,6656,100000,1,24189647.0,17.61,PTX sm_61 driver JIT
+sieve_cpu,8192,30000,1,3424129.8,1.0,survivors=452
+sieve_gpu_mx250,8192,30000,1,24336821.6,7.11,PTX sm_61 driver JIT
+sieve_cpu,8192,50000,1,2581844.5,1.0,survivors=410
+sieve_gpu_mx250,8192,50000,1,18316695.8,7.09,PTX sm_61 driver JIT
+sieve_cpu,8192,100000,1,1583468.6,1.0,survivors=374
+sieve_gpu_mx250,8192,100000,1,14649868.1,9.25,PTX sm_61 driver JIT
+multiprecision_prp,3328,0,1,4416.5,0.0,"digits=1007, prp_lat_ms=0.23"
+multiprecision_llr,3328,0,1,101600.2,0.0,"digits=1007, sq_per_sec=101600.2"
+multiprecision_prp,4992,0,1,8.6,0.0,"digits=1509, prp_lat_ms=116.15"
+multiprecision_llr,4992,0,1,48666.8,0.0,"digits=1509, sq_per_sec=48666.8"
+multiprecision_prp,6656,0,1,224382.9,0.0,"digits=2009, prp_lat_ms=0.0"
+multiprecision_llr,6656,0,1,28695.6,0.0,"digits=2009, sq_per_sec=28695.6"
+multiprecision_prp,8192,0,1,217391.3,0.0,"digits=2472, prp_lat_ms=0.0"
+multiprecision_llr,8192,0,1,25171.4,0.0,"digits=2472, sq_per_sec=25171.4"
+concurrency_scaling,3328,50000,1,3382.0,1.0,wall_sec=2.96
+concurrency_scaling,3328,50000,2,6048.7,0.894,wall_sec=3.31
+concurrency_scaling,3328,50000,3,7782.6,0.767,wall_sec=3.85
+concurrency_scaling,3328,50000,4,7974.9,0.59,wall_sec=5.02
+concurrency_scaling,3328,50000,5,8824.1,0.522,wall_sec=5.67
+concurrency_scaling,3328,50000,6,10013.1,0.493,wall_sec=5.99

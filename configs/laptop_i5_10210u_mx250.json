@@ -1,0 +1,56 @@
+{
+  "profile_id": "i5-10210u-mx250-12gb",
+  "platform": "windows-x64",
+  "mode": "maximum-sustainable",
+  "search": {
+    "campaign_id": "laptop_2k_exploration",
+    "exponents": [
+      4992,
+      6656,
+      7168,
+      8192
+    ],
+    "avoid_known_pairs": true,
+    "proof_required": true,
+    "checkpoint_required": true,
+    "k_start": 3,
+    "window_k_span": 120000,
+    "sieve_depth": 50000,
+    "min_digits": 2000
+  },
+  "cpu": {
+    "initial_workers": 3,
+    "benchmark_worker_choices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "worker_autotune": true
+  },
+  "gpu": {
+    "requested": "auto",
+    "max_project_vram_gb": 1.2,
+    "compare_against_cpu": true,
+    "require_exact_cross_check": false,
+    "minimum_sustained_speedup_fraction": 0.1
+  },
+  "safety": {
+    "require_ac_power": true,
+    "cpu_soft_temperature_c": 85,
+    "cpu_pause_temperature_c": 92,
+    "gpu_soft_temperature_c": 80,
+    "gpu_pause_temperature_c": 85,
+    "min_available_system_ram_gb": 2.5,
+    "min_free_disk_gb": 30,
+    "if_temperature_monitoring_unavailable": "conservative_mode"
+  },
+  "reporting": {
+    "status_interval_seconds": 60,
+    "checkpoint_target_seconds": 180,
+    "record_git_revision": true,
+    "record_tool_versions": true
+  }
+}

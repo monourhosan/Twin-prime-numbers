@@ -195,9 +195,10 @@ def cmd_search(args):
 
     # If multi-worker is requested, spawn worker processes
     if cfg.workers > 1:
+        from .laptop_accel.safety_monitor import LaptopSafetyMonitor
+        monitor = LaptopSafetyMonitor()
         safe_workers = get_safe_worker_count(cfg.workers)
         print(f"Spawning {safe_workers} parallel worker processes (spawn context)...")
-        # Ensure child processes inherit project root in PYTHONPATH
         proj_root = str(Path(__file__).resolve().parent.parent.parent)
         curr_ppath = os.environ.get("PYTHONPATH", "")
         if proj_root not in curr_ppath:
@@ -214,8 +215,27 @@ def cmd_search(args):
             processes.append(p)
 
         try:
+            while any(p.is_alive() for p in processes):
+                time.sleep(1.5)
+                if stop_file.exists() or pause_file.exists():
+                    break
+                safe, msgs, _ = monitor.check_safety()
+                if not safe:
+                    print(f"\n[SAFETY PAUSE] Guardrail triggered: {msgs[0] if msgs else 'Threshold reached'}. Pausing campaign.")
+                    pause_file.write_text("PAUSE\n", encoding="utf-8")
+                    break
+                st = storage.get_campaign_status(cfg.campaign_id)
+                if st["pending_tasks"] < safe_workers * 2 and cfg.k_end is None:
+                    cfg.k_start += cfg.window_k_span * 20
+                    scheduler.plan_and_register_tasks(num_windows_ahead=20)
+                if st["discoveries"] >= cfg.stop_after_verified_pairs:
+                    print("\n[SUCCESS] Target proven discoveries reached!")
+                    stop_file.write_text("STOP\n", encoding="utf-8")
+                    break
             for p in processes:
-                p.join()
+                p.join(timeout=5)
+                if p.is_alive():
+                    p.terminate()
         except KeyboardInterrupt:
             print("\nReceived interrupt. Stopping child worker processes...")
             stop_file.write_text("STOP\n", encoding="utf-8")
@@ -353,6 +373,14 @@ def cmd_report(args):
     out_file.write_text("\n".join(lines), encoding="utf-8")
     print(f"Report generated at {out_file}")
 
+def cmd_laptop_doctor(args):
+    from scripts.laptop_doctor import main as run_doctor
+    run_doctor()
+
+def cmd_laptop_benchmark(args):
+    from scripts.benchmark_laptop import run_full_laptop_benchmarks
+    run_full_laptop_benchmarks()
+
 def main():
     parser = argparse.ArgumentParser(description="Phase 4 ADRS-4 Twin-Prime Discovery Engine")
     subparsers = parser.add_subparsers(dest="subcommand", required=True)
@@ -360,6 +388,15 @@ def main():
     # doctor
     p_doc = subparsers.add_parser("doctor")
     p_doc.set_defaults(func=cmd_doctor)
+
+    # laptop-doctor
+    p_ldoc = subparsers.add_parser("laptop-doctor")
+    p_ldoc.set_defaults(func=cmd_laptop_doctor)
+
+    # laptop-benchmark
+    p_lbm = subparsers.add_parser("laptop-benchmark")
+    p_lbm.add_argument("--profile", default="maximum-sustainable")
+    p_lbm.set_defaults(func=cmd_laptop_benchmark)
 
     # audit
     p_audit = subparsers.add_parser("audit")

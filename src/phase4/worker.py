@@ -34,6 +34,19 @@ class WorkerPipeline:
                 self._sieve_cache[n] = SieveR0_S1Baseline(n, self.config.sieve_depth)
             elif strat == "r2_adaptive":
                 self._sieve_cache[n] = SieveR2_Adaptive(n, initial_depth=10_000, max_depth=self.config.sieve_depth)
+            elif strat in ("r3_gpu_mx250", "gpu", "hybrid"):
+                try:
+                    from .laptop_accel.cuda_driver import CUDADriverManager
+                    from .laptop_accel.cuda_sieve import CUDASieveMX250
+                    if CUDADriverManager.get_instance().is_available:
+                        cross_check = False
+                        if self.config.laptop_profile:
+                            cross_check = self.config.laptop_profile.get("gpu", {}).get("require_exact_cross_check", False)
+                        self._sieve_cache[n] = CUDASieveMX250(n, self.config.sieve_depth, cross_check_cpu=cross_check)
+                    else:
+                        self._sieve_cache[n] = SieveR1_TSpace(n, self.config.sieve_depth)
+                except Exception:
+                    self._sieve_cache[n] = SieveR1_TSpace(n, self.config.sieve_depth)
             else: # Default is R1 (t-space block sieve)
                 self._sieve_cache[n] = SieveR1_TSpace(n, self.config.sieve_depth)
         return self._sieve_cache[n]
@@ -226,7 +239,11 @@ def worker_process_main(config_path: str, worker_id: str):
 
         task = storage.claim_task(cfg.campaign_id, worker_id=worker_id, pid=os.getpid(), lease_duration_sec=cfg.lease_timeout_seconds)
         if not task:
-            break
+            # Short wait and retry before exiting
+            time.sleep(0.5)
+            task = storage.claim_task(cfg.campaign_id, worker_id=worker_id, pid=os.getpid(), lease_duration_sec=cfg.lease_timeout_seconds)
+            if not task:
+                break
 
         discoveries, completed, metrics = pipeline.process_task(task)
         if not completed:

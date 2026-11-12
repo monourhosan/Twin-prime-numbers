@@ -49,8 +49,13 @@ def get_hardware_profile() -> Dict[str, Any]:
 
 def get_safe_worker_count(requested: int) -> int:
     """Clamps worker count within safe hardware bounds to prevent thermal throttling or freeze."""
-    logical = multiprocessing.cpu_count()
-    safe_max = max(1, logical - 1)
-    if requested > safe_max:
+    try:
+        from .laptop_accel.safety_monitor import LaptopSafetyMonitor
+        safe_max = LaptopSafetyMonitor().recommend_safe_worker_count(requested)
         return safe_max
-    return max(1, requested)
+    except Exception:
+        logical = multiprocessing.cpu_count()
+        safe_max = max(1, min(logical - 1, 3))
+        if requested > safe_max:
+            return safe_max
+        return max(1, requested)
