@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k9033-n50-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:43:24.020434+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^50 +/- 1",
+  "digits": 20,
+  "k": 9033,
+  "n": 50,
+  "center_m": "9033 * 2^50",
+  "p_minus": "10170253858509422591",
+  "p_plus": "10170253858509422593",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 5,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=5, k=9033, n=50",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 5,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=9033, n=50",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "0fe12c26e67938fbd3cce18003b3e5632934e5b7dfc8d8001e3ff85949e2c507"
+}

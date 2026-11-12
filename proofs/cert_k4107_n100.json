@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k4107-n100-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:43:24.021644+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^100 +/- 1",
+  "digits": 34,
+  "k": 4107,
+  "n": 100,
+  "center_m": "4107 * 2^100",
+  "p_minus": "5206241015137338151946960064479231",
+  "p_plus": "5206241015137338151946960064479233",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 5,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=5, k=4107, n=100",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 5,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=4107, n=100",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "0d704bfa825acd12c27b2fa315ce8171fc3119aac6084bba361c26712bc7c750"
+}

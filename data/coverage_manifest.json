@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "title": "CATS Twin-Prime Research Coverage Manifest",
+    "primary_auditor": "Monour Hosan Saif",
+    "contributors": "Gemini and ChatGPT",
+    "execution_date_utc": "2026-11-12T05:43:19.245404+00:00",
+    "system_specifications": {
+      "platform": "Windows-11-10.0.26300-SP0",
+      "processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+      "python_version": "3.12.10",
+      "cpu_count_logical": 8
+    },
+    "engine": "CATS (NumPy/SymPy Python 3.12)"
+  },
+  "completed_searches": [
+    {
+      "type": "bounded_exhaustive",
+      "interval": [
+        2,
+        100000
+      ],
+      "sieve_depth": 316,
+      "runtime_seconds": 0.0351,
+      "total_twins_found": 1224,
+      "largest_pair_certified": [
+        99989,
+        99991
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "bounded_exhaustive",
+      "interval": [
+        2,
+        1000000
+      ],
+      "sieve_depth": 1000,
+      "runtime_seconds": 0.3145,
+      "total_twins_found": 8169,
+      "largest_pair_certified": [
+        999959,
+        999961
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "bounded_exhaustive",
+      "interval": [
+        2,
+        5000000
+      ],
+      "sieve_depth": 2236,
+      "runtime_seconds": 1.3979,
+      "total_twins_found": 32463,
+      "largest_pair_certified": [
+        4999961,
+        4999963
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "bounded_exhaustive",
+      "interval": [
+        2,
+        10000000
+      ],
+      "sieve_depth": 3162,
+      "runtime_seconds": 2.8387,
+      "total_twins_found": 58980,
+      "largest_pair_certified": [
+        9999971,
+        9999973
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^30 +/- 1",
+      "n": 30,
+      "k_range": [
+        1,
+        10000
+      ],
+      "sieve_depth": 5000,
+      "runtime_seconds": 0.0599,
+      "proven_pairs_count": 15,
+      "certificates_generated": [
+        "CATS-TWIN-k345-n30-2026-11-12",
+        "CATS-TWIN-k2187-n30-2026-11-12",
+        "CATS-TWIN-k2343-n30-2026-11-12",
+        "CATS-TWIN-k2865-n30-2026-11-12",
+        "CATS-TWIN-k3153-n30-2026-11-12",
+        "CATS-TWIN-k3813-n30-2026-11-12",
+        "CATS-TWIN-k5115-n30-2026-11-12",
+        "CATS-TWIN-k5595-n30-2026-11-12",
+        "CATS-TWIN-k6765-n30-2026-11-12",
+        "CATS-TWIN-k6825-n30-2026-11-12",
+        "CATS-TWIN-k7143-n30-2026-11-12",
+        "CATS-TWIN-k7845-n30-2026-11-12",
+        "CATS-TWIN-k8355-n30-2026-11-12",
+        "CATS-TWIN-k9135-n30-2026-11-12",
+        "CATS-TWIN-k9555-n30-2026-11-12"
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^50 +/- 1",
+      "n": 50,
+      "k_range": [
+        1,
+        10000
+      ],
+      "sieve_depth": 5000,
+      "runtime_seconds": 0.0335,
+      "proven_pairs_count": 9,
+      "certificates_generated": [
+        "CATS-TWIN-k927-n50-2026-11-12",
+        "CATS-TWIN-k1107-n50-2026-11-12",
+        "CATS-TWIN-k1767-n50-2026-11-12",
+        "CATS-TWIN-k2127-n50-2026-11-12",
+        "CATS-TWIN-k2997-n50-2026-11-12",
+        "CATS-TWIN-k5295-n50-2026-11-12",
+        "CATS-TWIN-k5865-n50-2026-11-12",
+        "CATS-TWIN-k6147-n50-2026-11-12",
+        "CATS-TWIN-k9033-n50-2026-11-12"
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^100 +/- 1",
+      "n": 100,
+      "k_range": [
+        1,
+        10000
+      ],
+      "sieve_depth": 5000,
+      "runtime_seconds": 0.0,
+      "proven_pairs_count": 1,
+      "certificates_generated": [
+        "CATS-TWIN-k4107-n100-2026-11-12"
+      ],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^250 +/- 1",
+      "n": 250,
+      "k_range": [
+        1,
+        5000
+      ],
+      "sieve_depth": 17226,
+      "runtime_seconds": 0.0206,
+      "proven_pairs_count": 0,
+      "certificates_generated": [],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^500 +/- 1",
+      "n": 500,
+      "k_range": [
+        1,
+        2000
+      ],
+      "sieve_depth": 43911,
+      "runtime_seconds": 0.0127,
+      "proven_pairs_count": 0,
+      "certificates_generated": [],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^1000 +/- 1",
+      "n": 1000,
+      "k_range": [
+        1,
+        1000
+      ],
+      "sieve_depth": 111936,
+      "runtime_seconds": 0.05,
+      "proven_pairs_count": 0,
+      "certificates_generated": [],
+      "status": "COMPLETE_AND_PROVEN"
+    },
+    {
+      "type": "structured_heuristic",
+      "formula": "k * 2^2000 +/- 1",
+      "n": 2000,
+      "k_range": [
+        1,
+        500
+      ],
+      "sieve_depth": 285338,
+      "runtime_seconds": 0.0833,
+      "proven_pairs_count": 0,
+      "certificates_generated": [],
+      "status": "COMPLETE_AND_PROVEN"
+    }
+  ],
+  "ablation_study": {
+    "parameters": {
+      "n": 200,
+      "k_max": 20000
+    },
+    "results": [
+      {
+        "config": "Baseline (Static Q=5k, Single Sieve)",
+        "sieve_time": 0.0,
+        "total_time": 0.01454615592956543,
+        "survivors": 110,
+        "speedup": 1.0
+      },
+      {
+        "config": "+ Dual-Residue Sieve (DR-Sieve)",
+        "sieve_time": 0.0,
+        "total_time": 0.017243623733520508,
+        "survivors": 110,
+        "speedup": 0.84
+      },
+      {
+        "config": "+ Adaptive Sieve Depth (ASD)",
+        "sieve_time": 0.0,
+        "total_time": 0.024410486221313477,
+        "survivors": 90,
+        "speedup": 0.6
+      },
+      {
+        "config": "Full CATS (+ CCAP Verified Proofs)",
+        "sieve_time": 0.008923768997192383,
+        "total_time": 0.04945945739746094,
+        "survivors": 90,
+        "speedup": 0.29
+      }
+    ]
+  }
+}

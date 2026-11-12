@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k7143-n30-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:43:23.954464+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^30 +/- 1",
+  "digits": 13,
+  "k": 7143,
+  "n": 30,
+  "center_m": "7143 * 2^30",
+  "p_minus": "7669737848831",
+  "p_plus": "7669737848833",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 5,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=5, k=7143, n=30",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 5,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=7143, n=30",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "b5b63b03c03a9a4123cc20713dafcaff2be1be4babf12b7c5f5e95a1971a2dcb"
+}

@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k5295-n50-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:43:23.988188+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^50 +/- 1",
+  "digits": 19,
+  "k": 5295,
+  "n": 50,
+  "center_m": "5295 * 2^50",
+  "p_minus": "5961640006731694079",
+  "p_plus": "5961640006731694081",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 7,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=7, k=5295, n=50",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 5,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=5295, n=50",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "f99f9dc2d8036307e3c3c98e7e26742b6cf1595964e2ae431106f04da5e98cc9"
+}

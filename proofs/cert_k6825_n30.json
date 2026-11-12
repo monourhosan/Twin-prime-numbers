@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k6825-n30-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:43:23.954464+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^30 +/- 1",
+  "digits": 13,
+  "k": 6825,
+  "n": 30,
+  "center_m": "6825 * 2^30",
+  "p_minus": "7328287948799",
+  "p_plus": "7328287948801",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 11,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=11, k=6825, n=30",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 9,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=9, k=6825, n=30",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "f5825973dc82350218f82f78e0327364a1d940bdf6ab5559ad76193a834cdb7f"
+}

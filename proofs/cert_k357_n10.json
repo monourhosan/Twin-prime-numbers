@@ -1,0 +1,26 @@
+{
+  "certificate_id": "CATS-TWIN-k357-n10-2026-11-12",
+  "timestamp_utc": "2026-11-12T05:34:55.512540+00:00",
+  "engine_version": "CATS-Python-1.0.0 (NumPy/SymPy)",
+  "pair_type": "Structured: k * 2^10 +/- 1",
+  "digits": 6,
+  "k": 357,
+  "n": 10,
+  "center_m": "357 * 2^10",
+  "p_minus": "365567",
+  "p_plus": "365569",
+  "p_plus_proof": {
+    "method": "PROTH_THEOREM",
+    "witness": 11,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=11, k=357, n=10",
+    "passed": true
+  },
+  "p_minus_proof": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "witness_p": 3,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=3, k=357, n=10",
+    "passed": true
+  },
+  "proof_status": "PROVEN_PRIME_PAIR",
+  "sha256_hash": "c3a35d3ce7028d8e177ad23b38a99f43143d287b4f910569aefe76c846599bca"
+}

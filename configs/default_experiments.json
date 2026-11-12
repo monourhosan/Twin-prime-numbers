@@ -1,0 +1,84 @@
+{
+  "project": "CATS: Certificate-Aware Adaptive Twin-prime Sieve",
+  "version": "1.0.0",
+  "bounded_experiments": [
+    {
+      "name": "bounded_100k",
+      "min": 2,
+      "max": 100000,
+      "sieve_depth": 316,
+      "use_dual_sieve": true
+    },
+    {
+      "name": "bounded_1m",
+      "min": 2,
+      "max": 1000000,
+      "sieve_depth": 1000,
+      "use_dual_sieve": true
+    },
+    {
+      "name": "bounded_5m",
+      "min": 2,
+      "max": 5000000,
+      "sieve_depth": 2236,
+      "use_dual_sieve": true
+    },
+    {
+      "name": "bounded_10m",
+      "min": 2,
+      "max": 10000000,
+      "sieve_depth": 3162,
+      "use_dual_sieve": true
+    }
+  ],
+  "structured_experiments": [
+    {
+      "n": 30,
+      "k_min": 1,
+      "k_max": 10000,
+      "adaptive": true
+    },
+    {
+      "n": 50,
+      "k_min": 1,
+      "k_max": 10000,
+      "adaptive": true
+    },
+    {
+      "n": 100,
+      "k_min": 1,
+      "k_max": 10000,
+      "adaptive": true
+    },
+    {
+      "n": 250,
+      "k_min": 1,
+      "k_max": 5000,
+      "adaptive": true
+    },
+    {
+      "n": 500,
+      "k_min": 1,
+      "k_max": 2000,
+      "adaptive": true
+    },
+    {
+      "n": 1000,
+      "k_min": 1,
+      "k_max": 1000,
+      "adaptive": true
+    },
+    {
+      "n": 2000,
+      "k_min": 1,
+      "k_max": 500,
+      "adaptive": true
+    }
+  ],
+  "ablation_experiment": {
+    "n": 200,
+    "k_max": 20000,
+    "static_depth": 5000,
+    "adaptive_depth": 12745
+  }
+}
