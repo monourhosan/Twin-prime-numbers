@@ -272,22 +272,22 @@ The ablation demonstrates that increasing sieve depth dynamically to $Q^*$ elimi
 ### 8.1 Sieve Survival Rate vs. Theoretical Asymptotics
 Figure 1 shows the empirical survival rate of candidates as a function of sieve depth $Q$, compared against the Hardy-Littlewood / Mertens prediction $\mathcal{S}(Q) \propto (\ln Q)^{-2}$.
 
-![Figure 1: Sieve Survival Rate](file:///d:/project/Twin%20prime%20numbers/paper/figures/fig1_sieve_survival_rate.png)
+![Figure 1: Sieve Survival Rate](figures/fig1_sieve_survival_rate.png)
 
 ### 8.2 Runtime Scaling Across Exponent Scales
 Figure 2 displays the amortized CPU time per candidate across exponent scales from $n=30$ to $n=2000$.
 
-![Figure 2: Runtime Scaling](file:///d:/project/Twin%20prime%20numbers/paper/figures/fig2_search_runtime_scaling.png)
+![Figure 2: Runtime Scaling](figures/fig2_search_runtime_scaling.png)
 
 ### 8.3 Ablation Study Performance Breakdown
 Figure 3 illustrates the comparative reduction in candidate survivors and execution time across the four experimental configurations.
 
-![Figure 3: Ablation Study Comparison](file:///d:/project/Twin%20prime%20numbers/paper/figures/fig3_ablation_throughput.png)
+![Figure 3: Ablation Study Comparison](figures/fig3_ablation_throughput.png)
 
 ### 8.4 Feasibility Projection for Record-Breaking Twin Primes
 Figure 4 presents the asymptotic computational effort required to locate twin primes as decimal digit counts scale toward the 388,342-digit record.
 
-![Figure 4: Computational Cost Projection](file:///d:/project/Twin%20prime%20numbers/paper/figures/fig4_record_scale_feasibility.png)
+![Figure 4: Computational Cost Projection](figures/fig4_record_scale_feasibility.png)
 
 ---
 
