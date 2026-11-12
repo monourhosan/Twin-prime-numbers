@@ -1,0 +1,25 @@
+{
+  "status": "COMPLETED",
+  "input_directory": "runs\\phase2",
+  "timestamp_utc": "2026-11-12T06:46:31Z",
+  "certified_discoveries": [
+    {
+      "k": 12477,
+      "n": 330,
+      "digits": 104,
+      "status": "PROVEN"
+    },
+    {
+      "k": 126747,
+      "n": 384,
+      "digits": 121,
+      "status": "PROVEN"
+    },
+    {
+      "k": 61347,
+      "n": 512,
+      "digits": 159,
+      "status": "PROVEN"
+    }
+  ]
+}

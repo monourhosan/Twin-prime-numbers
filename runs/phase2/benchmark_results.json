@@ -1,0 +1,136 @@
+{
+  "timestamp_utc": "2026-11-12T06:47:43Z",
+  "lucas_ablation": [
+    {
+      "k": 100,
+      "t_linear_sec": 1e-06,
+      "t_fast_sec": 1e-06,
+      "speedup": 1.0
+    },
+    {
+      "k": 1000,
+      "t_linear_sec": 1e-06,
+      "t_fast_sec": 1e-06,
+      "speedup": 1.0
+    },
+    {
+      "k": 10000,
+      "t_linear_sec": 1e-06,
+      "t_fast_sec": 1e-06,
+      "speedup": 1.0
+    },
+    {
+      "k": 50000,
+      "t_linear_sec": 0.016,
+      "t_fast_sec": 1e-06,
+      "speedup": 16000.0
+    },
+    {
+      "k": 200000,
+      "t_linear_sec": 0.031,
+      "t_fast_sec": 1e-06,
+      "speedup": 31000.0
+    }
+  ],
+  "wheel_ablation": [
+    {
+      "name": "None (all odd k)",
+      "primes": [],
+      "survivors": 50000,
+      "survival_fraction": 1.0,
+      "rejection_percent": 0.0
+    },
+    {
+      "name": "Wheel {3}",
+      "primes": [
+        3
+      ],
+      "survivors": 16667,
+      "survival_fraction": 0.3333,
+      "rejection_percent": 66.67
+    },
+    {
+      "name": "Wheel {3, 5}",
+      "primes": [
+        3,
+        5
+      ],
+      "survivors": 10000,
+      "survival_fraction": 0.2,
+      "rejection_percent": 80.0
+    },
+    {
+      "name": "Wheel {3, 5, 7}",
+      "primes": [
+        3,
+        5,
+        7
+      ],
+      "survivors": 7142,
+      "survival_fraction": 0.1428,
+      "rejection_percent": 85.72
+    },
+    {
+      "name": "Wheel {3, 5, 7, 11}",
+      "primes": [
+        3,
+        5,
+        7,
+        11
+      ],
+      "survivors": 5843,
+      "survival_fraction": 0.1169,
+      "rejection_percent": 88.31
+    },
+    {
+      "name": "Full CRT Wheel {3, 5, 7, 11, 13}",
+      "primes": [
+        3,
+        5,
+        7,
+        11,
+        13
+      ],
+      "survivors": 4944,
+      "survival_fraction": 0.0989,
+      "rejection_percent": 90.11
+    }
+  ],
+  "sieve_depth_ablation": [
+    {
+      "sieve_depth": 5000,
+      "survivors": 580,
+      "survival_pct": 1.16,
+      "elapsed_ms": 62.0
+    },
+    {
+      "sieve_depth": 10000,
+      "survivors": 495,
+      "survival_pct": 0.99,
+      "elapsed_ms": 78.0
+    },
+    {
+      "sieve_depth": 25000,
+      "survivors": 407,
+      "survival_pct": 0.814,
+      "elapsed_ms": 141.0
+    },
+    {
+      "sieve_depth": 50000,
+      "survivors": 360,
+      "survival_pct": 0.72,
+      "elapsed_ms": 234.0
+    },
+    {
+      "sieve_depth": 100000,
+      "survivors": 327,
+      "survival_pct": 0.654,
+      "elapsed_ms": 344.0
+    }
+  ],
+  "end_to_end": {
+    "phase2_rate": 229357.8,
+    "phase2_time_sec": 0.109,
+    "phase2_survivors": 173
+  }
+}

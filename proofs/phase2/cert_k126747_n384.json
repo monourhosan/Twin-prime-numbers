@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0",
+  "claim_type": "new_to_project_proven_twin_pair",
+  "p_minus": "4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007551",
+  "p_plus": "4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007553",
+  "representation": {
+    "family": "k*2^n+/-1",
+    "k": 126747,
+    "n": 384
+  },
+  "digits_p_minus": 121,
+  "digits_p_plus": 121,
+  "proof_minus": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "parameters": {
+      "P": 5,
+      "u0": "4196189802937934712672314861911734503006957920337146617806649180043535793284317107261965774702961272578573461986319829756"
+    },
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=126747, n=384",
+    "verifier": "phase2_strict_verifier"
+  },
+  "proof_plus": {
+    "method": "PROTH_THEOREM",
+    "witness": 5,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=5, k=126747, n=384",
+    "verifier": "phase2_strict_verifier"
+  },
+  "search_work_unit_id": "unit_k126747_n384",
+  "search_run_id": "run_phase2_campaign_120d",
+  "generator_commit": "62a8588",
+  "original_baseline_inventory_sha256": "b27e24a1ab320b9882e720e95a1336c1d768fa4c792383dfb245e383e2dcf554",
+  "utc_discovery_time": "2026-11-12T06:30:00+00:00",
+  "utc_verification_time": "2026-11-12T06:37:41.207712+00:00",
+  "verification_status": "PROVEN_TWIN_PAIR",
+  "artifact_sha256": "6af9484503a863d449c82090311f4988bac5dbfe0f0a8de5d9517247b88408fc"
+}

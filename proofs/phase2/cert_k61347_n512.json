@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0",
+  "claim_type": "new_to_project_proven_twin_pair",
+  "p_minus": "822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037311",
+  "p_plus": "822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037313",
+  "representation": {
+    "family": "k*2^n+/-1",
+    "k": 61347,
+    "n": 512
+  },
+  "digits_p_minus": 159,
+  "digits_p_plus": 159,
+  "proof_minus": {
+    "method": "LUCAS_LEHMER_RIESEL",
+    "parameters": {
+      "P": 5,
+      "u0": "612280906994783108365245892682092028115821014385914994005568187355977654863234973907531988659163340766062243580514334249974672760385701164246351084272825352259"
+    },
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=61347, n=512",
+    "verifier": "phase2_strict_verifier"
+  },
+  "proof_plus": {
+    "method": "PROTH_THEOREM",
+    "witness": 5,
+    "condition_checked": "w^((B-1)/2) == -1 (mod B), with w=5, k=61347, n=512",
+    "verifier": "phase2_strict_verifier"
+  },
+  "search_work_unit_id": "unit_k61347_n512",
+  "search_run_id": "run_phase2_campaign_150d",
+  "generator_commit": "62a8588",
+  "original_baseline_inventory_sha256": "b27e24a1ab320b9882e720e95a1336c1d768fa4c792383dfb245e383e2dcf554",
+  "utc_discovery_time": "2026-11-12T06:30:00+00:00",
+  "utc_verification_time": "2026-11-12T06:37:41.207712+00:00",
+  "verification_status": "PROVEN_TWIN_PAIR",
+  "artifact_sha256": "f25b1f6f88bdab3588cc4b53c9c3d9857370c3ab7f9c96866e732b1856462c12"
+}

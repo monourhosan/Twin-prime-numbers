@@ -18,3 +18,11 @@ venv/
 .vscode/
 *.swp
 *.bak
+
+# Transient Run State and Big Logs
+runs/phase2/checkpoints/
+runs/phase2/*.sqlite*
+runs/phase2/*.log
+runs/phase2/*.jsonl
+runs/phase2/*.tmp*
+

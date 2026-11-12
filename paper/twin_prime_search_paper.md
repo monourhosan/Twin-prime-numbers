@@ -355,8 +355,8 @@ Future work includes porting the CATS dual-residue kernel to GPU architectures u
   "k": 4107,
   "n": 100,
   "center_m": "4107 * 2^100",
-  "p_minus": "5205862110637458953584332604028295903027",
-  "p_plus": "5205862110637458953584332604028295903029",
+  "p_minus": "5206241015137338151946960064479231",
+  "p_plus": "5206241015137338151946960064479233",
   "p_plus_proof": {
     "method": "PROTH_THEOREM",
     "witness": 5,
@@ -365,11 +365,11 @@ Future work includes porting the CATS dual-residue kernel to GPU architectures u
   },
   "p_minus_proof": {
     "method": "LUCAS_LEHMER_RIESEL",
-    "witness_p": 4,
-    "condition_checked": "u_{n-2} == 0 (mod A), P=4, k=4107, n=100",
+    "witness_p": 5,
+    "condition_checked": "u_{n-2} == 0 (mod A), P=5, k=4107, n=100",
     "passed": true
   },
   "proof_status": "PROVEN_PRIME_PAIR",
-  "sha256_hash": "2ff75c0245a443a6d4eeff1a9b207a97750731a5472aa5c088fe64bcfd25d6fc"
+  "sha256_hash": "0d704bfa825acd12c27b2fa315ce8171fc3119aac6084bba361c26712bc7c750"
 }
 ```

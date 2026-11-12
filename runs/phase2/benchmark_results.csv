@@ -1,0 +1,17 @@
+Experiment,Parameter,Metric1_Name,Metric1_Val,Metric2_Name,Metric2_Val
+Lucas_Sequence,100,Linear_sec,1e-06,Fast_sec,1e-06
+Lucas_Sequence,1000,Linear_sec,1e-06,Fast_sec,1e-06
+Lucas_Sequence,10000,Linear_sec,1e-06,Fast_sec,1e-06
+Lucas_Sequence,50000,Linear_sec,0.016,Fast_sec,1e-06
+Lucas_Sequence,200000,Linear_sec,0.031,Fast_sec,1e-06
+CRT_Wheel,None (all odd k),Survivors,50000,Rejection_Pct,0.0
+CRT_Wheel,Wheel {3},Survivors,16667,Rejection_Pct,66.67
+CRT_Wheel,"Wheel {3, 5}",Survivors,10000,Rejection_Pct,80.0
+CRT_Wheel,"Wheel {3, 5, 7}",Survivors,7142,Rejection_Pct,85.72
+CRT_Wheel,"Wheel {3, 5, 7, 11}",Survivors,5843,Rejection_Pct,88.31
+CRT_Wheel,"Full CRT Wheel {3, 5, 7, 11, 13}",Survivors,4944,Rejection_Pct,90.11
+Sieve_Depth,5000,Survivors,580,Elapsed_ms,62.0
+Sieve_Depth,10000,Survivors,495,Elapsed_ms,78.0
+Sieve_Depth,25000,Survivors,407,Elapsed_ms,141.0
+Sieve_Depth,50000,Survivors,360,Elapsed_ms,234.0
+Sieve_Depth,100000,Survivors,327,Elapsed_ms,344.0

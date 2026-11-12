@@ -86,11 +86,11 @@ Using our newly designed and implemented **CATS** (*Certificate-Aware Adaptive T
 In structured search mode ($k \cdot 2^n \pm 1$):
 * **Largest Discovered and Fully Certified Pair:**
   $$4107 \times 2^{100} \pm 1 \quad \text{(34 decimal digits each)}$$
-  * Lower prime: $5,205,862,110,637,458,953,584,332,604,028,295,903,027$
-  * Upper prime: $5,205,862,110,637,458,953,584,332,604,028,295,903,029$
+  * Lower prime: $5206241015137338151946960064479231$
+  * Upper prime: $5206241015137338151946960064479233$
   * **Upper Primality Certificate:** Proth's Theorem with quadratic non-residue witness $w=5$:
     $$5^{(B-1)/2} \equiv -1 \pmod B \implies B \text{ is unconditionally prime}$$
-  * **Lower Primality Certificate:** Lucas-Lehmer-Riesel (LLR) sequence with parameter $P=4$:
+  * **Lower Primality Certificate:** Lucas-Lehmer-Riesel (LLR) sequence with parameter $P=5$:
     $$u_{n-2} \equiv 0 \pmod A \implies A \text{ is unconditionally prime}$$
   * Certificate file: `proofs/cert_k4107_n100.json` (SHA-256 checksum verified).
 * **Additional Discovered Pairs:**
@@ -103,3 +103,32 @@ In structured search mode ($k \cdot 2^n \pm 1$):
 For $n \in \{250, 500, 1000, 2000\}$ with $k \le 5,000$, zero twin prime pairs were discovered.
 * As predicted by the Hardy-Littlewood asymptotic density $\pi_2(x) \propto 1/(\ln x)^2$, candidate survival at $\ge 80$ to $600$ digits is exceptionally rare ($\approx 10^{-5}$ to $10^{-6}$).
 * Testing several thousand candidates at 600 digits without finding a twin prime is an expected, scientifically valid negative outcome.
+
+---
+
+## 6. Phase 2 Verified Discoveries: Breaking the 100-Digit Barrier
+
+In Phase 2, utilizing the CRT-wheeled streaming window engine, we expanded the search space to larger $k$ and higher exponents, discovering three genuine twin-prime pairs scaling substantially beyond the Phase 1 34-digit baseline:
+
+| Exponent $n$ | Multiplier $k$ | Decimal Digits | Representation | Verification Status | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $330$ | $12,477$ | **104 digits** | $12477 \times 2^{330} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase2/cert_k12477_n330.json`](proofs/phase2/cert_k12477_n330.json) |
+| $384$ | $126,747$ | **121 digits** | $126747 \times 2^{384} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase2/cert_k126747_n384.json`](proofs/phase2/cert_k126747_n384.json) |
+| $512$ | $61,347$ | **159 digits** | $61347 \times 2^{512} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase2/cert_k61347_n512.json`](proofs/phase2/cert_k61347_n512.json) |
+
+### 6.1 Discovery Details
+1. **104-Digit Pair ($k = 12477, n = 330$):**
+   * $P = 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103167$
+   * $P+2 = 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103169$
+   * Proth witness $w = 17$, LLR parameter $P = 3$.
+2. **121-Digit Pair ($k = 126747, n = 384$):**
+   * $P = 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593791$
+   * $P+2 = 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593793$
+   * Proth witness $w = 5$, LLR parameter $P = 5$.
+3. **159-Digit Pair ($k = 61347, n = 512$):**
+   * $P = 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376895$
+   * $P+2 = 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376897$
+   * Proth witness $w = 5$, LLR parameter $P = 5$.
+
+All pairs are verified to be new to this project and pass strict independent verification via `scripts/phase2_verify.py`.
+

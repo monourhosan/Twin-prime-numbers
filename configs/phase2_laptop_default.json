@@ -1,0 +1,43 @@
+{
+  "search_configuration": {
+    "version": "2.0",
+    "mode": "crt-wheel-windowed-sieve",
+    "min_digits": 100,
+    "target_exponents": [330, 384, 512],
+    "k_window_size": 50000,
+    "max_k": 1000000,
+    "stop_on_first_proven_pair": false
+  },
+  "sieving": {
+    "wheel_modulus_primes": [3, 5, 7, 11, 13],
+    "wheel_modulus": 30030,
+    "sieve_depth_cutoff": 50000,
+    "filter_strategy": "modular_inverse_dual_elimination"
+  },
+  "primality_proving": {
+    "proth_proof_enabled": true,
+    "proth_witness_pool": [3, 5, 7, 10, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47],
+    "llr_proof_enabled": true,
+    "llr_parameter_search_pool": [3, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24],
+    "lucas_algorithm": "montgomery_ladder_fast_doubling",
+    "independent_verifier": "src.phase2.independent_verifier"
+  },
+  "resource_and_safety_limits": {
+    "workers": "auto",
+    "max_cpu_percent": 85,
+    "memory_limit_mb": 2048,
+    "battery_policy": "throttle_on_battery",
+    "pause_on_battery": false,
+    "max_disk_mb": 500
+  },
+  "checkpointing_and_logging": {
+    "checkpoint_dir": "runs/phase2",
+    "checkpoint_frequency_sec": 60,
+    "logging_interval_sec": 30,
+    "reproducible_seed": 42
+  },
+  "attribution": {
+    "primary_auditor": "Monour Hosan Saif",
+    "contributors": "Gemini and ChatGPT"
+  }
+}
