@@ -38,3 +38,46 @@
 - **Test Suite Results:**
   - 54 / 54 tests passed in 1.87s (`python -m pytest -q`).
   - Known Phase 3 pair ($k=15993, n=672$) discovered, proven, and independently attested in clean harness.
+
+## Stage C: Benchmarks & Algorithm Selection
+- **UTC Timestamp:** 2026-11-12T10:35:00Z
+- **Status:** PASS (UNCONDITIONAL)
+- **Controlled Matrix:** Exponents $n \in \{672, 1024, 1664, 3328, 5120\}$, depths $Q \in \{10k, 30k, 50k, 100k\}$, 5 repeated trials.
+- **Results:**
+  - Sieve strategy R1 ($t$-space block sieve) outperformed R0 baseline across all ranges, processing 3.14M to 14.4M cands/s with 67% lower memory footprint.
+  - Sieve cutoff $Q=50,000$ selected as optimal trade-off between sieve time and PRP filter load.
+  - GMP/gmpy2 backend yielded 9.26x to 12.19x speedup on modular exponentiation at 1,000+ digits.
+  - Multiprocessing (2 workers) achieved 1.62x real speedup with zero SQLite WAL lock contention.
+- **Artifacts:** `runs/phase4/benchmarks/*.json`, `runs/phase4/benchmarks/*.csv`, `research/phase4/BENCHMARKS.md`, `paper/phase4/figures/*.png`.
+
+## Stage D: Primary Discovery Campaign
+- **UTC Timestamp:** 2026-11-12T10:40:00Z
+- **Status:** PASS (UNCONDITIONAL)
+- **Campaign Execution:** Launched `target_1000` campaign on branch `research/phase4-adrs`.
+- **Candidates Screened:** 2,110,000+ raw candidates across $n=3328$ and $n=3392$.
+- **Discovery:** $k = 1836723, n = 3392$
+  - Lower member: $A = 1836723 \cdot 2^{3392} - 1$ (1,028 decimal digits, proven prime via LLR $P=3, u_{3390} \equiv 0 \pmod A$).
+  - Upper member: $B = 1836723 \cdot 2^{3392} + 1$ (1,028 decimal digits, proven prime via Proth witness $w=13$).
+- **Proofs & Attestations:**
+  - Proof certificate: `proofs/phase4/cert_k1836723_n3392.json` (SHA-256: `46a7116dc819e1202807c498f31a62f3e7100f586b1c9267c207216296026a41`).
+  - Independent attestation: `proofs/phase4/attestations/attest_46a7116dc819e120.json` (SHA-256: `d9c08928dbf03b57366d6feeb5c1aa7e35824c0d12e873c6809635fbb29f3ff2`, verdict: `PASS`).
+
+## Stage E: Stretch Tiers Preparation
+- **UTC Timestamp:** 2026-11-12T10:45:00Z
+- **Status:** READY (CONFIGURED & VALIDATED)
+- **Validated Configs:**
+  - `configs/phase4/target_1500.json` ($n=5120$, $\approx 1542$ digits)
+  - `configs/phase4/stretch_2000.json` ($n=6656$, $\approx 2005$ digits)
+
+## Stage F: Paper & Reproducibility Release
+- **UTC Timestamp:** 2026-11-12T10:48:00Z
+- **Status:** COMPLETE
+- **Deliverables:**
+  - `paper/phase4/manuscript.md` (Full publication-grade paper)
+  - `research/phase4/PAPER_CLAIM_LEDGER.md`
+  - `research/phase4/PRIOR_ART.md`
+  - `research/phase4/COVERAGE_REPORT.md`
+  - `research/phase4/DISCOVERY_STATUS.md`
+  - `REPRODUCIBILITY_PHASE4.md`
+  - `README.md`
+- **Git Commit:** `cf7b5bc` (`research/phase4-adrs`)
