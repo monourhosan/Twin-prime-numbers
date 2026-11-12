@@ -177,3 +177,54 @@ def test_historical_discrepancy_regression_prevention():
             assert old_composite_str not in text
             assert old_330_str not in text
             assert old_512_str not in text
+
+def test_storage_stale_claim_recovery():
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        db_path = Path(tmp_dir) / "test_recovery.sqlite"
+        storage = Phase3Storage(db_path)
+        storage.register_task("task_crash_1", "camp_rec", 1024, 3, 10003)
+
+        # Worker 1 claims task
+        claimed = storage.claim_next_task("camp_rec", "worker_dead")
+        assert claimed is not None
+        assert claimed["task_id"] == "task_crash_1"
+
+        # Under active lease (e.g. lease_timeout_sec=300), another worker gets None
+        assert storage.claim_next_task("camp_rec", "worker_2", lease_timeout_sec=300.0) is None
+
+        # When lease expires (simulated with lease_timeout_sec=-1.0), task is reclaimed!
+        reclaimed = storage.claim_next_task("camp_rec", "worker_alive", lease_timeout_sec=-1.0)
+        assert reclaimed is not None
+        assert reclaimed["task_id"] == "task_crash_1"
+
+def test_independent_verify_rejects_checksum_tamper():
+    cert_path = Path("proofs/phase3/cert_k15993_n672.json")
+    with open(cert_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Corrupt artifact_sha256
+    tampered = json.loads(json.dumps(data))
+    tampered["artifact_sha256"] = "0000000000000000000000000000000000000000000000000000000000000000"
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as tmp:
+        json.dump(tampered, tmp)
+        tmp_p = Path(tmp.name)
+    try:
+        passed, msgs = verify_certificate_file(tmp_p)
+        assert not passed, "Tampered artifact_sha256 must fail verification"
+        assert any("artifact_sha256 mismatch" in m for m in msgs)
+    finally:
+        tmp_p.unlink()
+
+def test_cli_config_precedence():
+    from src.phase3.cli import main
+    from src.phase3.config import Phase3Config
+    import subprocess
+    import sys
+
+    # Test that --config preserves values and is not overridden by default flags
+    res = subprocess.run(
+        [sys.executable, "-m", "src.phase3", "search", "--config", "configs/phase3/stretch_500.json", "--dry-run"],
+        capture_output=True, text=True, check=True
+    )
+    assert "stretch_500" in res.stdout
+    assert ">=500" in res.stdout

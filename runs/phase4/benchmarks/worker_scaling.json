@@ -1,0 +1,18 @@
+[
+  {
+    "workload": "120,000 raw candidates, n=1664 (500 digits), Q=30,000",
+    "workers": 1,
+    "elapsed_wall_sec": 10.77,
+    "candidates_per_sec": 11142.1,
+    "speedup": 1.0,
+    "efficiency": 1.0
+  },
+  {
+    "workload": "120,000 raw candidates, n=1664 (500 digits), Q=30,000",
+    "workers": 2,
+    "elapsed_wall_sec": 6.63,
+    "candidates_per_sec": 18099.5,
+    "speedup": 1.62,
+    "efficiency": 0.81
+  }
+]

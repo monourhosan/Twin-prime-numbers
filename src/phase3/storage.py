@@ -83,9 +83,20 @@ class Phase3Storage:
             """, (task_id, campaign_id, n, k_start, k_end, k_start, now))
             conn.commit()
 
-    def claim_next_task(self, campaign_id: str, worker_id: str) -> Optional[Dict[str, Any]]:
-        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    def claim_next_task(self, campaign_id: str, worker_id: str, lease_timeout_sec: float = 300.0) -> Optional[Dict[str, Any]]:
+        now_ts = time.time()
+        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now_ts))
+        stale_cutoff = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now_ts - lease_timeout_sec))
         with self._connection() as conn:
+            conn.execute("BEGIN IMMEDIATE;")
+            # Reclaim stale/orphaned CLAIMED tasks whose workers abandoned or crashed
+            conn.execute("""
+            UPDATE tasks
+            SET status = CASE WHEN next_unprocessed_k > k_start THEN 'PARTIAL' ELSE 'PENDING' END,
+                worker_id = NULL
+            WHERE campaign_id = ? AND status = 'CLAIMED' AND last_updated_utc < ?;
+            """, (campaign_id, stale_cutoff))
+
             # Look for PARTIAL or PENDING
             cursor = conn.execute("""
             SELECT task_id, campaign_id, n, k_start, k_end, next_unprocessed_k, status
@@ -96,6 +107,7 @@ class Phase3Storage:
             """, (campaign_id,))
             row = cursor.fetchone()
             if not row:
+                conn.commit()
                 return None
 
             task_id, camp, n, k_start, k_end, next_k, status = row

@@ -1,15 +1,16 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, & Phase 3 HDRSS Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, & Phase 4 ADRS Project
 
-[![Tests: 29/29 Passing](https://img.shields.io/badge/Tests-29%2F29%20Passing-brightgreen)](tests/)
-[![Certificates: 41 Proven](https://img.shields.io/badge/Certificates-41%20Proven%20SHA--256-blue)](proofs/)
-[![Phase 3 Discoveries: 207d, 314d, 507d](https://img.shields.io/badge/Phase%203%20Discoveries-207d%2C%20314d%2C%20507d-purple)](proofs/phase3/)
+[![Tests: 54/54 Passing](https://img.shields.io/badge/Tests-54%2F54%20Passing-brightgreen)](tests/)
+[![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
+[![Certificates: 42 Proven](https://img.shields.io/badge/Certificates-42%20Proven%20SHA--256-blue)](proofs/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
-[![Paper: Phase 3 Manuscript](https://img.shields.io/badge/Paper-Phase%203%20Manuscript-orange)](paper/phase3/phase3_twin_prime_research_paper.md)
+[![Paper: Phase 4 Manuscript](https://img.shields.io/badge/Paper-Phase%204%20Manuscript-orange)](paper/phase4/manuscript.md)
 
 An autonomous, mathematically rigorous computational number theory project investigating the largest known twin primes, analyzing the unresolved nature of an ultimate final pair, and implementing:
 1. **CATS** (*Certificate-Aware Adaptive Twin-prime Sieve*);
 2. **Phase 2 CRT-Wheeled Streaming Discovery Engine**;
-3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*) with vectorized C-level NumPy slice striding and an independent $2 \times 2$ matrix-powering verifier.
+3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*);
+4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -45,7 +46,21 @@ An autonomous, mathematically rigorous computational number theory project inves
 
 ## 2. Strongest Results Achieved in This Project
 
-### 2.1 Phase 3 Breakthrough Discoveries (200+, 300+, and 500+ Digits)
+### 2.0 Phase 4 Breakthrough Discovery (1,000+ Digits Milestone)
+Deploying the Phase 4 ADRS-4 engine with compact $t$-space sieving and GMP-accelerated multiprecision arithmetic, we discovered and certified a **1,028-decimal-digit twin-prime pair**:
+$$1836723 \times 2^{3392} \pm 1$$
+* **Decimal Digits:** **1,028 digits** each member ($2,056$ total digits in pair).
+* **Lower Member ($A$):** $1836723 \times 2^{3392} - 1$
+* **Upper Member ($B$):** $1836723 \times 2^{3392} + 1$
+* **Deterministically Proven:**
+  - $B$: Proth witness $w = 13$ ($13^{(B-1)/2} \equiv -1 \pmod B$).
+  - $A$: Lucas-Lehmer-Riesel parameter $P = 3$, Jacobi symbols $((3-2)/A) = 1, ((3+2)/A) = -1$, initial $u_0 = V_{1836723}(3, 1) \pmod A$, final residue $u_{3390} \equiv 0 \pmod A$.
+* **Cryptographic Artifacts:**
+  - Proof Payload: [`proofs/phase4/cert_k1836723_n3392.json`](proofs/phase4/cert_k1836723_n3392.json)
+  - Independent Attestation: [`proofs/phase4/attestations/attest_46a7116dc819e120.json`](proofs/phase4/attestations/attest_46a7116dc819e120.json) (Status: **PASS**, verified via decoupled $2 \times 2$ matrix powering).
+* **Coverage Verification:** 100% gap-free coverage certified over 2,400,000 $k$-span at $n=3328$ and 1,837,122 $k$-span at $n=3392$.
+
+### 2.1 Phase 3 Discoveries (207, 314, and 507 Digits)
 Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-project twin-prime pairs scaling to multi-hundred digits:
 1. **Pilot Discovery (207 digits):**
    $$15993 \times 2^{672} \pm 1$$
@@ -72,7 +87,7 @@ Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-pro
 2. **Historical 34-Digit Baseline Pair:**
    * Certified pair: $4107 \times 2^{100} \pm 1$ (34 digits, [`proofs/cert_k4107_n100.json`](proofs/cert_k4107_n100.json)).
 3. **Total Cryptographic Proof Inventory:**
-   * **41 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, and `proofs/phase3/`, all passing strict independent verification.
+   * **42 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, `proofs/phase3/`, and `proofs/phase4/`, all passing strict independent verification.
 
    * Deterministically proven: Proth witness $w=5$, LLR parameter $P=5$. Certificate: [`proofs/phase2/cert_k61347_n512.json`](proofs/phase2/cert_k61347_n512.json).
 

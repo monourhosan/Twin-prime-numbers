@@ -186,50 +186,77 @@ def verify_certificate_file(cert_path: Path) -> Tuple[bool, List[str]]:
         else:
             logs.append(f"LLR sequence verified: u_{{n-2}} == 0 mod A (A is unconditionally prime)")
 
+    # 6. Artifact Checksum validation (P0 defect resolution)
+    decl_hash = data.get("artifact_sha256")
+    if decl_hash:
+        w_val = proof_plus.get("witness") if proof_plus else None
+        P_val = params.get("P") or params.get("parameter_P") if proof_minus else None
+        if version == "3.0":
+            claim = data.get("claim", "")
+            u0_val = params.get("u0") or params.get("initial_Vk_mod_A") if proof_minus else None
+            task_id = data.get("search", {}).get("task_id", "")
+            base = data.get("novelty", {}).get("baseline_sha256", "")
+            canonical = f"3.0|{claim}|{k}|{n}|{p_minus}|{p_plus}|{w_val}|{P_val}|{u0_val}|{task_id}|{base}"
+            calc_hash = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+            if calc_hash != decl_hash:
+                errors.append(f"artifact_sha256 mismatch: calculated {calc_hash} != declared {decl_hash}")
+            else:
+                logs.append(f"artifact_sha256 verified: {decl_hash}")
+        elif version == "2.0":
+            claim_type = data.get("claim_type", "")
+            unit_id = data.get("search_work_unit_id", "")
+            base = data.get("original_baseline_inventory_sha256", "")
+            canonical = f"2.0|{claim_type}|{k}|{n}|{p_minus}|{p_plus}|{w_val}|{P_val}|{unit_id}|{base}"
+            calc_hash = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+            if calc_hash != decl_hash:
+                errors.append(f"artifact_sha256 mismatch: calculated {calc_hash} != declared {decl_hash}")
+            else:
+                logs.append(f"artifact_sha256 verified: {decl_hash}")
+
     if errors:
         return False, errors
     return True, logs
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python scripts/phase3_independent_verify.py <file_or_directory>")
+        print("Usage: python scripts/phase3_independent_verify.py <file_or_directory> [...]")
         sys.exit(1)
 
-    target = Path(sys.argv[1])
-    if target.is_dir():
-        cert_files = sorted(target.glob("*.json"))
-        if not cert_files:
-            print(f"No certificate files found in {target}")
-            sys.exit(0)
-        print(f"Independent Strict Verification of {len(cert_files)} certificates in {target}...")
-        all_passed = True
-        for cf in cert_files:
-            passed, messages = verify_certificate_file(cf)
-            if passed:
-                print(f"  [PASS] {cf.name}")
-            else:
-                print(f"  [FAIL] {cf.name}:")
-                for err in messages:
-                    print(f"     - {err}")
-                all_passed = False
-        if all_passed:
-            print("\n[SUCCESS] All certificates passed independent strict verification!")
-            sys.exit(0)
+    targets = [Path(arg) for arg in sys.argv[1:]]
+    cert_files = []
+    for target in targets:
+        if target.is_dir():
+            cert_files.extend(sorted(target.glob("*.json")))
+        elif target.is_file():
+            cert_files.append(target)
         else:
-            print("\n[FAILURE] One or more certificates failed independent verification!")
+            print(f"Target not found: {target}")
             sys.exit(1)
-    else:
-        passed, messages = verify_certificate_file(target)
+
+    if not cert_files:
+        print(f"No certificate files found to verify.")
+        sys.exit(0)
+
+    print(f"Independent Strict Verification of {len(cert_files)} certificate(s)...")
+    all_passed = True
+    for cf in cert_files:
+        passed, messages = verify_certificate_file(cf)
         if passed:
-            print(f"[PASS] {target.name} verified successfully:")
+            print(f"  [PASS] {cf.name}")
             for m in messages:
-                print(f"  + {m}")
-            sys.exit(0)
+                print(f"     + {m}")
         else:
-            print(f"[FAIL] {target.name} failed verification:")
+            print(f"  [FAIL] {cf.name}:")
             for err in messages:
-                print(f"  - {err}")
-            sys.exit(1)
+                print(f"     - {err}")
+            all_passed = False
+
+    if all_passed:
+        print("\n[SUCCESS] All certificates passed independent strict verification!")
+        sys.exit(0)
+    else:
+        print("\n[FAILURE] One or more certificates failed independent verification!")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,2 @@
+k,n,digits,formula,proth_witness,llr_p,proof_payload_sha256,independent_attestation_status,attestation_file,attestation_sha256
+1836723,3392,1028,1836723*2^3392 +/- 1,13,3,46a7116dc819e1202807c498f31a62f3e7100f586b1c9267c207216296026a41,VERIFIED,attest_46a7116dc819e120.json,37107627c9c225ff606e403cc853866af7d9cb72b36aaa2516a679b8c4b1cad8

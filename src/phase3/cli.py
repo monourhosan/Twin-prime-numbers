@@ -118,31 +118,34 @@ def cmd_search(args):
     else:
         cfg = Phase3Config()
 
-    # Override CLI flags if provided
-    if args.campaign:
+    # Override CLI flags only if explicitly provided (not None)
+    if args.campaign is not None:
         cfg.campaign_id = args.campaign
-    if args.min_digits:
+    if args.min_digits is not None:
         cfg.min_digits = args.min_digits
-    if args.exponents:
+    if args.exponents is not None:
         cfg.exponents = [int(x.strip()) for x in args.exponents.split(",")]
     if args.k_start is not None:
         cfg.k_start = args.k_start
     if args.k_end is not None:
         cfg.k_end = args.k_end
-    if args.window_size:
+    if args.window_size is not None:
         cfg.window_size = args.window_size
-    if args.sieve_depth:
+    if args.sieve_depth is not None:
         cfg.sieve_depth = args.sieve_depth
-    if args.algorithm:
+    if args.algorithm is not None:
         cfg.algorithm = args.algorithm
-    if args.workers:
+    if args.workers is not None:
         cfg.workers = args.workers
-    if args.max_wall_hours:
+    if args.max_wall_hours is not None:
         cfg.max_wall_hours = args.max_wall_hours
-    if args.until_proven_pairs:
+    if args.until_proven_pairs is not None:
         cfg.until_proven_pairs = args.until_proven_pairs
-    if args.checkpoint_dir:
+    if args.checkpoint_dir is not None:
         cfg.checkpoint_dir = args.checkpoint_dir
+
+    if cfg.workers > 1:
+        print(f"[NOTE] Phase 3 pipeline operates in single-worker mode (requested workers={cfg.workers}). True multi-worker process parallelism is implemented in Phase 4 (ADRS-4).")
 
     ckpt_dir = Path(cfg.checkpoint_dir)
     ckpt_dir.mkdir(parents=True, exist_ok=True)
@@ -313,7 +316,7 @@ def cmd_report(args):
     campaign_id = args.campaign or "phase3_campaign"
     ckpt_dir = Path(args.checkpoint_dir or "runs/phase3")
     db_path = ckpt_dir / f"{campaign_id}.sqlite"
-    out_file = Path(args.output or "research/phase3/DISCOVERY_STATUS.md")
+    out_file = Path(args.output) if args.output else ckpt_dir / "reports" / f"status_{campaign_id}.md"
 
     storage = Phase3Storage(db_path) if db_path.exists() else None
     status = storage.get_campaign_status(campaign_id) if storage else {}
@@ -353,18 +356,18 @@ def main():
     # search
     p_search = subparsers.add_parser("search")
     p_search.add_argument("--config", default=None)
-    p_search.add_argument("--campaign", default="phase3_campaign")
-    p_search.add_argument("--min-digits", type=int, default=300)
+    p_search.add_argument("--campaign", default=None)
+    p_search.add_argument("--min-digits", type=int, default=None)
     p_search.add_argument("--exponents", default=None)
     p_search.add_argument("--k-start", type=int, default=None)
     p_search.add_argument("--k-end", type=int, default=None)
     p_search.add_argument("--window-size", type=int, default=None)
     p_search.add_argument("--sieve-depth", type=int, default=None)
-    p_search.add_argument("--algorithm", default="hybrid")
-    p_search.add_argument("--workers", type=int, default=1)
-    p_search.add_argument("--max-wall-hours", type=float, default=0.0)
-    p_search.add_argument("--until-proven-pairs", type=int, default=1)
-    p_search.add_argument("--checkpoint-dir", default="runs/phase3")
+    p_search.add_argument("--algorithm", default=None)
+    p_search.add_argument("--workers", type=int, default=None)
+    p_search.add_argument("--max-wall-hours", type=float, default=None)
+    p_search.add_argument("--until-proven-pairs", type=int, default=None)
+    p_search.add_argument("--checkpoint-dir", default=None)
     p_search.add_argument("--resume", action="store_true")
     p_search.add_argument("--dry-run", action="store_true")
     p_search.set_defaults(func=cmd_search)
@@ -396,7 +399,7 @@ def main():
     p_report = subparsers.add_parser("report")
     p_report.add_argument("--campaign", default="phase3_campaign")
     p_report.add_argument("--checkpoint-dir", default="runs/phase3")
-    p_report.add_argument("--output", default="research/phase3/DISCOVERY_STATUS.md")
+    p_report.add_argument("--output", default=None)
     p_report.set_defaults(func=cmd_report)
 
     args = parser.parse_args()

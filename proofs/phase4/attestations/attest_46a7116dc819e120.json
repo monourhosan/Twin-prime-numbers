@@ -1,0 +1,24 @@
+{
+  "schema_version": "4.0",
+  "proof_payload_sha256": "46a7116dc819e1202807c498f31a62f3e7100f586b1c9267c207216296026a41",
+  "verifier": "phase4_independent_verify.py",
+  "verifier_source_sha256": "c0108123b12df7bbd4f2fb05d9d438e7b63f1436ff7039dcec29a2488349103e",
+  "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "utc_started": "2026-11-12T10:35:52.442665+00:00",
+  "utc_finished": "2026-11-12T10:35:52.610339+00:00",
+  "exit_code": 0,
+  "verdict": "PASS",
+  "stdout_sha256": "4841cc0c8002a2cfaf80fcc09c25728be88728f3cd7b3a9785d291d4d31b221c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mathematical_checks": [
+    "representation",
+    "admissible_family_k_6t_3",
+    "gap_2",
+    "exact_decimal_digit_lengths",
+    "proth_congruence",
+    "rodseth_jacobi_conditions",
+    "lucas_2x2_matrix_powering",
+    "llr_recurrence_residue_zero",
+    "canonical_payload_sha256"
+  ]
+}

@@ -170,6 +170,10 @@ class SearchPipeline:
         metrics.wall_seconds = time.monotonic() - t_start_wall
         metrics.process_cpu_seconds = time.process_time() - t_start_cpu
 
+        # If not completed, accurately record only actually covered candidate range
+        if not is_completed:
+            metrics.raw_odd_k = max(0, (next_unprocessed_k - k_start) // 2)
+
         # Update storage
         stats_delta = {
             "raw_tested": metrics.raw_odd_k,

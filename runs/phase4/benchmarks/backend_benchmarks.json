@@ -1,0 +1,52 @@
+[
+  {
+    "exponent_n": 672,
+    "digits": 207,
+    "proth_powmod_py_ms": 0.99,
+    "proth_powmod_gmp_ms": 0.08,
+    "proth_speedup": 12.19,
+    "llr_100_sq_py_ms": 0.16,
+    "llr_100_sq_gmp_ms": 0.12,
+    "llr_speedup": 1.34
+  },
+  {
+    "exponent_n": 1024,
+    "digits": 309,
+    "proth_powmod_py_ms": 3.28,
+    "proth_powmod_gmp_ms": 0.29,
+    "proth_speedup": 11.18,
+    "llr_100_sq_py_ms": 0.31,
+    "llr_100_sq_gmp_ms": 0.15,
+    "llr_speedup": 2.14
+  },
+  {
+    "exponent_n": 1664,
+    "digits": 502,
+    "proth_powmod_py_ms": 12.38,
+    "proth_powmod_gmp_ms": 1.09,
+    "proth_speedup": 11.31,
+    "llr_100_sq_py_ms": 0.63,
+    "llr_100_sq_gmp_ms": 0.24,
+    "llr_speedup": 2.58
+  },
+  {
+    "exponent_n": 3328,
+    "digits": 1003,
+    "proth_powmod_py_ms": 81.49,
+    "proth_powmod_gmp_ms": 8.8,
+    "proth_speedup": 9.26,
+    "llr_100_sq_py_ms": 2.02,
+    "llr_100_sq_gmp_ms": 0.5,
+    "llr_speedup": 4.01
+  },
+  {
+    "exponent_n": 5120,
+    "digits": 1542,
+    "proth_powmod_py_ms": 287.95,
+    "proth_powmod_gmp_ms": 28.29,
+    "proth_speedup": 10.18,
+    "llr_100_sq_py_ms": 4.42,
+    "llr_100_sq_gmp_ms": 0.84,
+    "llr_speedup": 5.26
+  }
+]

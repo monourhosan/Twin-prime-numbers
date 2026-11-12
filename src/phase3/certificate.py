@@ -22,8 +22,9 @@ class TwinPrimeCertificateV3:
         campaign_id: str,
         task_id: str,
         settings_sha256: str,
-        git_commit: str = "531a3fc",
+        git_commit: Optional[str] = None,
         discovery_time_utc: Optional[str] = None,
+        independent_status: str = "NOT_RUN",
     ):
         self.schema_version = "3.0"
         self.claim = "PROVEN_TWIN_PAIR_NEW_TO_PROJECT"
@@ -44,11 +45,22 @@ class TwinPrimeCertificateV3:
         self.campaign_id = campaign_id
         self.task_id = task_id
         self.settings_sha256 = settings_sha256
-        self.git_commit = git_commit
+
+        # Determine git commit dynamically if not provided or static legacy
+        if not git_commit or git_commit == "531a3fc":
+            try:
+                import subprocess
+                res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=2)
+                self.git_commit = res.stdout.strip()[:10] if res.returncode == 0 else (git_commit or "unknown")
+            except Exception:
+                self.git_commit = git_commit or "unknown"
+        else:
+            self.git_commit = git_commit
 
         now = datetime.now(timezone.utc).isoformat()
         self.utc_discovery = discovery_time_utc or now
-        self.utc_verified = now
+        self.utc_verified = now if independent_status == "PASS" else None
+        self.independent_status = independent_status
 
         self.baseline_sha256 = BASELINE_INVENTORY_SHA256
         self.world_novelty = "UNVERIFIED"
@@ -96,7 +108,7 @@ class TwinPrimeCertificateV3:
             },
             "verification": {
                 "independent_verifier": "scripts.phase3_independent_verify",
-                "independent_status": "PASS",
+                "independent_status": self.independent_status,
                 "utc_verified": self.utc_verified
             },
             "novelty": {
@@ -141,6 +153,7 @@ class TwinPrimeCertificateV3:
             settings_sha256=search.get("settings_sha256", ""),
             git_commit=search.get("git_commit", "531a3fc"),
             discovery_time_utc=search.get("utc_discovery"),
+            independent_status=d.get("verification", {}).get("independent_status", "NOT_RUN"),
         )
         cert.utc_verified = d.get("verification", {}).get("utc_verified", cert.utc_verified)
         cert.artifact_sha256 = d.get("artifact_sha256", cert.artifact_sha256)

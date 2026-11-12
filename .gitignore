@@ -31,3 +31,12 @@ runs/phase3/*.log
 runs/phase3/*.jsonl
 runs/phase3/*.tmp*
 
+# Transient Phase 4 State
+runs/phase4/*/*.sqlite*
+runs/phase4/*/*.log
+runs/phase4/*/*.jsonl
+runs/phase4/*/*.tmp*
+runs/phase4/*/*.stop
+runs/phase4/*/*.pause
+
+
