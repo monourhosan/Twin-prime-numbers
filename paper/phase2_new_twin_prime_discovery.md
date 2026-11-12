@@ -61,7 +61,7 @@ where $k$ is an odd positive integer and $n \ge 1$. The difference $B - A = 2$ i
 For any $n \ge 1$, $2^n \equiv \pm 1 \pmod 3$. If $3 \nmid k$, one of $A$ or $B$ is necessarily a multiple of 3. Hence, $k \equiv 0 \pmod 3$ is a strict necessary condition for all twin primes in this family ($A, B > 3$). Because $k$ is odd, this translates to the modular congruence:
 $$k \equiv 3 \pmod 6$$
 
-Extending this across wheel primes $\{3, 5, 7, 11, 13\}$ with modulus $M = \prod_{q} q = 30030$, modular inverses $t_q \equiv (2^n)^{-1} \pmod q$ define forbidden residue classes $k \equiv \pm t_q \pmod q$. Using the Chinese Remainder Theorem, admissible residue classes are precomputed in $O(M)$ time during initialization. Out of 15,015 odd residues modulo 30030, only 4,944 survive ($9.89\%$), filtering out $90.11\%$ of candidates before memory allocation or multiprecision arithmetic.
+Extending this across wheel primes $\{3, 5, 7, 11, 13\}$ with modulus $M = \prod_{q} q = 30030$, modular inverses $t_q \equiv (2^n)^{-1} \pmod q$ define forbidden residue classes $k \equiv \pm t_q \pmod q$. Using the Chinese Remainder Theorem, admissible residue classes are precomputed in $O(M)$ time during initialization. Out of 15,015 odd residues modulo 30030, only 1,485 survive ($9.89\%$), filtering out $90.11\%$ of candidates before memory allocation or multiprecision arithmetic.
 
 ### 3.3 Fast Lucas Sequence Montgomery Doubling Ladder
 In the LLR test for $A = k \cdot 2^n - 1$, the initial term $u_0 = V_k(P, 1) \pmod A$ was historically computed via a linear iteration $V_{j+1} = P \cdot V_j - V_{j-1} \pmod A$. For large $k$, this required $O(k)$ modular multiplications.
@@ -129,8 +129,8 @@ During dedicated exploration campaigns, the Phase 2 engine discovered three dist
 - **Decimal Digits:** **104 digits** per member
 - **Integers:**
   $$\begin{aligned}
-  P &= 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103167 \\
-  P+2 &= 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103169
+  P &= 27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562047 \\
+  P+2 &= 27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562049
   \end{aligned}$$
 - **Proof Plus ($B$):** Proth Theorem with witness $w = 17$:
   $$17^{\frac{B-1}{2}} \equiv -1 \pmod B \quad (\text{Jacobi: } \left(\frac{17}{B}\right) = -1)$$
@@ -145,8 +145,8 @@ During dedicated exploration campaigns, the Phase 2 engine discovered three dist
 - **Decimal Digits:** **121 digits** per member
 - **Integers:**
   $$\begin{aligned}
-  P &= 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593791 \\
-  P+2 &= 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593793
+  P &= 4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007551 \\
+  P+2 &= 4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007553
   \end{aligned}$$
 - **Proof Plus ($B$):** Proth Theorem with witness $w = 5$:
   $$5^{\frac{B-1}{2}} \equiv -1 \pmod B$$
@@ -161,8 +161,8 @@ During dedicated exploration campaigns, the Phase 2 engine discovered three dist
 - **Decimal Digits:** **159 digits** per member
 - **Integers:**
   $$\begin{aligned}
-  P &= 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376895 \\
-  P+2 &= 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376897
+  P &= 822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037311 \\
+  P+2 &= 822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037313
   \end{aligned}$$
 - **Proof Plus ($B$):** Proth Theorem with witness $w = 5$:
   $$5^{\frac{B-1}{2}} \equiv -1 \pmod B$$

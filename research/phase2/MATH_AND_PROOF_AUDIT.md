@@ -45,7 +45,7 @@ is uniquely defined. Thus:
 - $k \cdot 2^n + 1 \equiv 0 \pmod q \iff k \equiv -t_q \equiv q - t_q \pmod q$
 
 Modulo the wheel primorial modulus $M = 2 \cdot \prod_{q \in \{3,5,7,11,13\}} q = 2 \cdot 30030 = 60060$ (or odd modulus $30030$), the allowable residue classes are precomputed using the Chinese Remainder Theorem (CRT).
-Across the odd candidates in $[1, 30030]$, exactly $4,944$ of $15,015$ odd residue classes survive ($9.89\%$), filtering out $90.11\%$ of all candidates prior to multiprecision allocation.
+Across the odd candidates in $[1, 30030]$, exactly $1,485$ of $15,015$ odd residue classes survive ($9.89\%$), filtering out $90.11\%$ of all candidates prior to multiprecision allocation.
 
 ### 2.3 Exception Handling for Member Equals Sieve Prime
 If $A = q$ or $B = q$ where $q$ is a sieving prime, a valid prime could theoretically be eliminated.

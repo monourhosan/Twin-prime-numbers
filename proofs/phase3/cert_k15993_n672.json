@@ -1,0 +1,51 @@
+{
+  "schema_version": "3.0",
+  "claim": "PROVEN_TWIN_PAIR_NEW_TO_PROJECT",
+  "representation": {
+    "family": "k*2^n +/- 1",
+    "k": 15993,
+    "n": 672
+  },
+  "pair": {
+    "lower_decimal": "313391363149371510376427885878465688780496211597886009272024059604027246474002352312445152233121812717889020669895627483294605389152428415354352972012145558123789325998564118366238767206087608699946824368127",
+    "upper_decimal": "313391363149371510376427885878465688780496211597886009272024059604027246474002352312445152233121812717889020669895627483294605389152428415354352972012145558123789325998564118366238767206087608699946824368129",
+    "lower_digits": 207,
+    "upper_digits": 207,
+    "gap": 2
+  },
+  "upper_proof": {
+    "theorem": "Proth",
+    "witness": 7,
+    "congruence": "-1",
+    "condition": "w^((B-1)/2) == -1 (mod B), w=7",
+    "preconditions": "checked"
+  },
+  "lower_proof": {
+    "theorem": "Lucas-Lehmer-Riesel",
+    "parameter_P": 3,
+    "initial_Vk_mod_A": "270838894130811022108280090769013578492992888741942177513886931585419711601717714216425046350402829577820567010889769249004635006870093560205507257528268531697657639878581981582224693267001859672485030467882",
+    "jacobi_minus": 1,
+    "jacobi_plus": -1,
+    "final_residue": "0",
+    "condition": "u_{n-2} == 0 (mod A), P=3",
+    "preconditions": "checked"
+  },
+  "search": {
+    "campaign_id": "pilot_200",
+    "task_id": "task_pilot_n672_k3_50003",
+    "settings_sha256": "phase3_hdrss_canonical",
+    "git_commit": "531a3fc",
+    "utc_discovery": "2026-11-12T08:30:00+00:00"
+  },
+  "verification": {
+    "independent_verifier": "scripts.phase3_independent_verify",
+    "independent_status": "PASS",
+    "utc_verified": "2026-11-12T08:32:31.852345+00:00"
+  },
+  "novelty": {
+    "new_to_project": true,
+    "baseline_sha256": "66256602ba495853c0ef9ead316f36f0b9c57d99211eea7fe420d15c24416356",
+    "world_novelty": "UNVERIFIED"
+  },
+  "artifact_sha256": "4d8d6f2a2ac9ed96fb11a5bbe32c49dd7a89aeb2e96e4a26af8dab9922f974a0"
+}

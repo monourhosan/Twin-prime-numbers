@@ -1,12 +1,15 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS & Phase 2 Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, & Phase 3 HDRSS Project
 
-[![Tests: 19/19 Passing](https://img.shields.io/badge/Tests-19%2F19%20Passing-brightgreen)](tests/)
-[![Certificates: 38 Proven](https://img.shields.io/badge/Certificates-38%20Proven%20SHA--256-blue)](proofs/)
-[![New Discoveries: 104, 121, 159 Digits](https://img.shields.io/badge/Phase%202%20Discoveries-104%2C%20121%2C%20159%20Digits-purple)](proofs/phase2/)
+[![Tests: 29/29 Passing](https://img.shields.io/badge/Tests-29%2F29%20Passing-brightgreen)](tests/)
+[![Certificates: 41 Proven](https://img.shields.io/badge/Certificates-41%20Proven%20SHA--256-blue)](proofs/)
+[![Phase 3 Discoveries: 207d, 314d, 507d](https://img.shields.io/badge/Phase%203%20Discoveries-207d%2C%20314d%2C%20507d-purple)](proofs/phase3/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
-[![Paper: Phase 2 Manuscript](https://img.shields.io/badge/Paper-Phase%202%20Manuscript-orange)](paper/phase2_new_twin_prime_discovery.md)
+[![Paper: Phase 3 Manuscript](https://img.shields.io/badge/Paper-Phase%203%20Manuscript-orange)](paper/phase3/phase3_twin_prime_research_paper.md)
 
-An autonomous, mathematically rigorous computational number theory project investigating the largest known twin primes, analyzing the unresolved nature of an ultimate final pair, and implementing both **CATS** (*Certificate-Aware Adaptive Twin-prime Sieve*) and the **Phase 2 CRT-Wheeled Streaming Discovery Engine** for large twin-prime search and deterministic primality certification.
+An autonomous, mathematically rigorous computational number theory project investigating the largest known twin primes, analyzing the unresolved nature of an ultimate final pair, and implementing:
+1. **CATS** (*Certificate-Aware Adaptive Twin-prime Sieve*);
+2. **Phase 2 CRT-Wheeled Streaming Discovery Engine**;
+3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*) with vectorized C-level NumPy slice striding and an independent $2 \times 2$ matrix-powering verifier.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -42,22 +45,35 @@ An autonomous, mathematically rigorous computational number theory project inves
 
 ## 2. Strongest Results Achieved in This Project
 
-### 2.1 Phase 2 Breakthrough Discoveries (100+ to 159 Digits)
-Scaling substantially beyond the initial 34-digit baseline, the Phase 2 engine discovered and certified three new-to-project twin-prime pairs:
-1. **104-Digit Certified Pair:**
-   $$12477 \times 2^{330} \pm 1$$
-   * Lower prime $P$: `27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103167`
-   * Upper prime $P+2$: `27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103169`
-   * Deterministically proven: Proth witness $w=17$, LLR parameter $P=3$. Certificate: [`proofs/phase2/cert_k12477_n330.json`](proofs/phase2/cert_k12477_n330.json).
-2. **121-Digit Certified Pair:**
-   $$126747 \times 2^{384} \pm 1$$
-   * Lower prime $P$: `4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593791`
-   * Upper prime $P+2$: `4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593793`
-   * Deterministically proven: Proth witness $w=5$, LLR parameter $P=5$. Certificate: [`proofs/phase2/cert_k126747_n384.json`](proofs/phase2/cert_k126747_n384.json).
-3. **159-Digit Certified Pair:**
-   $$61347 \times 2^{512} \pm 1$$
-   * Lower prime $P$: `822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376895`
-   * Upper prime $P+2$: `822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376897`
+### 2.1 Phase 3 Breakthrough Discoveries (200+, 300+, and 500+ Digits)
+Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-project twin-prime pairs scaling to multi-hundred digits:
+1. **Pilot Discovery (207 digits):**
+   $$15993 \times 2^{672} \pm 1$$
+   * Deterministically proven: Proth witness $w = 7$, LLR parameter $P = 3$.
+   * Certificate: [`proofs/phase3/cert_k15993_n672.json`](proofs/phase3/cert_k15993_n672.json). Independently verified via $2 \times 2$ matrix powering: **PASS**.
+2. **Primary Campaign Milestone (314 digits):**
+   $$254697 \times 2^{1024} \pm 1$$
+   * Deterministically proven: Proth witness $w = 5$, LLR parameter $P = 9$.
+   * Certificate: [`proofs/phase3/cert_k254697_n1024.json`](proofs/phase3/cert_k254697_n1024.json). Independently verified: **PASS**.
+3. **Stretch Campaign Milestone (507 digits):**
+   $$1183377 \times 2^{1664} \pm 1$$
+   * Deterministically proven: Proth witness $w = 5$, LLR parameter $P = 5$.
+   * Certificate: [`proofs/phase3/cert_k1183377_n1664.json`](proofs/phase3/cert_k1183377_n1664.json). Independently verified: **PASS**.
+
+### 2.2 Phase 2 Discoveries (100+ to 159 Digits)
+1. **104-Digit Pair:** $12477 \times 2^{330} \pm 1$ ($w=17, P=3$, [`proofs/phase2/cert_k12477_n330.json`](proofs/phase2/cert_k12477_n330.json)).
+2. **121-Digit Pair:** $126747 \times 2^{384} \pm 1$ ($w=5, P=5$, [`proofs/phase2/cert_k126747_n384.json`](proofs/phase2/cert_k126747_n384.json)).
+3. **159-Digit Pair:** $61347 \times 2^{512} \pm 1$ ($w=5, P=5$, [`proofs/phase2/cert_k61347_n512.json`](proofs/phase2/cert_k61347_n512.json)).
+
+### 2.3 Phase 1 Baseline Results (CATS)
+1. **Bounded Range Exhaustive Certification:**
+   * Certified all 58,980 twin primes in $[2, 10,000,000]$ in **2.8387 seconds**.
+   * Provably maximal pair in $[2, 10^7]$: **$(9,999,971, \ 9,999,973)$**.
+2. **Historical 34-Digit Baseline Pair:**
+   * Certified pair: $4107 \times 2^{100} \pm 1$ (34 digits, [`proofs/cert_k4107_n100.json`](proofs/cert_k4107_n100.json)).
+3. **Total Cryptographic Proof Inventory:**
+   * **41 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, and `proofs/phase3/`, all passing strict independent verification.
+
    * Deterministically proven: Proth witness $w=5$, LLR parameter $P=5$. Certificate: [`proofs/phase2/cert_k61347_n512.json`](proofs/phase2/cert_k61347_n512.json).
 
 ### 2.2 Phase 1 Baseline Results (CATS)
@@ -160,26 +176,30 @@ Twin-prime-numbers/
 │   ├── candidates.jsonl                # Stream of discovered candidate pairs
 │   └── coverage_manifest.json          # Formally logged search boundaries and coverage
 ├── proofs/                             # 35 Cryptographically verified JSON certificates (Phase 1)
-│   └── phase2/                         # 3 Breakthrough certificates: 104d, 121d, 159d
+│   ├── phase2/                         # 3 Breakthrough certificates: 104d, 121d, 159d
+│   └── phase3/                         # 3 Breakthrough certificates: 207d, 314d, 507d
 ├── research/
-│   ├── phase2/                         # Phase 2 audit, mathematics, benchmarks & status
-│   │   ├── BASELINE_AUDIT.md
-│   │   ├── MATH_AND_PROOF_AUDIT.md
-│   │   ├── ALGORITHM_COMPARISON.md
-│   │   ├── TEST_REPORT.md
+│   ├── phase3/                         # Phase 3 HDRSS audit, mathematics, benchmarks & ledger
+│   │   ├── AUDIT_FINDINGS.md
+│   │   ├── MATHEMATICAL_SPECIFICATION.md
+│   │   ├── BENCHMARKS.md
+│   │   ├── SEARCH_LEDGER.md
 │   │   ├── DISCOVERY_STATUS.md
+│   │   ├── FAILURE_MODES.md
 │   │   └── PRIOR_ART.md
-│   ├── sources.md                      # Primary source audit and timestamped references
-│   ├── mathematical_notes.md           # Theorems, lemmas, and proofs of sieve elimination
-│   └── prior_art_and_novelty.md        # Literature review and algorithmic classification
+│   ├── phase2/                         # Phase 2 audit, mathematics, benchmarks & status
+│   └── (Phase 1 notes: sources.md, mathematical_notes.md, prior_art_and_novelty.md)
 ├── src/
 │   ├── cats/                           # Phase 1 CATS engine
-│   └── phase2/                         # Phase 2 CRT-wheeled window engine & provers
+│   ├── phase2/                         # Phase 2 CRT-wheeled window engine & provers
+│   └── phase3/                         # Phase 3 HDRSS engine & independent matrix verifier
 ├── paper/
-│   ├── phase2_new_twin_prime_discovery.md # Phase 2 Breakthrough Research Manuscript
-│   ├── phase2_figures/                 # Publication charts (speedup, wheel rejection, scaling)
-│   ├── twin_prime_search_paper.md       # Phase 1 publication manuscript
-│   └── figures/                        # Phase 1 vector PNG figures
+│   ├── phase3/
+│   │   ├── phase3_twin_prime_research_paper.md # Phase 3 Research Manuscript
+│   │   └── figures/                    # Phase 3 publication charts
+│   ├── phase2_new_twin_prime_discovery.md      # Phase 2 Research Manuscript
+│   └── twin_prime_search_paper.md              # Phase 1 publication manuscript
+├── REPRODUCIBILITY_PHASE3.md           # Phase 3 audit and reproduction manual
 └── REPRODUCIBILITY_PHASE2.md           # Phase 2 audit and reproduction manual
 ```
 
@@ -192,44 +212,44 @@ Twin-prime-numbers/
 python -m pip install numpy sympy matplotlib pytest
 ```
 
-### 6.2 Run Test Suite (19/19 Passing, 100%)
+### 6.2 Run Full Test Suite (29/29 Passing, 100%)
 ```bash
 python -m pytest -v tests/
 ```
 
-### 6.3 Phase 2 Independent Certificate Verification
-Strictly verify the 104-, 121-, and 159-digit breakthrough twin prime certificates without circular trust:
+### 6.3 Phase 3 Independent Certificate Verification (Zero-Shared-Code Matrix Powering)
+Strictly verify the 207-, 314-, and 507-digit breakthrough twin prime certificates without circular trust:
 ```bash
+python scripts/phase3_independent_verify.py proofs/phase3/
+```
+
+### 6.4 Phase 3 HDRSS CLI Operations
+```bash
+# Run baseline audit and check historical proof consistency
+python -m src.phase3 audit --repo .
+
+# Run real-world benchmark suite across S0, S1, and S2
+python scripts/phase3_benchmark.py
+
+# Launch / Resume primary campaign for >= 300-digit pairs (n=1024)
+python -m src.phase3 search --config configs/phase3/target_300.json --resume
+
+# Launch / Resume stretch campaign for >= 500-digit pairs (n=1664)
+python -m src.phase3 search --config configs/phase3/stretch_500.json --resume
+
+# Inspect live status and heartbeat
+python -m src.phase3 status --campaign target_300
+
+# Gracefully pause a running campaign
+python -m src.phase3 pause --campaign target_300
+```
+
+### 6.5 Legacy Phase 2 & Phase 1 Verification
+```bash
+# Verify Phase 2 certificates (104d, 121d, 159d)
 python scripts/phase2_verify.py proofs/phase2/
-```
 
-### 6.4 Phase 2 Search CLI Operations
-```bash
-# Audit baseline inventory and verify 34-digit historical resolution
-python -m src.phase2 audit --repo . --write-report research/phase2/BASELINE_AUDIT.md
-
-# Run Phase 2 benchmark suite
-python scripts/phase2_benchmark.py
-
-# Launch/Resume Phase 2 search campaign for >= 100-digit pairs
-python -m src.phase2 search --min-digits 100 --checkpoint-dir runs/phase2 --resume
-
-# Check search progress and certificates
-python -m src.phase2 status --checkpoint-dir runs/phase2
-
-# Strict verification of all Phase 2 certificates
-python -m src.phase2 verify --proof-dir proofs/phase2 --strict
-```
-
-### 6.5 Phase 1 Legacy Commands
-```bash
-# Run exhaustive bounded search in [2, 1,000,000]
-python -m src.cats bounded --min 2 --max 1000000
-
-# Search structured twin primes with CATS
-python -m src.cats structured -n 100 --k-min 1 --k-max 10000 --adaptive --prove --cert-dir proofs/
-
-# Audit Phase 1 certificates
+# Verify Phase 1 certificates
 python scripts/verify_certificate.py proofs/
 ```
 
@@ -237,19 +257,21 @@ python scripts/verify_certificate.py proofs/
 
 ## 7. Key Documents & Links
 
-### Phase 2 Breakthrough Deliverables
-* **Phase 2 Research Manuscript:** [paper/phase2_new_twin_prime_discovery.md](paper/phase2_new_twin_prime_discovery.md)
-* **Phase 2 Reproducibility Manual:** [REPRODUCIBILITY_PHASE2.md](REPRODUCIBILITY_PHASE2.md)
-* **Phase 2 Discovery Status & Ledger:** [research/phase2/DISCOVERY_STATUS.md](research/phase2/DISCOVERY_STATUS.md)
-* **Mathematical & Proof Audit:** [research/phase2/MATH_AND_PROOF_AUDIT.md](research/phase2/MATH_AND_PROOF_AUDIT.md)
-* **Algorithm Comparison & Ablations:** [research/phase2/ALGORITHM_COMPARISON.md](research/phase2/ALGORITHM_COMPARISON.md)
-* **Full Test & Verification Report:** [research/phase2/TEST_REPORT.md](research/phase2/TEST_REPORT.md)
-* **Prior Art & Citations:** [research/phase2/PRIOR_ART.md](research/phase2/PRIOR_ART.md)
-* **Baseline Inventory Audit:** [research/phase2/BASELINE_AUDIT.md](research/phase2/BASELINE_AUDIT.md)
-* **Phase 2 Proof Certificates:** [proofs/phase2/](proofs/phase2/)
+### Phase 3 Breakthrough Deliverables (200+ to 500+ Digits)
+* **Phase 3 Research Manuscript:** [paper/phase3/phase3_twin_prime_research_paper.md](paper/phase3/phase3_twin_prime_research_paper.md)
+* **Phase 3 Reproducibility Manual:** [REPRODUCIBILITY_PHASE3.md](REPRODUCIBILITY_PHASE3.md)
+* **Phase 3 Discovery Status & Ledger:** [research/phase3/DISCOVERY_STATUS.md](research/phase3/DISCOVERY_STATUS.md)
+* **Search Ledger & Coverage Record:** [research/phase3/SEARCH_LEDGER.md](research/phase3/SEARCH_LEDGER.md)
+* **Mathematical Specification & Theorem Proofs:** [research/phase3/MATHEMATICAL_SPECIFICATION.md](research/phase3/MATHEMATICAL_SPECIFICATION.md)
+* **Empirical Benchmarks (S0 vs S1 vs S2):** [research/phase3/BENCHMARKS.md](research/phase3/BENCHMARKS.md)
+* **Audit Findings & Defect Resolutions:** [research/phase3/AUDIT_FINDINGS.md](research/phase3/AUDIT_FINDINGS.md)
+* **Failure Modes & Mitigations:** [research/phase3/FAILURE_MODES.md](research/phase3/FAILURE_MODES.md)
+* **Prior Art & Citations:** [research/phase3/PRIOR_ART.md](research/phase3/PRIOR_ART.md)
+* **Phase 3 Proof Certificates (207d, 314d, 507d):** [proofs/phase3/](proofs/phase3/)
 
-### Phase 1 Historical Deliverables
-* **Phase 1 Manuscript:** [paper/twin_prime_search_paper.md](paper/twin_prime_search_paper.md)
+### Historical Project Deliverables
+* **Phase 2 Research Manuscript:** [paper/phase2_new_twin_prime_discovery.md](paper/phase2_new_twin_prime_discovery.md)
+* **Phase 1 Research Manuscript:** [paper/twin_prime_search_paper.md](paper/twin_prime_search_paper.md)
 * **Research Findings:** [FINDINGS.md](FINDINGS.md)
-* **Reproducibility Guide:** [REPRODUCIBILITY.md](REPRODUCIBILITY.md)
+* **Proof Certificates Directory:** [proofs/](proofs/)
 * **Proof Certificates Directory:** [proofs/](proofs/)

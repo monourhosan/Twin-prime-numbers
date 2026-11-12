@@ -25,4 +25,9 @@ runs/phase2/*.sqlite*
 runs/phase2/*.log
 runs/phase2/*.jsonl
 runs/phase2/*.tmp*
+runs/phase3/checkpoints/
+runs/phase3/*.sqlite*
+runs/phase3/*.log
+runs/phase3/*.jsonl
+runs/phase3/*.tmp*
 

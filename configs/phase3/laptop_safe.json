@@ -1,0 +1,21 @@
+{
+  "version": "3.0.0",
+  "campaign_id": "laptop_safe",
+  "min_digits": 300,
+  "exponents": [1024],
+  "k_start": 3,
+  "k_end": null,
+  "window_size": 50000,
+  "sieve_depth": 50000,
+  "stride_cutoff": 10000,
+  "algorithm": "hybrid",
+  "workers": 1,
+  "max_wall_hours": 2.0,
+  "until_proven_pairs": 1,
+  "checkpoint_dir": "runs/phase3",
+  "checkpoint_frequency_sec": 30.0,
+  "memory_limit_mb": 2048,
+  "prp_bases": [2, 3],
+  "proth_witness_pool": [3, 5, 7, 10, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47],
+  "llr_parameter_pool": [3, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24]
+}

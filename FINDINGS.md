@@ -118,17 +118,51 @@ In Phase 2, utilizing the CRT-wheeled streaming window engine, we expanded the s
 
 ### 6.1 Discovery Details
 1. **104-Digit Pair ($k = 12477, n = 330$):**
-   * $P = 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103167$
-   * $P+2 = 27017684065910243176662483861875168819443588975317769532551460592962384976785160875323282245388052103169$
+   * $P = 27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562047$
+   * $P+2 = 27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562049$
    * Proth witness $w = 17$, LLR parameter $P = 3$.
 2. **121-Digit Pair ($k = 126747, n = 384$):**
-   * $P = 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593791$
-   * $P+2 = 4994247548777176465492487442111197992923588147171806307399583193853111005852579294541998595864197839352981504996914593793$
+   * $P = 4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007551$
+   * $P+2 = 4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007553$
    * Proth witness $w = 5$, LLR parameter $P = 5$.
 3. **159-Digit Pair ($k = 61347, n = 512$):**
-   * $P = 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376895$
-   * $P+2 = 822557555627267597148560021677382218059881829631718134764024846747656910382276563777719630740954546452291566442654347781076949397669460505191261386121927376897$
+   * $P = 822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037311$
+   * $P+2 = 822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037313$
    * Proth witness $w = 5$, LLR parameter $P = 5$.
 
 All pairs are verified to be new to this project and pass strict independent verification via `scripts/phase2_verify.py`.
+
+---
+
+## 7. Phase 3 Verified Discoveries: Crossing the 200, 300, and 500-Digit Milestones
+
+Using the Phase 3 HDRSS (*Hybrid Dual-Residue Streaming Sieve*) engine, we launched targeted progressive search campaigns across higher exponents, achieving three breakthrough milestones:
+
+| Exponent $n$ | Multiplier $k$ | Decimal Digits | Representation | Verification Status | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $672$ | $15,993$ | **207 digits** | $15993 \times 2^{672} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase3/cert_k15993_n672.json`](proofs/phase3/cert_k15993_n672.json) |
+| $1024$ | $254,697$ | **314 digits** | $254697 \times 2^{1024} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase3/cert_k254697_n1024.json`](proofs/phase3/cert_k254697_n1024.json) |
+| $1664$ | $1,183,377$ | **507 digits** | $1183377 \times 2^{1664} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase3/cert_k1183377_n1664.json`](proofs/phase3/cert_k1183377_n1664.json) |
+
+### 7.1 Detailed Milestone Discoveries
+1. **Pilot Discovery: 207-Digit Certified Pair ($k = 15993, n = 672$):**
+   * Lower prime $P = 15993 \times 2^{672} - 1$ (207 digits)
+   * Upper prime $P+2 = 15993 \times 2^{672} + 1$ (207 digits)
+   * Proth witness $w = 7$, LLR parameter $P = 3$.
+   * Certificate: [`proofs/phase3/cert_k15993_n672.json`](proofs/phase3/cert_k15993_n672.json).
+
+2. **Primary Campaign Milestone: 314-Digit Certified Pair ($k = 254697, n = 1024$):**
+   * Lower prime $P = 254697 \times 2^{1024} - 1$ (314 digits)
+   * Upper prime $P+2 = 254697 \times 2^{1024} + 1$ (314 digits)
+   * Proth witness $w = 5$, LLR parameter $P = 9$.
+   * Certificate: [`proofs/phase3/cert_k254697_n1024.json`](proofs/phase3/cert_k254697_n1024.json).
+
+3. **Stretch Campaign Milestone: 507-Digit Certified Pair ($k = 1183377, n = 1664$):**
+   * Lower prime $P = 1183377 \times 2^{1664} - 1$ (507 digits)
+   * Upper prime $P+2 = 1183377 \times 2^{1664} + 1$ (507 digits)
+   * Proth witness $w = 5$, LLR parameter $P = 5$.
+   * Certificate: [`proofs/phase3/cert_k1183377_n1664.json`](proofs/phase3/cert_k1183377_n1664.json).
+
+All three pairs are verified absent from the combined Phase 1 and Phase 2 baseline inventory, possess an integer difference of exactly 2, and pass strict independent verification via `scripts/phase3_independent_verify.py` using $2 \times 2$ matrix exponentiation.
+
 

@@ -1,0 +1,382 @@
+[
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k15_n10.json",
+    "k": 15,
+    "n": 10,
+    "p_minus": "15359",
+    "p_plus": "15361",
+    "digits": 5,
+    "sha256": "7cd7a0649f75f5a68ce67d356453edc84edc8117a9f57a25054f0a048a607542"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k57_n10.json",
+    "k": 57,
+    "n": 10,
+    "p_minus": "58367",
+    "p_plus": "58369",
+    "digits": 5,
+    "sha256": "3321a27111300d738a627120f3595f301e2c3b8a186dd916df0eb88fdc16e190"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k93_n10.json",
+    "k": 93,
+    "n": 10,
+    "p_minus": "95231",
+    "p_plus": "95233",
+    "digits": 5,
+    "sha256": "68617708235f161acec9844b4820cd27d015f7540b4810f8559381d23db175e2"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k135_n10.json",
+    "k": 135,
+    "n": 10,
+    "p_minus": "138239",
+    "p_plus": "138241",
+    "digits": 6,
+    "sha256": "dadec5339a29a1ceb685057a921fb9789a768d5aa687d09699078a20438b9ed5"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k273_n10.json",
+    "k": 273,
+    "n": 10,
+    "p_minus": "279551",
+    "p_plus": "279553",
+    "digits": 6,
+    "sha256": "c645ee7eae0673622db67af0ed74652f5e94ba0aef4d91cd00e7e4cf41cf719c"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k357_n10.json",
+    "k": 357,
+    "n": 10,
+    "p_minus": "365567",
+    "p_plus": "365569",
+    "digits": 6,
+    "sha256": "4315cf7e3628c6340c06c878bf8b4a83d9b5fc33d9478d5e5fc3c8c14adea28c"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k603_n10.json",
+    "k": 603,
+    "n": 10,
+    "p_minus": "617471",
+    "p_plus": "617473",
+    "digits": 6,
+    "sha256": "78609e32cb7e293f74088e6647ef7597666f8fc15665da9e68cc777e30952310"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k765_n10.json",
+    "k": 765,
+    "n": 10,
+    "p_minus": "783359",
+    "p_plus": "783361",
+    "digits": 6,
+    "sha256": "a85bdcb3f8d98ee99994cf9f384bec2439363d78d1315fd98911203f8d215677"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k777_n10.json",
+    "k": 777,
+    "n": 10,
+    "p_minus": "795647",
+    "p_plus": "795649",
+    "digits": 6,
+    "sha256": "5f60347aa9045fd4f54b0e5699d4398820b5fcf05c55cfc3ef1c3cb7132085d6"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k855_n10.json",
+    "k": 855,
+    "n": 10,
+    "p_minus": "875519",
+    "p_plus": "875521",
+    "digits": 6,
+    "sha256": "66a85b04217339d98db373c38600a96c75868764af6a438c245e3f255bdbca9f"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k345_n30.json",
+    "k": 345,
+    "n": 30,
+    "p_minus": "370440929279",
+    "p_plus": "370440929281",
+    "digits": 12,
+    "sha256": "1b47bdd4c724a8eab050712097d4283d41874634b1e427c35121cd9ce8e83805"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k2187_n30.json",
+    "k": 2187,
+    "n": 30,
+    "p_minus": "2348273369087",
+    "p_plus": "2348273369089",
+    "digits": 13,
+    "sha256": "5394634f9a4f8cdf114a5860daef31a9b76754c4ce42a42b342ce1e05cfa3a06"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k2343_n30.json",
+    "k": 2343,
+    "n": 30,
+    "p_minus": "2515777093631",
+    "p_plus": "2515777093633",
+    "digits": 13,
+    "sha256": "064e42c6cfeb15190732512c258baddb55fa557db2f459559427cd1b43671381"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k2865_n30.json",
+    "k": 2865,
+    "n": 30,
+    "p_minus": "3076270325759",
+    "p_plus": "3076270325761",
+    "digits": 13,
+    "sha256": "5eeedd5dab2a38fe40a78450a6c4ac809a39db0d83a023cca8ac1b0481984bf6"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k3153_n30.json",
+    "k": 3153,
+    "n": 30,
+    "p_minus": "3385507971071",
+    "p_plus": "3385507971073",
+    "digits": 13,
+    "sha256": "35d7e796a39133c1a5bb3be5e743eaac42ed583ed2c0dbf4f923ab974d12b169"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k3813_n30.json",
+    "k": 3813,
+    "n": 30,
+    "p_minus": "4094177574911",
+    "p_plus": "4094177574913",
+    "digits": 13,
+    "sha256": "e93aff44a07167c7d1561533aee1fedbbc668da695ee0fef9074aba0363cd7e7"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k5115_n30.json",
+    "k": 5115,
+    "n": 30,
+    "p_minus": "5492189429759",
+    "p_plus": "5492189429761",
+    "digits": 13,
+    "sha256": "f06c562b2e63b9d622601d46f6574049b0dd5874c65cf633c66519259ef9736b"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k5595_n30.json",
+    "k": 5595,
+    "n": 30,
+    "p_minus": "6007585505279",
+    "p_plus": "6007585505281",
+    "digits": 13,
+    "sha256": "2fabe910d2a5665b31a17a384e505ea6fc22234644eee40643412698b6cf4453"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k6765_n30.json",
+    "k": 6765,
+    "n": 30,
+    "p_minus": "7263863439359",
+    "p_plus": "7263863439361",
+    "digits": 13,
+    "sha256": "69dd0e0050bf50828d2cb3a199bc86284bf70d844a544ea92fb390911eaccd9c"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k6825_n30.json",
+    "k": 6825,
+    "n": 30,
+    "p_minus": "7328287948799",
+    "p_plus": "7328287948801",
+    "digits": 13,
+    "sha256": "17e3ce15f512eda1464b34a7e5a5dca9c9977f56b685437d28d4dca4d13e6205"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k7143_n30.json",
+    "k": 7143,
+    "n": 30,
+    "p_minus": "7669737848831",
+    "p_plus": "7669737848833",
+    "digits": 13,
+    "sha256": "43748775dc75c7c966ff3e12b99a053a44abfa584f9fe3b0a9eb633b7b16d378"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k7845_n30.json",
+    "k": 7845,
+    "n": 30,
+    "p_minus": "8423504609279",
+    "p_plus": "8423504609281",
+    "digits": 13,
+    "sha256": "2fb2c5ef0355253f2145ea26ed5cd27f66f0c3e91a84a9bac760a06fb3084262"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k8355_n30.json",
+    "k": 8355,
+    "n": 30,
+    "p_minus": "8971112939519",
+    "p_plus": "8971112939521",
+    "digits": 13,
+    "sha256": "e04fefbec440a53440c28fa631f58bbd318f7b5907c4b78bae268a8fee4d3c6c"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k9135_n30.json",
+    "k": 9135,
+    "n": 30,
+    "p_minus": "9808631562239",
+    "p_plus": "9808631562241",
+    "digits": 13,
+    "sha256": "b892fbf84ac4639d87485bcfacc45b5960754506435d54a7668438dec34effd3"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k9555_n30.json",
+    "k": 9555,
+    "n": 30,
+    "p_minus": "10259603128319",
+    "p_plus": "10259603128321",
+    "digits": 14,
+    "sha256": "bd53c9d9b7e1143aa6528e95e7d7292e898522ec18ee8e7f0e52896fd8428290"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k927_n50.json",
+    "k": 927,
+    "n": 50,
+    "p_minus": "1043709213643112447",
+    "p_plus": "1043709213643112449",
+    "digits": 19,
+    "sha256": "d9d416286d5cba99d25b9e4f9b1b5e9ce774105a0a6fb4ef742ad70062e89644"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k1107_n50.json",
+    "k": 1107,
+    "n": 50,
+    "p_minus": "1246371196874784767",
+    "p_plus": "1246371196874784769",
+    "digits": 19,
+    "sha256": "8f7c5de87fbb1748b3486b58c82778d2a6a7a220f61898ae13367a15f67383b3"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k1767_n50.json",
+    "k": 1767,
+    "n": 50,
+    "p_minus": "1989465135390916607",
+    "p_plus": "1989465135390916609",
+    "digits": 19,
+    "sha256": "66314df7dbdc3796d75eab46998c301ffea0eeaacdd8404c18cd59efcbcd50c0"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k2127_n50.json",
+    "k": 2127,
+    "n": 50,
+    "p_minus": "2394789101854261247",
+    "p_plus": "2394789101854261249",
+    "digits": 19,
+    "sha256": "3b32f58356570f9465a55c115b99f12f0fa88c575279614e3c80b8115f80ad39"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k2997_n50.json",
+    "k": 2997,
+    "n": 50,
+    "p_minus": "3374322020807344127",
+    "p_plus": "3374322020807344129",
+    "digits": 19,
+    "sha256": "7abd52ff4d15322d4246156e2b762509c591fd14a923a315a80c200fd1723934"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k5295_n50.json",
+    "k": 5295,
+    "n": 50,
+    "p_minus": "5961640006731694079",
+    "p_plus": "5961640006731694081",
+    "digits": 19,
+    "sha256": "a4258bb09683560aeccb646c252f927c37a20809152514d0200aae760f6f8ed5"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k5865_n50.json",
+    "k": 5865,
+    "n": 50,
+    "p_minus": "6603402953631989759",
+    "p_plus": "6603402953631989761",
+    "digits": 19,
+    "sha256": "3c0b0f209ab97c86599a51840e65135b203c6e10b07285be3596fb2c83356075"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k6147_n50.json",
+    "k": 6147,
+    "n": 50,
+    "p_minus": "6920906727361609727",
+    "p_plus": "6920906727361609729",
+    "digits": 19,
+    "sha256": "e6b99be0ac4115fa5dc48f4beb361cbb66bb8f7dd8b76ba721be6232d18fd118"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k9033_n50.json",
+    "k": 9033,
+    "n": 50,
+    "p_minus": "10170253858509422591",
+    "p_plus": "10170253858509422593",
+    "digits": 20,
+    "sha256": "dfa4fcc8f13541cee2b0410a6c6e9396ebe39b7a408a310123239ebdeb1a0b1c"
+  },
+  {
+    "phase": 1,
+    "path": "proofs\\cert_k4107_n100.json",
+    "k": 4107,
+    "n": 100,
+    "p_minus": "5206241015137338151946960064479231",
+    "p_plus": "5206241015137338151946960064479233",
+    "digits": 34,
+    "sha256": "95d5a52ef2daa307375847d83a5fc0a11ee8ac70dbb5c0dd04cabd6b2216af75"
+  },
+  {
+    "phase": 2,
+    "path": "proofs\\phase2\\cert_k12477_n330.json",
+    "k": 12477,
+    "n": 330,
+    "p_minus": "27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562047",
+    "p_plus": "27290327293117639780395710287746561775511494989254611569284339856176983571010613394059773909716642562049",
+    "digits": 104,
+    "sha256": "47fbcbc177671a425fc53687d536b3e6d0d760384ed811c25763395118cfcf43"
+  },
+  {
+    "phase": 2,
+    "path": "proofs\\phase2\\cert_k126747_n384.json",
+    "k": 126747,
+    "n": 384,
+    "p_minus": "4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007551",
+    "p_plus": "4994086079374411056718731495572902618952441713313683968822442344107932497371956953364924005007898402725317677887418007553",
+    "digits": 121,
+    "sha256": "4c20d964a7b7e86643603adde9874121df26334340cd858fc3a8c4ffa06810a4"
+  },
+  {
+    "phase": 2,
+    "path": "proofs\\phase2\\cert_k61347_n512.json",
+    "k": 61347,
+    "n": 512,
+    "p_minus": "822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037311",
+    "p_plus": "822528793078188504267567711564934042382476654995881556543207323887999057952921886385864582569645024578500384404166359761725239448864486226503865065576241037313",
+    "digits": 159,
+    "sha256": "0d4e3b4610372496165edec14961ba7ef4e7a9e8b653e3b3ca4b6849cc511f01"
+  }
+]
