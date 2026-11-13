@@ -1,0 +1,72 @@
+{
+  "schema_version": "6.0",
+  "phase": "Phase 6",
+  "method": "GITCSS (General-Integer Twin-Center Segmented Sieve)",
+  "campaign_id": "pilot_general_discovery",
+  "timestamp_utc": "2026-11-13T23:11:24.481478+00:00",
+  "pair": {
+    "lower_prime_A": "1000000000002371",
+    "upper_prime_B": "1000000000002373",
+    "difference": "2",
+    "center_C": "1000000000002372",
+    "center_m": "166666666667062",
+    "digits_A": 16,
+    "digits_B": 16
+  },
+  "novelty_audit": {
+    "origin_type": "GENERAL_INTEGER",
+    "repository_novelty": "NEW_TO_REPOSITORY",
+    "global_novelty_status": "PENDING_EXTERNAL_REGISTRY_CHECK"
+  },
+  "proofs": {
+    "proof_type": "DUAL_CLASSICAL_BLS",
+    "status": "CERTIFIED_PRIMES",
+    "center_m": "166666666667062",
+    "center_C": "1000000000002372",
+    "digits_lower": 16,
+    "digits_upper": 16,
+    "factors_of_center": {
+      "2": 2,
+      "3": 1,
+      "83333333333531": 1
+    },
+    "proof_lower_A": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison N+1)",
+      "candidate": "1000000000002371",
+      "digits": 16,
+      "F_odd": "250000000000593",
+      "odd_prime_factors": [
+        3,
+        83333333333531
+      ],
+      "parameter_P": 5,
+      "parameter_Q": 1,
+      "discriminant_D": 21,
+      "jacobi_symbol": -1,
+      "verification": {
+        "lucas_zero_congruence": "U_{A+1}(5, 1) = 0 mod A",
+        "lucas_coprimality_condition": "gcd(U_{(A+1)/q}(P, 1), A) == 1 for all odd q in F_odd"
+      }
+    },
+    "proof_upper_B": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington N-1)",
+      "candidate": "1000000000002373",
+      "digits": 16,
+      "F": "1000000000002372",
+      "R": "1",
+      "factored_fraction": "1.0",
+      "prime_factors": [
+        2,
+        3,
+        83333333333531
+      ],
+      "witness_a": 2,
+      "verification": {
+        "fermat_congruence": "2^(B-1) = 1 mod B",
+        "coprimality_condition": "gcd(a^((B-1)/q) - 1, B) == 1 for all q in factors"
+      }
+    },
+    "prover_wall_time_sec": 0.03776749999815365
+  },
+  "canonical_sha256": "1f2d443508c19ee0650c239183998ccf4eba9bf265dc031b90dba66140c6b727"
+}

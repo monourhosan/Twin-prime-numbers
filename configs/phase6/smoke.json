@@ -1,0 +1,11 @@
+{
+  "schema_version": "6.0",
+  "campaign_id": "smoke_test",
+  "p_min": "1000",
+  "p_max": "10000",
+  "sieve_limit": 1000,
+  "segment_size": 2000,
+  "wheel_primes": [5, 7],
+  "mr_rounds": 25,
+  "historical_inventory": "research/phase5_audit/historical_inventory.json"
+}

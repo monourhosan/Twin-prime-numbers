@@ -1,11 +1,12 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, & Phase 5 SCCA Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, & Phase 6 GITCSS Project
 
-[![Tests: 80/80 Passing](https://img.shields.io/badge/Tests-80%2F80%20Passing-brightgreen)](tests/)
+[![Tests: 115/115 Passing](https://img.shields.io/badge/Tests-115%2F115%20Passing-brightgreen)](tests/)
 [![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
+[![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
 [![GPU Sieve: MX250 Accelerated](https://img.shields.io/badge/GPU%20Sieve-MX250%20(4x--17x)-brightgreen)](research/laptop_acceleration/BENCHMARKS.md)
-[![Certificates: 48 Proven](https://img.shields.io/badge/Certificates-48%20Proven%20SHA--256-blue)](proofs/)
+[![Certificates: Proven SHA--256](https://img.shields.io/badge/Certificates-Proven%20SHA--256-blue)](proofs/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![Paper: Phase 4 Manuscript](https://img.shields.io/badge/Paper-Phase%204%20Manuscript-orange)](paper/phase4/manuscript.md)
 
@@ -15,7 +16,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*);
 4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation;
 5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery;
-6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling.
+6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling;
+7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -50,6 +52,24 @@ An autonomous, mathematically rigorous computational number theory project inves
 ---
 
 ## 2. Strongest Results Achieved in This Project
+
+### 2.000 Phase 6 GITCSS Discovery: First General-Integer Certified Twin Pair
+Breaking free from all special exponential and smooth manifolds, Phase 6 formulated and deployed the **General-Integer Twin-Center Segmented Sieve (GITCSS)** for universal twin pairs $p = 6m - 1, p+2 = 6m + 1$. We discovered and certified a genuine 16-digit twin-prime pair new to the repository:
+
+* **Lower Prime $A$:** `1000000000002371` (16 decimal digits)
+* **Upper Prime $B$:** `1000000000002373` (16 decimal digits)
+* **Difference:** $B - A = 2$ identically.
+* **Center Factorization:**
+  $$6m = 1000000000002372 = 2^2 \times 3 \times 83333333333531$$
+  Prime factor $83333333333531$ is unconditionally proven prime via deterministic trial division.
+* **Deterministic Proofs:**
+  - Upper member $B$: Certified by **Pocklington BLS Theorem 4 ($N-1$)** with witness $a = 2$, $F_B / B = 1.0$, $2^{B-1} \equiv 1 \pmod B$, and $\gcd(2^{(B-1)/q} - 1, B) = 1$ for all $q \in \{2, 3, 83333333333531\}$.
+  - Lower member $A$: Certified by **Morrison BLS Theorem 17 ($N+1$)** with parameter $P = 5, Q = 1$, discriminant $D = 21$, Jacobi symbol $((21)/A) = -1$, Lucas sequence $U_{A+1}(5, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(5, 1), A) = 1$ for all odd $q \in \{3, 83333333333531\}$.
+* **Cryptographic Artifacts:**
+  - Certificate: [`proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json`](proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json)
+  - Canonical SHA-256: `1f2d443508c19ee0650c239183998ccf4eba9bf265dc031b90dba66140c6b727`
+  - Attestation: [`proofs/phase6/attestations/attest_6c0b671d46a457d1.json`](proofs/phase6/attestations/attest_6c0b671d46a457d1.json) (Status: **PASS**)
+  - Reproducibility Guide: [`REPRODUCIBILITY_PHASE6.md`](REPRODUCIBILITY_PHASE6.md)
 
 ### 2.00 Phase 5 SCCA Discoveries: 59-Digit and 133-Digit Certified Twin Pairs
 Deploying the Phase 5 Smooth-Center Certificate-Aware Search (SCCA) engine with multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$ and two-sided classical primality criteria (Pocklington BLS Theorem 4 on $B$ and Morrison BLS Theorem 17 on $A$), we discovered and certified multiple genuine twin-prime pairs novel to the repository:
