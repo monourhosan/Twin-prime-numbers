@@ -1,0 +1,247 @@
+[2026-11-13 22:26:04 UTC] Starting SCCA >= 1,510-Digit Search Campaign: Run ID 'run_1510d_production'
+[2026-11-13 22:26:04 UTC] Policy: COST_AWARE, Max Work Units: 40, Resume: False
+[2026-11-13 22:26:04 UTC] Loaded 3 search families at >= 1,510 digits.
+[2026-11-13 22:26:04 UTC] 
+--- Work Unit 1/40: fam_1510d_multibase [1, 5001) ---
+[2026-11-13 22:26:04 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_multibase has 0 < 2 pulls
+[2026-11-13 22:26:04 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:26:04 UTC]   Sieve complete in 154.0 ms: 201 / 5000 survived (4.02%)
+[2026-11-13 22:26:05 UTC]   [LEFT PRP HIT #1] t=1232 (digits=1517)
+[2026-11-13 22:26:10 UTC] 
+--- Work Unit 2/40: fam_1510d_multibase [5001, 10001) ---
+[2026-11-13 22:26:10 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_multibase has 1 < 2 pulls
+[2026-11-13 22:26:10 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:26:10 UTC]   Sieve complete in 165.5 ms: 201 / 5000 survived (4.02%)
+[2026-11-13 22:26:15 UTC] 
+--- Work Unit 3/40: fam_1510d_p3_p5 [1, 5001) ---
+[2026-11-13 22:26:15 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p5 has 0 < 2 pulls
+[2026-11-13 22:26:15 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:26:16 UTC]   Sieve complete in 147.1 ms: 114 / 5000 survived (2.28%)
+[2026-11-13 22:26:17 UTC]   [LEFT PRP HIT #2] t=1492 (digits=1515)
+[2026-11-13 22:26:19 UTC] 
+--- Work Unit 4/40: fam_1510d_p3_p5 [5001, 10001) ---
+[2026-11-13 22:26:19 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p5 has 1 < 2 pulls
+[2026-11-13 22:26:19 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:26:19 UTC]   Sieve complete in 166.3 ms: 120 / 5000 survived (2.40%)
+[2026-11-13 22:26:22 UTC]   [LEFT PRP HIT #3] t=9294 (digits=1515)
+[2026-11-13 22:26:22 UTC]   [LEFT PRP HIT #4] t=9365 (digits=1515)
+[2026-11-13 22:26:23 UTC] 
+--- Work Unit 5/40: fam_1510d_p3_p7 [1, 5001) ---
+[2026-11-13 22:26:23 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p7 has 0 < 2 pulls
+[2026-11-13 22:26:23 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:26:23 UTC]   Sieve complete in 155.6 ms: 109 / 5000 survived (2.18%)
+[2026-11-13 22:26:26 UTC] 
+--- Work Unit 6/40: fam_1510d_p3_p7 [5001, 10001) ---
+[2026-11-13 22:26:26 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p7 has 1 < 2 pulls
+[2026-11-13 22:26:26 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:26:26 UTC]   Sieve complete in 164.5 ms: 91 / 5000 survived (1.82%)
+[2026-11-13 22:26:27 UTC]   [LEFT PRP HIT #5] t=6073 (digits=1517)
+[2026-11-13 22:26:27 UTC]   [LEFT PRP HIT #6] t=6525 (digits=1517)
+[2026-11-13 22:26:28 UTC]   [LEFT PRP HIT #7] t=6802 (digits=1517)
+[2026-11-13 22:26:30 UTC] 
+--- Work Unit 7/40: fam_1510d_multibase [10001, 15001) ---
+[2026-11-13 22:26:30 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=1.3390, total_pulls=6)
+[2026-11-13 22:26:30 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:26:30 UTC]   Sieve complete in 168.8 ms: 204 / 5000 survived (4.08%)
+[2026-11-13 22:26:32 UTC]   [LEFT PRP HIT #8] t=11345 (digits=1518)
+[2026-11-13 22:26:36 UTC] 
+--- Work Unit 8/40: fam_1510d_p3_p5 [10001, 15001) ---
+[2026-11-13 22:26:36 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=1.3954, total_pulls=7)
+[2026-11-13 22:26:36 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:26:36 UTC]   Sieve complete in 174.7 ms: 106 / 5000 survived (2.12%)
+[2026-11-13 22:26:39 UTC] 
+--- Work Unit 9/40: fam_1510d_p3_p7 [10001, 15001) ---
+[2026-11-13 22:26:39 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=1.4424, total_pulls=8)
+[2026-11-13 22:26:39 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:26:40 UTC]   Sieve complete in 204.2 ms: 98 / 5000 survived (1.96%)
+[2026-11-13 22:26:42 UTC]   [LEFT PRP HIT #9] t=13150 (digits=1517)
+[2026-11-13 22:26:43 UTC] 
+--- Work Unit 10/40: fam_1510d_multibase [15001, 20001) ---
+[2026-11-13 22:26:43 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=1.2108, total_pulls=9)
+[2026-11-13 22:26:43 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:26:43 UTC]   Sieve complete in 216.7 ms: 212 / 5000 survived (4.24%)
+[2026-11-13 22:26:43 UTC]   [LEFT PRP HIT #10] t=15122 (digits=1518)
+[2026-11-13 22:26:44 UTC]   [LEFT PRP HIT #11] t=15373 (digits=1518)
+[2026-11-13 22:26:45 UTC]   [LEFT PRP HIT #12] t=16011 (digits=1518)
+[2026-11-13 22:26:50 UTC] 
+--- Work Unit 11/40: fam_1510d_p3_p5 [15001, 20001) ---
+[2026-11-13 22:26:50 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=1.2394, total_pulls=10)
+[2026-11-13 22:26:50 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:26:50 UTC]   Sieve complete in 164.7 ms: 110 / 5000 survived (2.20%)
+[2026-11-13 22:26:54 UTC] 
+--- Work Unit 12/40: fam_1510d_p3_p7 [15001, 20001) ---
+[2026-11-13 22:26:54 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=1.2648, total_pulls=11)
+[2026-11-13 22:26:54 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:26:55 UTC]   Sieve complete in 290.9 ms: 92 / 5000 survived (1.84%)
+[2026-11-13 22:26:56 UTC]   [LEFT PRP HIT #13] t=16170 (digits=1517)
+[2026-11-13 22:26:59 UTC] 
+--- Work Unit 13/40: fam_1510d_multibase [20001, 25001) ---
+[2026-11-13 22:26:59 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=1.1151, total_pulls=12)
+[2026-11-13 22:26:59 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:27:00 UTC]   Sieve complete in 149.4 ms: 209 / 5000 survived (4.18%)
+[2026-11-13 22:27:04 UTC]   [LEFT PRP HIT #14] t=23353 (digits=1518)
+[2026-11-13 22:27:04 UTC]   [LEFT PRP HIT #15] t=23824 (digits=1518)
+[2026-11-13 22:27:06 UTC] 
+--- Work Unit 14/40: fam_1510d_p3_p5 [20001, 25001) ---
+[2026-11-13 22:27:06 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=1.1329, total_pulls=13)
+[2026-11-13 22:27:06 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:27:06 UTC]   Sieve complete in 184.7 ms: 130 / 5000 survived (2.60%)
+[2026-11-13 22:27:10 UTC] 
+--- Work Unit 15/40: fam_1510d_p3_p7 [20001, 25001) ---
+[2026-11-13 22:27:10 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=1.1490, total_pulls=14)
+[2026-11-13 22:27:10 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:27:10 UTC]   Sieve complete in 223.9 ms: 91 / 5000 survived (1.82%)
+[2026-11-13 22:27:13 UTC] 
+--- Work Unit 16/40: fam_1510d_multibase [25001, 30001) ---
+[2026-11-13 22:27:13 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=1.0413, total_pulls=15)
+[2026-11-13 22:27:13 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:27:13 UTC]   Sieve complete in 159.1 ms: 204 / 5000 survived (4.08%)
+[2026-11-13 22:27:17 UTC]   [LEFT PRP HIT #16] t=27645 (digits=1518)
+[2026-11-13 22:27:17 UTC]   [LEFT PRP HIT #17] t=28086 (digits=1518)
+[2026-11-13 22:27:20 UTC] 
+--- Work Unit 17/40: fam_1510d_p3_p5 [25001, 30001) ---
+[2026-11-13 22:27:20 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=1.0536, total_pulls=16)
+[2026-11-13 22:27:20 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:27:20 UTC]   Sieve complete in 183.4 ms: 114 / 5000 survived (2.28%)
+[2026-11-13 22:27:22 UTC]   [LEFT PRP HIT #18] t=27225 (digits=1516)
+[2026-11-13 22:27:22 UTC]   [LEFT PRP HIT #19] t=27440 (digits=1516)
+[2026-11-13 22:27:24 UTC] 
+--- Work Unit 18/40: fam_1510d_p3_p7 [25001, 30001) ---
+[2026-11-13 22:27:24 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=1.0649, total_pulls=17)
+[2026-11-13 22:27:24 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:27:24 UTC]   Sieve complete in 173.6 ms: 110 / 5000 survived (2.20%)
+[2026-11-13 22:27:27 UTC]   [LEFT PRP HIT #20] t=28008 (digits=1518)
+[2026-11-13 22:27:28 UTC] 
+--- Work Unit 19/40: fam_1510d_multibase [30001, 35001) ---
+[2026-11-13 22:27:28 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.9820, total_pulls=18)
+[2026-11-13 22:27:28 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:27:28 UTC]   Sieve complete in 170.7 ms: 189 / 5000 survived (3.78%)
+[2026-11-13 22:27:31 UTC]   [LEFT PRP HIT #21] t=31765 (digits=1518)
+[2026-11-13 22:27:31 UTC]   [LEFT PRP HIT #22] t=32243 (digits=1518)
+[2026-11-13 22:27:34 UTC] 
+--- Work Unit 20/40: fam_1510d_p3_p5 [30001, 35001) ---
+[2026-11-13 22:27:34 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.9911, total_pulls=19)
+[2026-11-13 22:27:34 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:27:34 UTC]   Sieve complete in 156.8 ms: 131 / 5000 survived (2.62%)
+[2026-11-13 22:27:36 UTC]   [LEFT PRP HIT #23] t=31866 (digits=1516)
+[2026-11-13 22:27:36 UTC]   [LEFT PRP HIT #24] t=31961 (digits=1516)
+[2026-11-13 22:27:39 UTC] 
+--- Work Unit 21/40: fam_1510d_p3_p7 [30001, 35001) ---
+[2026-11-13 22:27:39 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.9997, total_pulls=20)
+[2026-11-13 22:27:39 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:27:39 UTC]   Sieve complete in 166.6 ms: 108 / 5000 survived (2.16%)
+[2026-11-13 22:27:41 UTC]   [LEFT PRP HIT #25] t=33402 (digits=1518)
+[2026-11-13 22:27:42 UTC] 
+--- Work Unit 22/40: fam_1510d_multibase [35001, 40001) ---
+[2026-11-13 22:27:42 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.9332, total_pulls=21)
+[2026-11-13 22:27:42 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:27:43 UTC]   Sieve complete in 179.1 ms: 207 / 5000 survived (4.14%)
+[2026-11-13 22:27:43 UTC]   [LEFT PRP HIT #26] t=35431 (digits=1518)
+[2026-11-13 22:27:48 UTC]   [LEFT PRP HIT #27] t=38873 (digits=1519)
+[2026-11-13 22:27:49 UTC]   [LEFT PRP HIT #28] t=39127 (digits=1519)
+[2026-11-13 22:27:49 UTC]   [LEFT PRP HIT #29] t=39519 (digits=1519)
+[2026-11-13 22:27:50 UTC] 
+--- Work Unit 23/40: fam_1510d_p3_p5 [35001, 40001) ---
+[2026-11-13 22:27:50 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.9402, total_pulls=22)
+[2026-11-13 22:27:50 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:27:50 UTC]   Sieve complete in 171.8 ms: 121 / 5000 survived (2.42%)
+[2026-11-13 22:27:52 UTC]   [LEFT PRP HIT #30] t=37532 (digits=1516)
+[2026-11-13 22:27:54 UTC] 
+--- Work Unit 24/40: fam_1510d_p3_p7 [35001, 40001) ---
+[2026-11-13 22:27:54 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.9469, total_pulls=23)
+[2026-11-13 22:27:54 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:27:54 UTC]   Sieve complete in 151.0 ms: 107 / 5000 survived (2.14%)
+[2026-11-13 22:27:58 UTC] 
+--- Work Unit 25/40: fam_1510d_multibase [40001, 45001) ---
+[2026-11-13 22:27:58 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.8918, total_pulls=24)
+[2026-11-13 22:27:58 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:27:58 UTC]   Sieve complete in 179.2 ms: 236 / 5000 survived (4.72%)
+[2026-11-13 22:28:00 UTC]   [LEFT PRP HIT #31] t=40743 (digits=1519)
+[2026-11-13 22:28:03 UTC]   [LEFT PRP HIT #32] t=42536 (digits=1519)
+[2026-11-13 22:28:04 UTC]   [LEFT PRP HIT #33] t=43156 (digits=1519)
+[2026-11-13 22:28:06 UTC] 
+--- Work Unit 26/40: fam_1510d_p3_p5 [40001, 45001) ---
+[2026-11-13 22:28:06 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.8975, total_pulls=25)
+[2026-11-13 22:28:06 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:28:06 UTC]   Sieve complete in 257.1 ms: 102 / 5000 survived (2.04%)
+[2026-11-13 22:28:08 UTC]   [LEFT PRP HIT #34] t=42688 (digits=1516)
+[2026-11-13 22:28:10 UTC] 
+--- Work Unit 27/40: fam_1510d_p3_p7 [40001, 45001) ---
+[2026-11-13 22:28:10 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.9029, total_pulls=26)
+[2026-11-13 22:28:10 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:28:10 UTC]   Sieve complete in 232.2 ms: 102 / 5000 survived (2.04%)
+[2026-11-13 22:28:13 UTC] 
+--- Work Unit 28/40: fam_1510d_multibase [45001, 50001) ---
+[2026-11-13 22:28:13 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.8563, total_pulls=27)
+[2026-11-13 22:28:13 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:28:14 UTC]   Sieve complete in 167.4 ms: 213 / 5000 survived (4.26%)
+[2026-11-13 22:28:14 UTC]   [LEFT PRP HIT #35] t=45366 (digits=1519)
+[2026-11-13 22:28:15 UTC]   [LEFT PRP HIT #36] t=46363 (digits=1519)
+[2026-11-13 22:28:17 UTC]   [LEFT PRP HIT #37] t=47385 (digits=1519)
+[2026-11-13 22:28:20 UTC] 
+--- Work Unit 29/40: fam_1510d_p3_p5 [45001, 50001) ---
+[2026-11-13 22:28:20 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.8610, total_pulls=28)
+[2026-11-13 22:28:20 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:28:20 UTC]   Sieve complete in 157.9 ms: 111 / 5000 survived (2.22%)
+[2026-11-13 22:28:22 UTC]   [LEFT PRP HIT #38] t=47077 (digits=1516)
+[2026-11-13 22:28:24 UTC] 
+--- Work Unit 30/40: fam_1510d_p3_p7 [45001, 50001) ---
+[2026-11-13 22:28:24 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.8654, total_pulls=29)
+[2026-11-13 22:28:24 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:28:24 UTC]   Sieve complete in 153.2 ms: 120 / 5000 survived (2.40%)
+[2026-11-13 22:28:26 UTC]   [LEFT PRP HIT #39] t=48665 (digits=1518)
+[2026-11-13 22:28:27 UTC] 
+--- Work Unit 31/40: fam_1510d_multibase [50001, 55001) ---
+[2026-11-13 22:28:27 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.8253, total_pulls=30)
+[2026-11-13 22:28:27 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:28:27 UTC]   Sieve complete in 141.8 ms: 206 / 5000 survived (4.12%)
+[2026-11-13 22:28:33 UTC] 
+--- Work Unit 32/40: fam_1510d_p3_p5 [50001, 55001) ---
+[2026-11-13 22:28:33 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.8292, total_pulls=31)
+[2026-11-13 22:28:33 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:28:33 UTC]   Sieve complete in 158.3 ms: 110 / 5000 survived (2.20%)
+[2026-11-13 22:28:36 UTC] 
+--- Work Unit 33/40: fam_1510d_p3_p7 [50001, 55001) ---
+[2026-11-13 22:28:36 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.8330, total_pulls=32)
+[2026-11-13 22:28:36 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:28:37 UTC]   Sieve complete in 140.7 ms: 100 / 5000 survived (2.00%)
+[2026-11-13 22:28:38 UTC]   [LEFT PRP HIT #40] t=52948 (digits=1518)
+[2026-11-13 22:28:40 UTC] 
+--- Work Unit 34/40: fam_1510d_multibase [55001, 60001) ---
+[2026-11-13 22:28:40 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.7978, total_pulls=33)
+[2026-11-13 22:28:40 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:28:40 UTC]   Sieve complete in 159.1 ms: 205 / 5000 survived (4.10%)
+[2026-11-13 22:28:45 UTC] 
+--- Work Unit 35/40: fam_1510d_p3_p5 [55001, 60001) ---
+[2026-11-13 22:28:45 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.8012, total_pulls=34)
+[2026-11-13 22:28:45 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:28:46 UTC]   Sieve complete in 141.3 ms: 128 / 5000 survived (2.56%)
+[2026-11-13 22:28:49 UTC] 
+--- Work Unit 36/40: fam_1510d_p3_p7 [55001, 60001) ---
+[2026-11-13 22:28:49 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.8044, total_pulls=35)
+[2026-11-13 22:28:49 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:28:49 UTC]   Sieve complete in 158.7 ms: 85 / 5000 survived (1.70%)
+[2026-11-13 22:28:51 UTC]   [LEFT PRP HIT #41] t=58272 (digits=1518)
+[2026-11-13 22:28:52 UTC] 
+--- Work Unit 37/40: fam_1510d_multibase [60001, 65001) ---
+[2026-11-13 22:28:52 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.7733, total_pulls=36)
+[2026-11-13 22:28:52 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:28:52 UTC]   Sieve complete in 140.1 ms: 213 / 5000 survived (4.26%)
+[2026-11-13 22:28:53 UTC]   [LEFT PRP HIT #42] t=61192 (digits=1519)
+[2026-11-13 22:28:58 UTC] 
+--- Work Unit 38/40: fam_1510d_p3_p5 [60001, 65001) ---
+[2026-11-13 22:28:58 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p5 (score=0.7763, total_pulls=37)
+[2026-11-13 22:28:58 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:28:58 UTC]   Sieve complete in 148.9 ms: 122 / 5000 survived (2.44%)
+[2026-11-13 22:29:02 UTC] 
+--- Work Unit 39/40: fam_1510d_p3_p7 [60001, 65001) ---
+[2026-11-13 22:29:02 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_p3_p7 (score=0.7791, total_pulls=38)
+[2026-11-13 22:29:02 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:29:02 UTC]   Sieve complete in 151.7 ms: 110 / 5000 survived (2.20%)
+[2026-11-13 22:29:05 UTC] 
+--- Work Unit 40/40: fam_1510d_multibase [65001, 70001) ---
+[2026-11-13 22:29:05 UTC] Scheduler Rationale: Cost-aware winner: fam_1510d_multibase (score=0.7513, total_pulls=39)
+[2026-11-13 22:29:05 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:29:05 UTC]   Sieve complete in 158.6 ms: 234 / 5000 survived (4.68%)
+[2026-11-13 22:29:09 UTC]   [LEFT PRP HIT #43] t=68055 (digits=1519)
+[2026-11-13 22:29:12 UTC]   [LEFT PRP HIT #44] t=69880 (digits=1519)

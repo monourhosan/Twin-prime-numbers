@@ -7,6 +7,7 @@ using SQLite with Write-Ahead Logging (WAL) for durability across restarts.
 import sqlite3
 import time
 import json
+import hashlib
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
 
@@ -70,16 +71,84 @@ class Phase5Storage:
             CREATE TABLE IF NOT EXISTS bandit_stats (
                 family_id TEXT PRIMARY KEY,
                 pulls INTEGER DEFAULT 0,
+                cumulative_reward REAL DEFAULT 0.0,
+                mean_reward REAL DEFAULT 0.0,
                 total_time REAL DEFAULT 0.0,
                 survivors INTEGER DEFAULT 0,
                 dual_prp INTEGER DEFAULT 0,
                 proven INTEGER DEFAULT 0,
-                last_reward REAL DEFAULT 0.0
+                last_reward REAL DEFAULT 0.0,
+                updated_at REAL NOT NULL
             );
 
             CREATE INDEX IF NOT EXISTS idx_wu_status ON work_units(status, lease_expiry);
             CREATE INDEX IF NOT EXISTS idx_cand_hash ON candidates(canonical_hash);
             """)
+
+    @staticmethod
+    def canonical_key(A: int, B: int) -> str:
+        """Returns normalized canonical key for a pair: min(A, B):max(A, B)."""
+        p_min = min(int(A), int(B))
+        p_max = max(int(A), int(B))
+        return f"{p_min}:{p_max}"
+
+    @staticmethod
+    def canonical_hash(A: int, B: int) -> str:
+        """Computes deterministic SHA-256 over canonical key."""
+        key = Phase5Storage.canonical_key(A, B)
+        return hashlib.sha256(key.encode("ascii")).hexdigest()
+
+    def check_novelty(
+        self,
+        A: int,
+        B: int,
+        historical_inventory_path: Optional[Path] = None
+    ) -> str:
+        """
+        Explicit Novelty Pipeline:
+        1. Validate gap == 2 and odd numbers > 2.
+        2. Check against frozen historical inventory.
+        3. Check against candidates / discoveries in current run database.
+        Returns one of:
+        - INVALID_PAIR
+        - ALREADY_IN_HISTORICAL_INVENTORY
+        - DUPLICATE_IN_CURRENT_RUN
+        - NEW_TO_REPOSITORY
+        """
+        p_min = min(int(A), int(B))
+        p_max = max(int(A), int(B))
+
+        if p_max - p_min != 2:
+            return "INVALID_PAIR"
+        if p_min <= 2 or p_min % 2 == 0 or p_max % 2 == 0:
+            return "INVALID_PAIR"
+
+        c_key = f"{p_min}:{p_max}"
+        c_hash = hashlib.sha256(c_key.encode("ascii")).hexdigest()
+
+        # Step 1: Compare against frozen historical inventory
+        if historical_inventory_path:
+            h_path = Path(historical_inventory_path)
+            if h_path.exists():
+                try:
+                    with open(h_path, "r", encoding="utf-8") as f:
+                        hist_data = json.load(f)
+                    for item in hist_data:
+                        if item.get("canonical_key") == c_key:
+                            return "ALREADY_IN_HISTORICAL_INVENTORY"
+                except Exception:
+                    pass
+
+        # Step 2: Compare against current run database
+        with self._get_connection() as conn:
+            row = conn.execute("SELECT 1 FROM candidates WHERE canonical_hash = ?", (c_hash,)).fetchone()
+            if row:
+                return "DUPLICATE_IN_CURRENT_RUN"
+            row_d = conn.execute("SELECT 1 FROM discoveries WHERE sha256 = ?", (c_hash,)).fetchone()
+            if row_d:
+                return "DUPLICATE_IN_CURRENT_RUN"
+
+        return "NEW_TO_REPOSITORY"
 
     def register_work_unit(
         self,
@@ -144,6 +213,17 @@ class Phase5Storage:
                 (survivors, dual_prp, proven, now, work_unit_id)
             )
 
+    def get_max_t_for_family(self, family_id: str) -> int:
+        """Returns max(t_end) for given family across registered work units, or 0 if none."""
+        with self._get_connection() as conn:
+            row = conn.execute(
+                "SELECT MAX(t_end) as max_t FROM work_units WHERE family_id = ?",
+                (family_id,)
+            ).fetchone()
+            if row and row["max_t"] is not None:
+                return int(row["max_t"])
+            return 0
+
     def record_candidate(
         self,
         family_id: str,
@@ -187,29 +267,72 @@ class Phase5Storage:
                 (disc_id, family_id, t, digits, str(A), str(B), cert_path, sha256, novelty_status, now)
             )
 
+    @staticmethod
+    def compute_bounded_reward(
+        survivors: int,
+        batch_size: int,
+        dual_prp: int,
+        proven: int,
+        elapsed_sec: float
+    ) -> float:
+        """
+        Computes a bounded reward in [0.0, 1.0] for UCB1:
+        - Sieve yield component: min(1.0, survivors / batch_size) * 0.1
+        - Dual PRP hit component: min(1.0, dual_prp) * 0.4
+        - Proven pair component: min(1.0, proven) * 0.5
+        """
+        b_size = max(int(batch_size), 1)
+        sieve_ratio = min(1.0, survivors / b_size)
+        prp_ratio = min(1.0, dual_prp / 1.0)
+        proven_ratio = min(1.0, proven / 1.0)
+        raw = 0.1 * sieve_ratio + 0.4 * prp_ratio + 0.5 * proven_ratio
+        return max(0.0, min(1.0, raw))
+
     def update_bandit_stats(
         self,
         family_id: str,
         elapsed_sec: float,
         survivors: int,
         dual_prp: int,
-        proven: int
+        proven: int,
+        reward: Optional[float] = None,
+        batch_size: int = 1000
     ):
-        """Updates online performance stats for Method S2 bandit scheduler."""
-        reward = (survivors * 0.1 + dual_prp * 10.0 + proven * 1000.0) / max(elapsed_sec, 0.001)
+        """Updates online performance stats with cumulative reward and mean reward."""
+        if reward is None:
+            r = self.compute_bounded_reward(survivors, batch_size, dual_prp, proven, elapsed_sec)
+        else:
+            r = max(0.0, min(1.0, float(reward)))
+
+        now = time.time()
         with self._get_connection() as conn:
-            conn.execute(
-                """INSERT INTO bandit_stats (family_id, pulls, total_time, survivors, dual_prp, proven, last_reward)
-                VALUES (?, 1, ?, ?, ?, ?, ?)
-                ON CONFLICT(family_id) DO UPDATE SET
-                    pulls = pulls + 1,
-                    total_time = total_time + excluded.total_time,
-                    survivors = survivors + excluded.survivors,
-                    dual_prp = dual_prp + excluded.dual_prp,
-                    proven = proven + excluded.proven,
-                    last_reward = excluded.last_reward""",
-                (family_id, elapsed_sec, survivors, dual_prp, proven, reward)
-            )
+            row = conn.execute(
+                "SELECT pulls, cumulative_reward, total_time, survivors, dual_prp, proven FROM bandit_stats WHERE family_id = ?",
+                (family_id,)
+            ).fetchone()
+
+            if row:
+                pulls = row["pulls"] + 1
+                cum_reward = row["cumulative_reward"] + r
+                mean_reward = cum_reward / pulls
+                tot_time = row["total_time"] + elapsed_sec
+                surv = row["survivors"] + survivors
+                d_prp = row["dual_prp"] + dual_prp
+                prv = row["proven"] + proven
+                conn.execute(
+                    """UPDATE bandit_stats SET
+                        pulls = ?, cumulative_reward = ?, mean_reward = ?, total_time = ?,
+                        survivors = ?, dual_prp = ?, proven = ?, last_reward = ?, updated_at = ?
+                    WHERE family_id = ?""",
+                    (pulls, cum_reward, mean_reward, tot_time, surv, d_prp, prv, r, now, family_id)
+                )
+            else:
+                conn.execute(
+                    """INSERT INTO bandit_stats
+                    (family_id, pulls, cumulative_reward, mean_reward, total_time, survivors, dual_prp, proven, last_reward, updated_at)
+                    VALUES (?, 1, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (family_id, r, r, elapsed_sec, survivors, dual_prp, proven, r, now)
+                )
 
     def get_bandit_stats(self) -> Dict[str, Dict[str, Any]]:
         """Returns current bandit performance table."""

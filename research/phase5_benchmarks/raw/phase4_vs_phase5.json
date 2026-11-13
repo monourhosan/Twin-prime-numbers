@@ -1,0 +1,65 @@
+[
+  {
+    "scale": "100-digit scale",
+    "digits_approx": 88,
+    "sieve_depth": 50000,
+    "phase4": {
+      "n": 330,
+      "k": 12477,
+      "sieve_median_ms": 7.62,
+      "sieve_cands_sec": 2623157.0,
+      "sieve_survivors": 419,
+      "proof_median_ms": 0.51
+    },
+    "phase5": {
+      "F_digits": 87,
+      "sieve_median_ms": 3.92,
+      "sieve_cands_sec": 5103864.0,
+      "sieve_survivors": 729,
+      "proof_median_ms": 0.9,
+      "independent_verify_median_ms": 0.15
+    }
+  },
+  {
+    "scale": "500-digit scale",
+    "digits_approx": 500,
+    "sieve_depth": 50000,
+    "phase4": {
+      "n": 1664,
+      "k": 1183377,
+      "sieve_median_ms": 7.96,
+      "sieve_cands_sec": 2512468.0,
+      "sieve_survivors": 420,
+      "proof_median_ms": 6.1
+    },
+    "phase5": {
+      "F_digits": 500,
+      "sieve_median_ms": 3.92,
+      "sieve_cands_sec": 5101390.0,
+      "sieve_survivors": 699,
+      "proof_median_ms": 27.51,
+      "independent_verify_median_ms": 0.17
+    }
+  },
+  {
+    "scale": "1500-digit scale",
+    "digits_approx": 1512,
+    "sieve_depth": 50000,
+    "phase4": {
+      "n": 4992,
+      "k": 416343,
+      "sieve_median_ms": 8.07,
+      "sieve_cands_sec": 2477148.0,
+      "sieve_survivors": 389,
+      "proof_median_ms": 118.02
+    },
+    "phase5": {
+      "F_digits": 1511,
+      "sieve_median_ms": 3.95,
+      "sieve_cands_sec": 5065600.0,
+      "sieve_survivors": 679,
+      "proof_median_ms": 500.76,
+      "independent_verify_median_ms": 0.14
+    }
+  }
+]

@@ -23,6 +23,7 @@ from .primality import prp_test, prove_pocklington_upper, prove_morrison_lower, 
 from .certificate import TwinPrimeCertificateV5
 from .storage import Phase5Storage
 from .scheduler import MultiFamilyScheduler, SCCAProfile, SchedulingPolicy
+from .campaign import SCCA1510Campaign
 
 def get_git_commit() -> str:
     try:
@@ -57,26 +58,43 @@ def run_audit(args):
     print("\nAuditing Historical Proof Certificates:")
     repo_root = Path(args.repo)
     proof_dirs = [
-        ("Phase 1", repo_root / "proofs" / "phase1"),
-        ("Phase 2", repo_root / "proofs" / "phase2"),
-        ("Phase 3", repo_root / "proofs" / "phase3"),
-        ("Phase 4", repo_root / "proofs" / "phase4"),
-        ("Phase 5", repo_root / "proofs" / "phase5"),
+        ("Phase 1", repo_root / "proofs", False),
+        ("Phase 2", repo_root / "proofs" / "phase2", True),
+        ("Phase 3", repo_root / "proofs" / "phase3", True),
+        ("Phase 4", repo_root / "proofs" / "phase4", True),
+        ("Phase 5", repo_root / "proofs" / "phase5", True),
     ]
     
     max_digits = 0
     max_pair_info = ""
     total_certs = 0
     
-    for phase_label, pdir in proof_dirs:
+    for phase_label, pdir, is_sub in proof_dirs:
         if pdir.exists():
-            certs = list(pdir.glob("cert_*.json")) + list(pdir.glob("imported_cert_*.json"))
+            if is_sub:
+                certs = sorted(list(pdir.glob("cert_*.json")) + list(pdir.glob("imported_cert_*.json")))
+            else:
+                # Top-level certs only (Phase 1)
+                certs = sorted([p for p in pdir.glob("cert_*.json") if p.parent == pdir])
+            
             for cf in certs:
                 total_certs += 1
                 try:
                     with open(cf, "r", encoding="utf-8") as f:
                         d = json.load(f)
-                    digits = d.get("digits_lower") or d.get("pair", {}).get("lower_digits") or 0
+                    if "digits_lower" in d:
+                        digits = d["digits_lower"]
+                    elif "pair" in d and "lower_digits" in d["pair"]:
+                        digits = d["pair"]["lower_digits"]
+                    elif "digits_p_minus" in d:
+                        digits = d["digits_p_minus"]
+                    elif "digits" in d:
+                        digits = d["digits"]
+                    elif "p_minus" in d:
+                        digits = len(str(d["p_minus"]))
+                    else:
+                        digits = 0
+
                     if digits > max_digits:
                         max_digits = digits
                         max_pair_info = f"{cf.name} ({digits} digits)"
@@ -96,6 +114,7 @@ def execute_discovery_search(
     t_start: int,
     t_end: int,
     output_dir: Path,
+    historical_inventory_path: Optional[Path] = None,
     max_finds: int = 1,
     verbose: bool = True
 ) -> List[Dict[str, Any]]:
@@ -138,6 +157,14 @@ def execute_discovery_search(
         if not alg_ok:
             continue
 
+        # Novelty check BEFORE persisting candidate or running proofs
+        novelty_check = storage.check_novelty(
+            cand.A, cand.B,
+            historical_inventory_path=historical_inventory_path
+        )
+        if novelty_check in ("INVALID_PAIR", "DUPLICATE_IN_CURRENT_RUN"):
+            continue
+
         # Stage 1: Dual PRP screening
         if not prp_test(cand.A):
             storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "COMPOSITE_A", cand.canonical_hash())
@@ -176,10 +203,7 @@ def execute_discovery_search(
             print(f"    A = {cand.A} (Morrison proved with P={param_P})")
             print(f"    B = {cand.B} (Pocklington proved with a={witness_a})")
             print(f"    Digits: {cand.digits_A} / {cand.digits_B}")
-
-        # Check project deduplication
-        is_known = storage.is_known_discovery(cand.canonical_hash())
-        novelty_status = "ALREADY_IN_PROJECT" if is_known else "NEW_TO_REPO_ONLY"
+            print(f"    Novelty: {novelty_check}")
 
         # Search provenance
         provenance = {
@@ -198,7 +222,7 @@ def execute_discovery_search(
             upper_proof=pock_proof,
             search_provenance=provenance,
             status="PROVEN_BOTH",
-            novelty_status=novelty_status
+            novelty_status=novelty_check
         )
         cert_path = cert.save(output_dir)
         cert_data = cert.to_dict()
@@ -212,7 +236,7 @@ def execute_discovery_search(
             B=cand.B,
             cert_path=str(cert_path),
             sha256=cert_data["sha256"],
-            novelty_status=novelty_status
+            novelty_status=novelty_check
         )
         
         # Run immediate independent verification subprocess
@@ -228,14 +252,21 @@ def execute_discovery_search(
             "candidate": cand,
             "cert_path": cert_path,
             "sha256": cert_data["sha256"],
-            "novelty_status": novelty_status
+            "novelty_status": novelty_check
         })
 
         if len(discoveries) >= max_finds:
             break
 
     elapsed = time.time() - t0
-    storage.update_bandit_stats(fam.family_id, elapsed, len(survivors), dual_prp_count, proven_count)
+    storage.update_bandit_stats(
+        fam.family_id,
+        elapsed,
+        len(survivors),
+        dual_prp_count,
+        proven_count,
+        batch_size=(t_end - t_start)
+    )
     return discoveries
 
 def run_discover(args):
@@ -250,6 +281,9 @@ def run_discover(args):
     db_path = Path(cfg.get("db_path", "runs/phase5/phase5_search.db"))
     output_dir = Path(cfg.get("proofs_dir", "proofs/phase5"))
     storage = Phase5Storage(db_path)
+
+    # Path to authoritative historical inventory
+    hist_inv_path = Path(cfg.get("historical_inventory", "research/phase5_audit/historical_inventory.json"))
 
     profiles = []
     for f_cfg in cfg.get("families", []):
@@ -269,13 +303,14 @@ def run_discover(args):
         storage=storage,
         profiles=profiles,
         policy=policy,
-        seed=cfg.get("seed", 42)
+        seed=cfg.get("seed", 42),
+        resume=args.resume
     )
 
     max_work_units = cfg.get("max_work_units", 5)
     max_total_discoveries = cfg.get("max_discoveries", 1)
     
-    print(f"Running Phase 5 Discovery Campaign: policy={policy.value}, max_units={max_work_units}")
+    print(f"Running Phase 5 Discovery Campaign: policy={policy.value}, resume={args.resume}, max_units={max_work_units}")
     total_found = 0
 
     for u_idx in range(max_work_units):
@@ -289,6 +324,7 @@ def run_discover(args):
             t_start=wu["t_start"],
             t_end=wu["t_end"],
             output_dir=output_dir,
+            historical_inventory_path=hist_inv_path,
             max_finds=max_total_discoveries - total_found,
             verbose=True
         )
@@ -304,7 +340,6 @@ def run_benchmark(args):
     print("PHASE 5 SCCA CONTROLLED BENCHMARK")
     print("=" * 60)
     
-    # Compare Method S1 (CRT Class Walker vs Segment Filter)
     fam = SmoothCenterFamily({2: 3, 3: 4, 5: 2, 7: 1}, family_id="bench_fam")
     t_start = 1
     t_end = 20000
@@ -327,14 +362,11 @@ def run_benchmark(args):
     rate_wheel = (t_end - t_start) / max(t_wheel, 0.0001)
     print(f"  Method S1 CRT Wheel Walker: {t_wheel*1000:.2f} ms ({rate_wheel:,.0f} cands/s), survivors: {len(surv_wheel)}")
     
-    # 2. Primality Proving Speed at various digit bands
-    print("\n2. Primality Proving Benchmark (Pocklington + Morrison):")
+    print("\n2. Primality Proving Speed at various digit bands:")
     for digits, f_exp in [(20, {2: 1, 3: 20, 5: 10}), (50, {2: 1, 3: 50, 5: 25}), (100, {2: 1, 3: 100, 5: 50})]:
         test_fam = SmoothCenterFamily(f_exp, family_id=f"f_{digits}d")
-        # Measure 1 Pocklington + 1 Morrison
         cand = test_fam.candidate(3)
         t0 = time.time()
-        # Matrix pow
         _ = prove_pocklington_upper(cand.B, test_fam.F_odd, test_fam.odd_prime_factors)
         _ = prove_morrison_lower(cand.A, test_fam.F_odd, test_fam.odd_prime_factors)
         t_proof = time.time() - t0
@@ -371,12 +403,41 @@ def run_status(args):
         print(f"    Cert: {d['cert_path']}")
     print("\nBandit Performance:")
     for b in b_stats:
-        print(f"  Family {b['family_id']}: pulls={b['pulls']}, time={b['total_time']:.2f}s, dual_prp={b['dual_prp']}, proven={b['proven']}, reward={b['last_reward']:.4f}")
+        mean_r = b["mean_reward"] if "mean_reward" in b.keys() else 0.0
+        print(f"  Family {b['family_id']}: pulls={b['pulls']}, time={b['total_time']:.2f}s, dual_prp={b['dual_prp']}, proven={b['proven']}, mean_reward={mean_r:.4f}")
     print("=" * 60)
+
+def run_campaign(args):
+    config_path = Path(args.config)
+    if not config_path.exists():
+        print(f"Error: Config not found: {config_path}")
+        sys.exit(1)
+
+    with open(config_path, "r", encoding="utf-8") as f:
+        cfg = json.load(f)
+
+    max_units = args.max_units or cfg.get("max_work_units", 10)
+    campaign = SCCA1510Campaign(
+        config=cfg,
+        run_id=args.run_id,
+        resume=args.resume
+    )
+    campaign.run_bounded_search(
+        max_work_units=max_units,
+        stop_on_discovery=not args.no_stop
+    )
 
 def main():
     parser = argparse.ArgumentParser(description="Phase 5 SCCA Twin Prime Search Engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # campaign
+    p_camp = subparsers.add_parser("campaign")
+    p_camp.add_argument("--config", required=True, help="Path to JSON campaign configuration")
+    p_camp.add_argument("--max-units", type=int, default=None, help="Maximum work units to process")
+    p_camp.add_argument("--run-id", default=None, help="Explicit run ID (for resume or specific tag)")
+    p_camp.add_argument("--resume", action="store_true", help="Resume run from last checkpoint")
+    p_camp.add_argument("--no-stop", action="store_true", help="Continue searching even after first discovery")
 
     # audit
     p_audit = subparsers.add_parser("audit")
@@ -400,7 +461,9 @@ def main():
     p_ver.add_argument("target", help="Certificate path or directory")
 
     args = parser.parse_args()
-    if args.command == "audit":
+    if args.command == "campaign":
+        run_campaign(args)
+    elif args.command == "audit":
         run_audit(args)
     elif args.command == "discover":
         run_discover(args)

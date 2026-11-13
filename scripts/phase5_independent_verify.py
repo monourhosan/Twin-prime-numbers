@@ -19,6 +19,21 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Tuple, List, Dict, Any, Optional
 
+def is_small_prime_deterministic(n: int) -> bool:
+    """Deterministic primality check for smooth center prime factors from first principles."""
+    if n < 2:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    d = 5
+    while d * d <= n:
+        if n % d == 0 or n % (d + 2) == 0:
+            return False
+        d += 6
+    return True
+
 def standalone_jacobi(a: int, n: int) -> int:
     """Computes Jacobi symbol (a / n) for positive odd n from first principles."""
     if n <= 0 or n % 2 == 0:
@@ -108,6 +123,11 @@ def verify_certificate_v5_payload(data: Dict[str, Any]) -> Tuple[bool, List[str]
         errors.append("Exponent for prime 3 must be >= 1")
     if t <= 0:
         errors.append(f"Parameter t must be positive, got {t}")
+
+    # Verify primality of each claimed prime base p in exponents
+    for p in exponents.keys():
+        if not is_small_prime_deterministic(p):
+            errors.append(f"Claimed prime factor base p={p} is composite or not a valid prime")
 
     # Reconstruct F and F_odd
     F = 1
@@ -221,8 +241,8 @@ def verify_certificate_v5_payload(data: Dict[str, Any]) -> Tuple[bool, List[str]
     is_valid = len(errors) == 0
     return is_valid, errors, evidence
 
-def verify_file(cert_path: Path) -> bool:
-    """Verifies a single certificate file and writes an attestation artifact."""
+def verify_file(cert_path: Path, attestation_dir: Optional[Path] = None, overwrite: bool = False) -> bool:
+    """Verifies a single certificate file and writes an attestation artifact if not already present."""
     cert_path = Path(cert_path)
     if not cert_path.exists():
         print(f"ERROR: Certificate file not found: {cert_path}")
@@ -233,34 +253,37 @@ def verify_file(cert_path: Path) -> bool:
 
     is_valid, errors, evidence = verify_certificate_v5_payload(data)
     
-    # Generate attestation
-    attestation_dir = cert_path.parent / "attestations"
-    attestation_dir.mkdir(parents=True, exist_ok=True)
+    # Target attestation directory
+    target_dir = attestation_dir or (cert_path.parent / "attestations")
+    target_dir.mkdir(parents=True, exist_ok=True)
     
     sha256 = data.get("sha256", "unknown")
     short_hash = sha256[:16]
-    attestation_file = attestation_dir / f"attest_{short_hash}.json"
-    
-    attestation_data = {
-        "attestation_version": "5.0",
-        "verifier": "scripts/phase5_independent_verify.py",
-        "target_certificate": str(cert_path.name),
-        "target_sha256": sha256,
-        "verification_timestamp_utc": datetime.now(timezone.utc).isoformat(),
-        "result": "PASS" if is_valid else "FAIL",
-        "digits_lower": data.get("digits_lower"),
-        "digits_upper": data.get("digits_upper"),
-        "errors": errors,
-        "independent_evidence": evidence
-    }
-    
-    with open(attestation_file, "w", encoding="utf-8") as f:
-        json.dump(attestation_data, f, indent=2)
+    attestation_file = target_dir / f"attest_{short_hash}.json"
+
+    # Only write/update if file does not exist or overwrite requested (Rule 4 preservation)
+    should_write = (not attestation_file.exists()) or overwrite
+
+    if should_write:
+        attestation_data = {
+            "attestation_version": "5.0",
+            "verifier": "scripts/phase5_independent_verify.py",
+            "target_certificate": str(cert_path.name),
+            "target_sha256": sha256,
+            "verification_timestamp_utc": datetime.now(timezone.utc).isoformat(),
+            "result": "PASS" if is_valid else "FAIL",
+            "digits_lower": data.get("digits_lower"),
+            "digits_upper": data.get("digits_upper"),
+            "errors": errors,
+            "independent_evidence": evidence
+        }
+        with open(attestation_file, "w", encoding="utf-8") as f:
+            json.dump(attestation_data, f, indent=2)
 
     if is_valid:
         print(f"VERIFICATION SUCCESS: {cert_path.name}")
         print(f"  Digits: {data.get('digits_lower')} / {data.get('digits_upper')}")
-        print(f"  Attestation: {attestation_file}")
+        print(f"  Attestation: {attestation_file} {'(created)' if should_write else '(preserved)'}")
         return True
     else:
         print(f"VERIFICATION FAILED: {cert_path.name}")
