@@ -1,8 +1,10 @@
 # Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, & Phase 4 ADRS Project
 
-[![Tests: 54/54 Passing](https://img.shields.io/badge/Tests-54%2F54%20Passing-brightgreen)](tests/)
+[![Tests: 64/64 Passing](https://img.shields.io/badge/Tests-64%2F64%20Passing-brightgreen)](tests/)
+[![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
-[![Certificates: 42 Proven](https://img.shields.io/badge/Certificates-42%20Proven%20SHA--256-blue)](proofs/)
+[![GPU Sieve: MX250 Accelerated](https://img.shields.io/badge/GPU%20Sieve-MX250%20(4x--17x)-brightgreen)](research/laptop_acceleration/BENCHMARKS.md)
+[![Certificates: 43 Proven](https://img.shields.io/badge/Certificates-43%20Proven%20SHA--256-blue)](proofs/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![Paper: Phase 4 Manuscript](https://img.shields.io/badge/Paper-Phase%204%20Manuscript-orange)](paper/phase4/manuscript.md)
 
@@ -10,7 +12,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 1. **CATS** (*Certificate-Aware Adaptive Twin-prime Sieve*);
 2. **Phase 2 CRT-Wheeled Streaming Discovery Engine**;
 3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*);
-4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation.
+4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation;
+5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -46,7 +49,21 @@ An autonomous, mathematically rigorous computational number theory project inves
 
 ## 2. Strongest Results Achieved in This Project
 
-### 2.0 Phase 4 Breakthrough Discovery (1,000+ Digits Milestone)
+### 2.0A Maximum Verified Discovery: 1,509-Digit Certified Twin-Prime Pair
+Using our strict independent verification engine on candidate coordinates derived from exploratory runs, we verified and certified a **1,509-decimal-digit twin-prime pair**:
+$$416343 \times 2^{4992} \pm 1$$
+* **Decimal Digits:** **1,509 digits** each member ($3,018$ total digits in pair). Exceeds the 1,028-digit milestone by **481 digits per member**.
+* **Lower Member ($A$):** $416343 \times 2^{4992} - 1$ (starts with `22971514...` and ends with `...083327`)
+* **Upper Member ($B$):** $416343 \times 2^{4992} + 1$ (starts with `22971514...` and ends with `...083329`)
+* **Deterministically Proven:**
+  - $B$: Proth witness $w = 7$ ($7^{(B-1)/2} \equiv -1 \pmod B$).
+  - $A$: Lucas-Lehmer-Riesel parameter $P = 3$, Jacobi symbols $((3-2)/A) = 1, ((3+2)/A) = -1$, initial seed $u_0 = V_{416343}(3, 1) \pmod A$ verified independently via modular $2 \times 2$ matrix exponentiation, final residue $u_{4990} \equiv 0 \pmod A$ after 4,990 squaring rounds.
+* **Cryptographic Artifacts:**
+  - Proof Payload: [`proofs/phase4/imported_cert_k416343_n4992.json`](proofs/phase4/imported_cert_k416343_n4992.json)
+  - Independent Attestation: [`proofs/phase4/attestations/attest_7025c2a1baf9fa9d.json`](proofs/phase4/attestations/attest_7025c2a1baf9fa9d.json) (Status: **PASS**).
+  - Canonical Proof Payload SHA-256: `7025c2a1baf9fa9da4d03baf61fd400a693d98d2e3399a8bce6403701e3eda66`.
+
+### 2.0B Phase 4 Breakthrough Discovery (1,028 Digits Milestone)
 Deploying the Phase 4 ADRS-4 engine with compact $t$-space sieving and GMP-accelerated multiprecision arithmetic, we discovered and certified a **1,028-decimal-digit twin-prime pair**:
 $$1836723 \times 2^{3392} \pm 1$$
 * **Decimal Digits:** **1,028 digits** each member ($2,056$ total digits in pair).
@@ -59,6 +76,13 @@ $$1836723 \times 2^{3392} \pm 1$$
   - Proof Payload: [`proofs/phase4/cert_k1836723_n3392.json`](proofs/phase4/cert_k1836723_n3392.json)
   - Independent Attestation: [`proofs/phase4/attestations/attest_46a7116dc819e120.json`](proofs/phase4/attestations/attest_46a7116dc819e120.json) (Status: **PASS**, verified via decoupled $2 \times 2$ matrix powering).
 * **Coverage Verification:** 100% gap-free coverage certified over 2,400,000 $k$-span at $n=3328$ and 1,837,122 $k$-span at $n=3392$.
+
+### 2.0C Laptop CPU + NVIDIA MX250 GPU Hardware Acceleration
+To maximize candidate screening throughput while remaining strictly bounded by the laptop's thermal dissipation limits (15W TDP Intel i5-10210U + NVIDIA MX250), we engineered a native Windows hybrid accelerator:
+* **GPU Sieve (NVIDIA GeForce MX250, sm_61):** Pure Python + Windows `nvcuda.dll` Driver JIT PTX kernel. Achieves **24,000,000 to 26,000,000 candidates/sec** (**4.1x to 17.8x speedup** over CPU vectorized slicing) while running at a cool 58–60°C.
+* **Autotuned Process Concurrency:** Benchmarked across 1 to 6 workers. Optimal operating point on the 15W package is **3 worker processes** (7,783 cands/s, 76.7% linear efficiency), preventing clock frequency degradation.
+* **Telemetry & Safety:** Automated AC power enforcement, memory monitoring (>= 2.5 GB free), and GPU thermal tracking.
+* **Reports & Benchmarks:** See [`research/laptop_acceleration/BENCHMARKS.md`](research/laptop_acceleration/BENCHMARKS.md) and [`research/laptop_acceleration/CPU_GPU_DECISION.md`](research/laptop_acceleration/CPU_GPU_DECISION.md).
 
 ### 2.1 Phase 3 Discoveries (207, 314, and 507 Digits)
 Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-project twin-prime pairs scaling to multi-hundred digits:
@@ -87,22 +111,7 @@ Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-pro
 2. **Historical 34-Digit Baseline Pair:**
    * Certified pair: $4107 \times 2^{100} \pm 1$ (34 digits, [`proofs/cert_k4107_n100.json`](proofs/cert_k4107_n100.json)).
 3. **Total Cryptographic Proof Inventory:**
-   * **42 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, `proofs/phase3/`, and `proofs/phase4/`, all passing strict independent verification.
-
-   * Deterministically proven: Proth witness $w=5$, LLR parameter $P=5$. Certificate: [`proofs/phase2/cert_k61347_n512.json`](proofs/phase2/cert_k61347_n512.json).
-
-### 2.2 Phase 1 Baseline Results (CATS)
-1. **Bounded Range Exhaustive Certification:**
-   * Certified all twin primes in $[2, 10,000,000]$ in **2.8387 seconds**.
-   * Exact count: **58,980 twin pairs** (matching theoretical counts).
-   * Maximal certified pair in $[2, 10^7]$: **$(9,999,971, \ 9,999,973)$**.
-2. **Historical 34-Digit Baseline Pair:**
-   * Certified pair: $4107 \times 2^{100} \pm 1$ (34 digits).
-   * Lower member: `5206241015137338151946960064479231`
-   * Upper member: `5206241015137338151946960064479233`
-   * Certificate: [`proofs/cert_k4107_n100.json`](proofs/cert_k4107_n100.json).
-3. **Total Cryptographic Proof Inventory:**
-   * **38 tamper-evident JSON certificates** across `proofs/` and `proofs/phase2/`, all independently verified with 100% success.
+   * **43 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, `proofs/phase3/`, and `proofs/phase4/`, all passing strict independent verification.
 
 
 ---
