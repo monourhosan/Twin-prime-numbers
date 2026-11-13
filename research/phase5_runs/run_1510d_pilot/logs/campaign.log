@@ -1,0 +1,33 @@
+[2026-11-13 22:25:26 UTC] Starting SCCA >= 1,510-Digit Search Campaign: Run ID 'run_1510d_pilot'
+[2026-11-13 22:25:26 UTC] Policy: COST_AWARE, Max Work Units: 3, Resume: False
+[2026-11-13 22:25:26 UTC] Loaded 3 search families at >= 1,510 digits.
+[2026-11-13 22:25:26 UTC] 
+--- Work Unit 1/3: fam_1510d_multibase [1, 2501) ---
+[2026-11-13 22:25:26 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_multibase has 0 < 2 pulls
+[2026-11-13 22:25:26 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:25:26 UTC]   Sieve complete in 148.6 ms: 109 / 2500 survived (4.36%)
+[2026-11-13 22:25:27 UTC]   [LEFT PRP HIT #1] t=1232 (digits=1517)
+[2026-11-13 22:25:29 UTC] 
+--- Work Unit 2/3: fam_1510d_multibase [2501, 5001) ---
+[2026-11-13 22:25:29 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_multibase has 1 < 2 pulls
+[2026-11-13 22:25:29 UTC] F digits: 1514, Odd prime factors: [3, 5, 7, 11]
+[2026-11-13 22:25:29 UTC]   Sieve complete in 173.2 ms: 92 / 2500 survived (3.68%)
+[2026-11-13 22:25:31 UTC] 
+--- Work Unit 3/3: fam_1510d_p3_p5 [1, 2501) ---
+[2026-11-13 22:25:31 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p5 has 0 < 2 pulls
+[2026-11-13 22:25:31 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:25:32 UTC]   Sieve complete in 159.7 ms: 62 / 2500 survived (2.48%)
+[2026-11-13 22:25:33 UTC]   [LEFT PRP HIT #2] t=1492 (digits=1515)
+[2026-11-13 22:25:41 UTC] Starting SCCA >= 1,510-Digit Search Campaign: Run ID 'run_1510d_pilot'
+[2026-11-13 22:25:41 UTC] Policy: COST_AWARE, Max Work Units: 2, Resume: True
+[2026-11-13 22:25:41 UTC] Loaded 3 search families at >= 1,510 digits.
+[2026-11-13 22:25:41 UTC] 
+--- Work Unit 1/2: fam_1510d_p3_p5 [2501, 5001) ---
+[2026-11-13 22:25:41 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p5 has 1 < 2 pulls
+[2026-11-13 22:25:41 UTC] F digits: 1511, Odd prime factors: [3, 5]
+[2026-11-13 22:25:41 UTC]   Sieve complete in 156.8 ms: 52 / 2500 survived (2.08%)
+[2026-11-13 22:25:42 UTC] 
+--- Work Unit 2/2: fam_1510d_p3_p7 [1, 2501) ---
+[2026-11-13 22:25:42 UTC] Scheduler Rationale: Exploration quota: family fam_1510d_p3_p7 has 0 < 2 pulls
+[2026-11-13 22:25:42 UTC] F digits: 1513, Odd prime factors: [3, 7]
+[2026-11-13 22:25:43 UTC]   Sieve complete in 157.2 ms: 56 / 2500 survived (2.24%)

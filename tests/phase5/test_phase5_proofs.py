@@ -110,3 +110,67 @@ def test_adversarial_tamper_witness():
     is_valid, errors, _ = verify_certificate_v5_payload(payload)
     assert is_valid is False
     assert any("witness" in e.lower() for e in errors)
+
+def test_adversarial_wrong_center():
+    fam, cand = get_known_twin_pair()
+    _, _, pock_proof, _ = prove_pocklington_upper(cand.B, fam.F_odd, fam.odd_prime_factors)
+    _, _, morr_proof, _ = prove_morrison_lower(cand.A, fam.F_odd, fam.odd_prime_factors)
+    cert = TwinPrimeCertificateV5(cand, morr_proof, pock_proof, {"test": "wrong_center"})
+    payload = cert.to_dict()
+
+    payload["center_decimal"] = str(int(payload["center_decimal"]) + 10)
+    is_valid, errors, _ = verify_certificate_v5_payload(payload)
+    assert is_valid is False
+    assert any("center_decimal mismatch" in e for e in errors)
+
+def test_adversarial_incorrect_factor_exponent():
+    fam, cand = get_known_twin_pair()
+    _, _, pock_proof, _ = prove_pocklington_upper(cand.B, fam.F_odd, fam.odd_prime_factors)
+    _, _, morr_proof, _ = prove_morrison_lower(cand.A, fam.F_odd, fam.odd_prime_factors)
+    cert = TwinPrimeCertificateV5(cand, morr_proof, pock_proof, {"test": "wrong_exponent"})
+    payload = cert.to_dict()
+
+    # Tamper with exponent of 3
+    payload["parameters"]["exponents"]["3"] = 4
+    is_valid, errors, _ = verify_certificate_v5_payload(payload)
+    assert is_valid is False
+    assert any("mismatch" in e for e in errors)
+
+def test_adversarial_composite_factor_presented_as_prime():
+    fam, cand = get_known_twin_pair()
+    _, _, pock_proof, _ = prove_pocklington_upper(cand.B, fam.F_odd, fam.odd_prime_factors)
+    _, _, morr_proof, _ = prove_morrison_lower(cand.A, fam.F_odd, fam.odd_prime_factors)
+    cert = TwinPrimeCertificateV5(cand, morr_proof, pock_proof, {"test": "composite_factor"})
+    payload = cert.to_dict()
+
+    # Insert composite base 9 in exponents
+    payload["parameters"]["exponents"]["9"] = 1
+    is_valid, errors, _ = verify_certificate_v5_payload(payload)
+    assert is_valid is False
+    assert any("not a valid prime" in e or "composite" in e for e in errors)
+
+def test_adversarial_insufficient_size_bound():
+    fam, cand = get_known_twin_pair()
+    _, _, pock_proof, _ = prove_pocklington_upper(cand.B, fam.F_odd, fam.odd_prime_factors)
+    _, _, morr_proof, _ = prove_morrison_lower(cand.A, fam.F_odd, fam.odd_prime_factors)
+    cert = TwinPrimeCertificateV5(cand, morr_proof, pock_proof, {"test": "insufficient_size"})
+    payload = cert.to_dict()
+
+    # Set parameter t huge so F_odd^2 <= B
+    payload["parameters"]["t"] = 10**20
+    is_valid, errors, _ = verify_certificate_v5_payload(payload)
+    assert is_valid is False
+    assert any("size condition" in e.lower() or "mismatch" in e for e in errors)
+
+def test_adversarial_gap_other_than_2():
+    fam, cand = get_known_twin_pair()
+    _, _, pock_proof, _ = prove_pocklington_upper(cand.B, fam.F_odd, fam.odd_prime_factors)
+    _, _, morr_proof, _ = prove_morrison_lower(cand.A, fam.F_odd, fam.odd_prime_factors)
+    cert = TwinPrimeCertificateV5(cand, morr_proof, pock_proof, {"test": "bad_gap"})
+    payload = cert.to_dict()
+
+    payload["upper_decimal"] = str(int(payload["lower_decimal"]) + 4)
+    payload["center_decimal"] = str(int(payload["lower_decimal"]) + 1)
+    is_valid, errors, _ = verify_certificate_v5_payload(payload)
+    assert is_valid is False
+    assert any("gap" in e.lower() or "mismatch" in e for e in errors)

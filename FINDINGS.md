@@ -201,5 +201,23 @@ Breaking out of the single-power-of-2 template ($k \cdot 2^n \pm 1$), Phase 5 in
 
 Both pairs satisfy strict integer identity $B - A = 2$, pass all preconditions of BLS Theorem 4 and Theorem 17 without floating-point error, and are independently verified from first principles with zero external codebase dependencies.
 
+---
+
+## 10. Phase 6 GITCSS Discoveries: First General-Integer Twin-Prime Discovery
+
+Departing completely from structured exponential forms ($k \cdot 2^n \pm 1$) and smooth-center families ($C = F \cdot t$), Phase 6 formulated and deployed the **General-Integer Twin-Center Segmented Sieve (GITCSS)**. Operating on the universal representation $p = 6m - 1, p+2 = 6m + 1$ over ordinary integers $m \in \mathbb{Z}^+$, GITCSS applies a two-residue segmented sieve, wheel pre-filtering ($W = 5005$), tiered Miller-Rabin screening, and dual classical primality proofs via center factorization:
+
+| Campaign | Center Index $m$ | Decimal Digits | Lower Prime $A$ | Upper Prime $B$ | Certification Theorems | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `pilot_general_discovery` | $166,666,666,667,062$ | **16 digits** | `1000000000002371` | `1000000000002373` | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=5$) | [`proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json`](proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json) |
+
+* **Exact Factorization of Center:**
+  $$6m = 1000000000002372 = 2^2 \times 3 \times 83333333333531$$
+  Every prime factor was verified unconditionally from first principles via trial division.
+* **Independent Attestation:** Attested via [`proofs/phase6/attestations/attest_6c0b671d46a457d1.json`](proofs/phase6/attestations/attest_6c0b671d46a457d1.json) (Status: **PASS**).
+* **Novelty:** Audited against all 48 historical repository certificates (`research/phase5_audit/historical_inventory.json`). Confirmed **`NEW_TO_REPOSITORY`** as the repository's first certified general-integer discovery.
+* **100-Digit Finite Search Campaign:** Covered 524,288 centers (> 3.14 million consecutive integers) at $10^{99}$, screening 58 Dual PRPs and honestly recording them as `UNPROVEN_DUE_TO_FACTORIZATION_LIMIT` in adherence to scientific integrity.
+
+
 
 

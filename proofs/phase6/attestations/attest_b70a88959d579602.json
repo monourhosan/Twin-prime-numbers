@@ -1,0 +1,25 @@
+{
+  "schema_version": "6.0",
+  "verifier": "src/phase6/independent_verify.py",
+  "target_certificate": "cert_gitcss_m170_4d.json",
+  "target_raw_sha256": "b70a88959d579602fa474895ab24e8a70a5be9edcfd7f2c7d76c73c9f36049a5",
+  "verification_timestamp_utc": "2026-11-13T23:22:15.470345+00:00",
+  "result": "PASS",
+  "pair": {
+    "lower_prime_A": "1019",
+    "upper_prime_B": "1021",
+    "difference": "2",
+    "center_C": "1020",
+    "center_m": "170",
+    "digits_A": 4,
+    "digits_B": 4
+  },
+  "errors": [],
+  "independent_evidence": {
+    "arithmetic_verified": true,
+    "factors_verified": true,
+    "pocklington_pass": true,
+    "morrison_pass": true,
+    "sha256_verified": true
+  }
+}

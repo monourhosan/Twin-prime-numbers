@@ -1,0 +1,722 @@
+{
+  "ROUND_ROBIN": {
+    "policy": "ROUND_ROBIN",
+    "total_allocations": 12,
+    "total_wall_time_sec": 3.5257861614227295,
+    "total_screened_candidates": 6000,
+    "total_proven_pairs": 25,
+    "candidates_per_sec": 1701.7481280200138,
+    "family_summary": {
+      "fam_scca_balanced_multibase": {
+        "family_id": "fam_scca_balanced_multibase",
+        "pulls": 4,
+        "cumulative_reward": 3.6266000000000003,
+        "mean_reward": 0.9066500000000001,
+        "total_time": 1.604079246520996,
+        "survivors": 133,
+        "dual_prp": 13,
+        "proven": 13,
+        "last_reward": 0.9058,
+        "updated_at": 1794608416.696842
+      },
+      "fam_scca_p3_dense": {
+        "family_id": "fam_scca_p3_dense",
+        "pulls": 4,
+        "cumulative_reward": 3.615,
+        "mean_reward": 0.90375,
+        "total_time": 0.9908356666564941,
+        "survivors": 75,
+        "dual_prp": 7,
+        "proven": 7,
+        "last_reward": 0.9046000000000001,
+        "updated_at": 1794608416.9929447
+      },
+      "fam_scca_sparse_highbase": {
+        "family_id": "fam_scca_sparse_highbase",
+        "pulls": 4,
+        "cumulative_reward": 2.7158,
+        "mean_reward": 0.67895,
+        "total_time": 0.9012205600738525,
+        "survivors": 79,
+        "dual_prp": 5,
+        "proven": 5,
+        "last_reward": 0.0024000000000000002,
+        "updated_at": 1794608417.1489508
+      }
+    },
+    "allocations": [
+      {
+        "allocation_index": 1,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.3145163059234619,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9076,
+        "mean_reward": 0.9076,
+        "total_family_time": 0.3145163059234619
+      },
+      {
+        "allocation_index": 2,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.26787471771240234,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.814,
+        "mean_reward": 0.907,
+        "total_family_time": 0.5823910236358643
+      },
+      {
+        "allocation_index": 3,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2713966369628906,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.903,
+        "mean_reward": 0.903,
+        "total_family_time": 0.2713966369628906
+      },
+      {
+        "allocation_index": 4,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.18659472465515137,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8068,
+        "mean_reward": 0.9034,
+        "total_family_time": 0.457991361618042
+      },
+      {
+        "allocation_index": 5,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.20581793785095215,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9052,
+        "mean_reward": 0.9052,
+        "total_family_time": 0.19814562797546387
+      },
+      {
+        "allocation_index": 6,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.26967906951904297,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8098,
+        "mean_reward": 0.9049,
+        "total_family_time": 0.46782469749450684
+      },
+      {
+        "allocation_index": 7,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.5530900955200195,
+        "proven_count": 5,
+        "rationale": "Round-robin turn index 1",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7208,
+        "mean_reward": 0.9069333333333334,
+        "total_family_time": 1.1354811191558838
+      },
+      {
+        "allocation_index": 8,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.23874855041503906,
+        "proven_count": 2,
+        "rationale": "Round-robin turn index 2",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7104,
+        "mean_reward": 0.9034666666666666,
+        "total_family_time": 0.696739912033081
+      },
+      {
+        "allocation_index": 9,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2773897647857666,
+        "proven_count": 2,
+        "rationale": "Round-robin turn index 3",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7134,
+        "mean_reward": 0.9044666666666666,
+        "total_family_time": 0.7452144622802734
+      },
+      {
+        "allocation_index": 10,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.47060513496398926,
+        "proven_count": 4,
+        "rationale": "Round-robin turn index 4",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 3.6266000000000003,
+        "mean_reward": 0.9066500000000001,
+        "total_family_time": 1.604079246520996
+      },
+      {
+        "allocation_index": 11,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2940957546234131,
+        "proven_count": 2,
+        "rationale": "Round-robin turn index 5",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 3.615,
+        "mean_reward": 0.90375,
+        "total_family_time": 0.9908356666564941
+      },
+      {
+        "allocation_index": 12,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.1560060977935791,
+        "proven_count": 0,
+        "rationale": "Round-robin turn index 6",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 2.7158,
+        "mean_reward": 0.67895,
+        "total_family_time": 0.9012205600738525
+      }
+    ]
+  },
+  "BANDIT_UCB1": {
+    "policy": "BANDIT_UCB1",
+    "total_allocations": 12,
+    "total_wall_time_sec": 3.7971341609954834,
+    "total_screened_candidates": 6000,
+    "total_proven_pairs": 25,
+    "candidates_per_sec": 1580.139058986264,
+    "family_summary": {
+      "fam_scca_balanced_multibase": {
+        "family_id": "fam_scca_balanced_multibase",
+        "pulls": 4,
+        "cumulative_reward": 3.6266000000000003,
+        "mean_reward": 0.9066500000000001,
+        "total_time": 1.835195541381836,
+        "survivors": 133,
+        "dual_prp": 13,
+        "proven": 13,
+        "last_reward": 0.9058,
+        "updated_at": 1794608420.5726016
+      },
+      "fam_scca_p3_dense": {
+        "family_id": "fam_scca_p3_dense",
+        "pulls": 4,
+        "cumulative_reward": 3.615,
+        "mean_reward": 0.90375,
+        "total_time": 1.0007240772247314,
+        "survivors": 75,
+        "dual_prp": 7,
+        "proven": 7,
+        "last_reward": 0.9046000000000001,
+        "updated_at": 1794608420.9617271
+      },
+      "fam_scca_sparse_highbase": {
+        "family_id": "fam_scca_sparse_highbase",
+        "pulls": 4,
+        "cumulative_reward": 2.7158,
+        "mean_reward": 0.67895,
+        "total_time": 0.9327976703643799,
+        "survivors": 79,
+        "dual_prp": 5,
+        "proven": 5,
+        "last_reward": 0.0024000000000000002,
+        "updated_at": 1794608420.707466
+      }
+    },
+    "allocations": [
+      {
+        "allocation_index": 1,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.3223714828491211,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9076,
+        "mean_reward": 0.9076,
+        "total_family_time": 0.3166661262512207
+      },
+      {
+        "allocation_index": 2,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.37058019638061523,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.814,
+        "mean_reward": 0.907,
+        "total_family_time": 0.6872463226318359
+      },
+      {
+        "allocation_index": 3,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.23348212242126465,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.903,
+        "mean_reward": 0.903,
+        "total_family_time": 0.23348212242126465
+      },
+      {
+        "allocation_index": 4,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.19054675102233887,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8068,
+        "mean_reward": 0.9034,
+        "total_family_time": 0.4240288734436035
+      },
+      {
+        "allocation_index": 5,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2425367832183838,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9052,
+        "mean_reward": 0.9052,
+        "total_family_time": 0.2425367832183838
+      },
+      {
+        "allocation_index": 6,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2794177532196045,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8098,
+        "mean_reward": 0.9049,
+        "total_family_time": 0.5219545364379883
+      },
+      {
+        "allocation_index": 7,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.5553083419799805,
+        "proven_count": 5,
+        "rationale": "UCB1 winner: fam_scca_balanced_multibase (score=2.2454, mean=0.9070, bonus=1.3384, total_pulls=6)",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7208,
+        "mean_reward": 0.9069333333333334,
+        "total_family_time": 1.2425546646118164
+      },
+      {
+        "allocation_index": 8,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.28406333923339844,
+        "proven_count": 2,
+        "rationale": "UCB1 winner: fam_scca_sparse_highbase (score=2.2996, mean=0.9049, bonus=1.3947, total_pulls=7)",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7134,
+        "mean_reward": 0.9044666666666666,
+        "total_family_time": 0.8060178756713867
+      },
+      {
+        "allocation_index": 9,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.3224339485168457,
+        "proven_count": 2,
+        "rationale": "UCB1 winner: fam_scca_p3_dense (score=2.3452, mean=0.9034, bonus=1.4418, total_pulls=8)",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7104,
+        "mean_reward": 0.9034666666666666,
+        "total_family_time": 0.7464628219604492
+      },
+      {
+        "allocation_index": 10,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.5926408767700195,
+        "proven_count": 4,
+        "rationale": "UCB1 winner: fam_scca_balanced_multibase (score=2.1170, mean=0.9069, bonus=1.2101, total_pulls=9)",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 3.6266000000000003,
+        "mean_reward": 0.9066500000000001,
+        "total_family_time": 1.835195541381836
+      },
+      {
+        "allocation_index": 11,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.12677979469299316,
+        "proven_count": 0,
+        "rationale": "UCB1 winner: fam_scca_sparse_highbase (score=2.1433, mean=0.9045, bonus=1.2388, total_pulls=10)",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 2.7158,
+        "mean_reward": 0.67895,
+        "total_family_time": 0.9327976703643799
+      },
+      {
+        "allocation_index": 12,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2542612552642822,
+        "proven_count": 2,
+        "rationale": "UCB1 winner: fam_scca_p3_dense (score=2.1676, mean=0.9035, bonus=1.2642, total_pulls=11)",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 3.615,
+        "mean_reward": 0.90375,
+        "total_family_time": 1.0007240772247314
+      }
+    ]
+  },
+  "COST_AWARE": {
+    "policy": "COST_AWARE",
+    "total_allocations": 12,
+    "total_wall_time_sec": 3.147547960281372,
+    "total_screened_candidates": 6000,
+    "total_proven_pairs": 19,
+    "candidates_per_sec": 1906.2457747152598,
+    "family_summary": {
+      "fam_scca_balanced_multibase": {
+        "family_id": "fam_scca_balanced_multibase",
+        "pulls": 2,
+        "cumulative_reward": 1.814,
+        "mean_reward": 0.907,
+        "total_time": 0.6494197845458984,
+        "survivors": 70,
+        "dual_prp": 4,
+        "proven": 4,
+        "last_reward": 0.9064000000000001,
+        "updated_at": 1794608421.628817
+      },
+      "fam_scca_p3_dense": {
+        "family_id": "fam_scca_p3_dense",
+        "pulls": 7,
+        "cumulative_reward": 6.327,
+        "mean_reward": 0.9038571428571428,
+        "total_time": 1.616917610168457,
+        "survivors": 135,
+        "dual_prp": 10,
+        "proven": 10,
+        "last_reward": 0.9032,
+        "updated_at": 1794608424.1269453
+      },
+      "fam_scca_sparse_highbase": {
+        "family_id": "fam_scca_sparse_highbase",
+        "pulls": 3,
+        "cumulative_reward": 2.7134,
+        "mean_reward": 0.9044666666666666,
+        "total_time": 0.8428640365600586,
+        "survivors": 67,
+        "dual_prp": 5,
+        "proven": 5,
+        "last_reward": 0.9036,
+        "updated_at": 1794608423.4786956
+      }
+    },
+    "allocations": [
+      {
+        "allocation_index": 1,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.3150136470794678,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9076,
+        "mean_reward": 0.9076,
+        "total_family_time": 0.3150136470794678
+      },
+      {
+        "allocation_index": 2,
+        "family_id": "fam_scca_balanced_multibase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.33440613746643066,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_balanced_multibase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.814,
+        "mean_reward": 0.907,
+        "total_family_time": 0.6494197845458984
+      },
+      {
+        "allocation_index": 3,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.23018741607666016,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.903,
+        "mean_reward": 0.903,
+        "total_family_time": 0.23018741607666016
+      },
+      {
+        "allocation_index": 4,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.19055867195129395,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_p3_dense has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8068,
+        "mean_reward": 0.9034,
+        "total_family_time": 0.4207460880279541
+      },
+      {
+        "allocation_index": 5,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1,
+          501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.1903231143951416,
+        "proven_count": 1,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 0 < 2 pulls",
+        "cumulative_pulls": 1,
+        "cumulative_reward": 0.9052,
+        "mean_reward": 0.9052,
+        "total_family_time": 0.1903231143951416
+      },
+      {
+        "allocation_index": 6,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          501,
+          1001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.28974151611328125,
+        "proven_count": 2,
+        "rationale": "Exploration quota: family fam_scca_sparse_highbase has 1 < 2 pulls",
+        "cumulative_pulls": 2,
+        "cumulative_reward": 1.8098,
+        "mean_reward": 0.9049,
+        "total_family_time": 0.48006463050842285
+      },
+      {
+        "allocation_index": 7,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.24807429313659668,
+        "proven_count": 2,
+        "rationale": "Cost-aware winner: fam_scca_p3_dense (score=5.6326, total_pulls=6)",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7104,
+        "mean_reward": 0.9034666666666666,
+        "total_family_time": 0.6688203811645508
+      },
+      {
+        "allocation_index": 8,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          1501,
+          2001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.2998476028442383,
+        "proven_count": 2,
+        "rationale": "Cost-aware winner: fam_scca_p3_dense (score=5.1913, total_pulls=7)",
+        "cumulative_pulls": 4,
+        "cumulative_reward": 3.615,
+        "mean_reward": 0.90375,
+        "total_family_time": 0.9686679840087891
+      },
+      {
+        "allocation_index": 9,
+        "family_id": "fam_scca_sparse_highbase",
+        "t_range": [
+          1001,
+          1501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.36279940605163574,
+        "proven_count": 2,
+        "rationale": "Cost-aware winner: fam_scca_sparse_highbase (score=5.2117, total_pulls=8)",
+        "cumulative_pulls": 3,
+        "cumulative_reward": 2.7134,
+        "mean_reward": 0.9044666666666666,
+        "total_family_time": 0.8428640365600586
+      },
+      {
+        "allocation_index": 10,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          2001,
+          2501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.22993040084838867,
+        "proven_count": 1,
+        "rationale": "Cost-aware winner: fam_scca_p3_dense (score=4.7799, total_pulls=9)",
+        "cumulative_pulls": 5,
+        "cumulative_reward": 4.5184,
+        "mean_reward": 0.9036799999999999,
+        "total_family_time": 1.1985983848571777
+      },
+      {
+        "allocation_index": 11,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          2501,
+          3001
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.22838687896728516,
+        "proven_count": 1,
+        "rationale": "Cost-aware winner: fam_scca_p3_dense (score=4.7293, total_pulls=10)",
+        "cumulative_pulls": 6,
+        "cumulative_reward": 5.4238,
+        "mean_reward": 0.9039666666666667,
+        "total_family_time": 1.426985263824463
+      },
+      {
+        "allocation_index": 12,
+        "family_id": "fam_scca_p3_dense",
+        "t_range": [
+          3001,
+          3501
+        ],
+        "batch_size": 500,
+        "elapsed_sec": 0.18993234634399414,
+        "proven_count": 1,
+        "rationale": "Cost-aware winner: fam_scca_p3_dense (score=4.6948, total_pulls=11)",
+        "cumulative_pulls": 7,
+        "cumulative_reward": 6.327,
+        "mean_reward": 0.9038571428571428,
+        "total_family_time": 1.616917610168457
+      }
+    ]
+  }
+}
