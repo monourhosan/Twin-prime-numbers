@@ -110,6 +110,8 @@ Deploying the Phase 3 HDRSS engine, we discovered and certified three new-to-pro
    * Provably maximal pair in $[2, 10^7]$: **$(9,999,971, \ 9,999,973)$**.
 2. **Historical 34-Digit Baseline Pair:**
    * Certified pair: $4107 \times 2^{100} \pm 1$ (34 digits, [`proofs/cert_k4107_n100.json`](proofs/cert_k4107_n100.json)).
+   * Lower member: `5206241015137338151946960064479231`
+   * Upper member: `5206241015137338151946960064479233`
 3. **Total Cryptographic Proof Inventory:**
    * **43 tamper-evident JSON certificates** across `proofs/`, `proofs/phase2/`, `proofs/phase3/`, and `proofs/phase4/`, all passing strict independent verification.
 
