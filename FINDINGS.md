@@ -165,4 +165,41 @@ Using the Phase 3 HDRSS (*Hybrid Dual-Residue Streaming Sieve*) engine, we launc
 
 All three pairs are verified absent from the combined Phase 1 and Phase 2 baseline inventory, possess an integer difference of exactly 2, and pass strict independent verification via `scripts/phase3_independent_verify.py` using $2 \times 2$ matrix exponentiation.
 
+---
+
+## 8. Phase 4 Verified Discoveries: 1,028-Digit Milestone and 1,509-Digit Verified Discovery
+
+Deploying the Phase 4 ADRS-4 engine with compact $t$-space sieving, GMP acceleration, and transactional SQLite WAL leases, we achieved two major milestones:
+
+| Exponent $n$ | Multiplier $k$ | Decimal Digits | Representation | Verification Status | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $3392$ | $1,836,723$ | **1,028 digits** | $1836723 \times 2^{3392} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase4/cert_k1836723_n3392.json`](proofs/phase4/cert_k1836723_n3392.json) |
+| $4992$ | $416,343$ | **1,509 digits** | $416343 \times 2^{4992} \pm 1$ | **PROVEN TWIN PAIR** | [`proofs/phase4/imported_cert_k416343_n4992.json`](proofs/phase4/imported_cert_k416343_n4992.json) |
+
+* **1,509-Digit Pair:** Proth witness $w = 7$, LLR parameter $P = 3$, $u_{4990} \equiv 0 \pmod A$, attested via [`proofs/phase4/attestations/attest_7025c2a1baf9fa9d.json`](proofs/phase4/attestations/attest_7025c2a1baf9fa9d.json).
+* **1,028-Digit Pair:** Proth witness $w = 13$, LLR parameter $P = 3$, $u_{3390} \equiv 0 \pmod A$, attested via [`proofs/phase4/attestations/attest_46a7116dc819e120.json`](proofs/phase4/attestations/attest_46a7116dc819e120.json).
+
+---
+
+## 9. Phase 5 SCCA Discoveries: Smooth-Center Classical Proofs (59 Digits & 133 Digits)
+
+Breaking out of the single-power-of-2 template ($k \cdot 2^n \pm 1$), Phase 5 introduced the Smooth-Center Certificate-Aware Search (SCCA) engine with multi-factor centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$ and two-sided classical theorems:
+
+| Family ID | Parameter $t$ | Decimal Digits | Representation Form | Lower Theorem / Witness | Upper Theorem / Witness | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `scca_55d` | $877$ | **59 digits** | $(2^3 \cdot 3^{60} \cdot 5^{25} \cdot 7^{10}) \cdot 877 \pm 1$ | Morrison BLS Thm 17 ($P=15$) | Pocklington BLS Thm 4 ($a=3$) | [`proofs/phase5/cert_scca_55d_p2e3_p3e60_p5e25_p7e10_t877_59d.json`](proofs/phase5/cert_scca_55d_p2e3_p3e60_p5e25_p7e10_t877_59d.json) |
+| `scca_133d` | $9,718$ | **133 digits** | $(2^3 \cdot 3^{150} \cdot 5^{50} \cdot 7^{25}) \cdot 9718 \pm 1$ | Morrison BLS Thm 17 ($P=13$) | Pocklington BLS Thm 4 ($a=3$) | [`proofs/phase5/cert_scca_133d_p2e3_p3e150_p5e50_p7e25_t9718_133d.json`](proofs/phase5/cert_scca_133d_p2e3_p3e150_p5e50_p7e25_t9718_133d.json) |
+
+* **59-Digit Pair:**
+  $$A = 25037754229354201268437363346102433149750232696533203124999$$
+  $$B = 25037754229354201268437363346102433149750232696533203125001$$
+  Attested via [`proofs/phase5/attestations/attest_1399f4f46bcfbceb.json`](proofs/phase5/attestations/attest_1399f4f46bcfbceb.json) (Status: **PASS**).
+* **133-Digit Pair:**
+  $$A = 3426149479072239505197841862569239088568399165844990338985564394050460272078493967279183298453001782490900950506329536437988281249999$$
+  $$B = 3426149479072239505197841862569239088568399165844990338985564394050460272078493967279183298453001782490900950506329536437988281250001$$
+  Attested via [`proofs/phase5/attestations/attest_e54e956a84d652b2.json`](proofs/phase5/attestations/attest_e54e956a84d652b2.json) (Status: **PASS**).
+
+Both pairs satisfy strict integer identity $B - A = 2$, pass all preconditions of BLS Theorem 4 and Theorem 17 without floating-point error, and are independently verified from first principles with zero external codebase dependencies.
+
+
 

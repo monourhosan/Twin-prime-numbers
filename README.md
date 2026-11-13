@@ -1,10 +1,11 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, & Phase 4 ADRS Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, & Phase 5 SCCA Project
 
-[![Tests: 64/64 Passing](https://img.shields.io/badge/Tests-64%2F64%20Passing-brightgreen)](tests/)
+[![Tests: 80/80 Passing](https://img.shields.io/badge/Tests-80%2F80%20Passing-brightgreen)](tests/)
 [![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
+[![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
 [![GPU Sieve: MX250 Accelerated](https://img.shields.io/badge/GPU%20Sieve-MX250%20(4x--17x)-brightgreen)](research/laptop_acceleration/BENCHMARKS.md)
-[![Certificates: 43 Proven](https://img.shields.io/badge/Certificates-43%20Proven%20SHA--256-blue)](proofs/)
+[![Certificates: 48 Proven](https://img.shields.io/badge/Certificates-48%20Proven%20SHA--256-blue)](proofs/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![Paper: Phase 4 Manuscript](https://img.shields.io/badge/Paper-Phase%204%20Manuscript-orange)](paper/phase4/manuscript.md)
 
@@ -13,7 +14,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 2. **Phase 2 CRT-Wheeled Streaming Discovery Engine**;
 3. **Phase 3 HDRSS** (*Hybrid Dual-Residue Streaming Sieve*);
 4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation;
-5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery.
+5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery;
+6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -48,6 +50,32 @@ An autonomous, mathematically rigorous computational number theory project inves
 ---
 
 ## 2. Strongest Results Achieved in This Project
+
+### 2.00 Phase 5 SCCA Discoveries: 59-Digit and 133-Digit Certified Twin Pairs
+Deploying the Phase 5 Smooth-Center Certificate-Aware Search (SCCA) engine with multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$ and two-sided classical primality criteria (Pocklington BLS Theorem 4 on $B$ and Morrison BLS Theorem 17 on $A$), we discovered and certified multiple genuine twin-prime pairs novel to the repository:
+
+1. **Primary 59-Digit Pair:**
+   $$C = (2^3 \cdot 3^{60} \cdot 5^{25} \cdot 7^{10}) \cdot 877$$
+   $$A = 25037754229354201268437363346102433149750232696533203124999$$
+   $$B = 25037754229354201268437363346102433149750232696533203125001$$
+   * **Decimal Digits:** Exactly **59 digits per member** ($B - A = 2$ identically).
+   * **Unconditional Deterministic Proofs:**
+     - Upper member $B$: Certified by **Pocklington BLS Theorem 4 ($N-1$)** with witness base $a = 3$, $F_{odd}^2 > B$, Fermat congruence $3^{B-1} \equiv 1 \pmod B$, and $\gcd(3^{(B-1)/q} - 1, B) = 1$ for all $q \in \{3, 5, 7\}$.
+     - Lower member $A$: Certified by **Morrison BLS Theorem 17 ($N+1$)** with parameter $P = 15$, $D = 221$, Jacobi symbol $((221)/A) = -1$, Lucas sequence $U_{A+1}(15, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(15, 1), A) = 1$ for all $q \in \{3, 5, 7\}$ via modular $2 \times 2$ companion matrix powering.
+   * **Cryptographic Artifacts:**
+     - Proof Payload: [`proofs/phase5/cert_scca_55d_p2e3_p3e60_p5e25_p7e10_t877_59d.json`](proofs/phase5/cert_scca_55d_p2e3_p3e60_p5e25_p7e10_t877_59d.json)
+     - Independent Attestation: [`proofs/phase5/attestations/attest_1399f4f46bcfbceb.json`](proofs/phase5/attestations/attest_1399f4f46bcfbceb.json) (Status: **PASS**).
+     - Canonical SHA-256: `1399f4f46bcfbcebbde29b222d4f21d3f58a98348b067f967ba9d16900d8ea62`.
+
+2. **Intermediate 133-Digit Pair:**
+   $$C = (2^3 \cdot 3^{150} \cdot 5^{50} \cdot 7^{25}) \cdot 9718$$
+   * **Decimal Digits:** Exactly **133 digits per member** ($B - A = 2$).
+   * **Unconditional Deterministic Proofs:**
+     - Upper member $B$: Pocklington witness $a = 3$ (verified).
+     - Lower member $A$: Morrison parameter $P = 13$, $D = 165$, Jacobi symbol $((165)/A) = -1$ (verified).
+   * **Cryptographic Artifacts:**
+     - Proof Payload: [`proofs/phase5/cert_scca_133d_p2e3_p3e150_p5e50_p7e25_t9718_133d.json`](proofs/phase5/cert_scca_133d_p2e3_p3e150_p5e50_p7e25_t9718_133d.json)
+     - Independent Attestation: [`proofs/phase5/attestations/attest_e54e956a84d652b2.json`](proofs/phase5/attestations/attest_e54e956a84d652b2.json) (Status: **PASS**).
 
 ### 2.0A Maximum Verified Discovery: 1,509-Digit Certified Twin-Prime Pair
 Using our strict independent verification engine on candidate coordinates derived from exploratory runs, we verified and certified a **1,509-decimal-digit twin-prime pair**:
