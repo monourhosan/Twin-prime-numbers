@@ -1,0 +1,82 @@
+{
+  "schema_version": "5.0",
+  "status": "PROVEN_BOTH",
+  "family": "smooth_center",
+  "family_id": "scca_smoke_p2e3_p3e4_p5e2_p7e1",
+  "parameters": {
+    "exponents": {
+      "2": 3,
+      "3": 4,
+      "5": 2,
+      "7": 1
+    },
+    "t": "4",
+    "F_decimal": "113400",
+    "F_odd_decimal": "14175",
+    "odd_prime_factors": [
+      3,
+      5,
+      7
+    ]
+  },
+  "center_decimal": "453600",
+  "lower_decimal": "453599",
+  "upper_decimal": "453601",
+  "digits_lower": 6,
+  "digits_upper": 6,
+  "difference_proof": {
+    "expression": "B - A = (C + 1) - (C - 1) = 2",
+    "exact_difference": 2
+  },
+  "primality_proofs": {
+    "lower": {
+      "theorem": "Morrison_BLS_1975_Theorem_17",
+      "member": "A = C - 1",
+      "factored_divisor_F_odd": "14175",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "parameter_P": 9,
+      "discriminant_D": 77,
+      "jacobi_D_mod_A": -1,
+      "lucas_U_A_plus_1_mod_A": "0",
+      "size_condition": "(F_odd - 1)^2 = 200902276 > A = 453599",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    },
+    "upper": {
+      "theorem": "Pocklington_BLS_1975_Theorem_4",
+      "member": "B = C + 1",
+      "factored_divisor_F_odd": "14175",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "witness_base_a": 5,
+      "fermat_congruence": "1",
+      "size_condition": "F_odd^2 = 200930625 > B = 453601",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    }
+  },
+  "search_provenance": {
+    "git_commit": "c1e03b9f418b5e50c98e9d7dbe07152b3f2849d5",
+    "algorithm": "SCCA_Method_S1_S2",
+    "family_id": "scca_smoke_p2e3_p3e4_p5e2_p7e1",
+    "t": 4,
+    "sieve_limit": 5000,
+    "elapsed_sec": 0.07033109664916992
+  },
+  "novelty_status": "ALREADY_IN_PROJECT",
+  "created_at": "2026-11-13T14:08:47.724106+00:00",
+  "sha256": "4cebf44048b3891292c1ce774e3c998cc3058481aec1231695e706e1a2c59cf2"
+}

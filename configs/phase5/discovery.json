@@ -1,0 +1,47 @@
+{
+  "campaign": "scientific_discovery",
+  "policy": "BANDIT_UCB1",
+  "seed": 2026,
+  "db_path": "runs/phase5/discovery_search.db",
+  "proofs_dir": "proofs/phase5",
+  "max_work_units": 10,
+  "max_discoveries": 2,
+  "families": [
+    {
+      "family_id": "scca_fam1_p2e3_p3e8_p5e4_p7e2",
+      "exponents": {
+        "2": 3,
+        "3": 8,
+        "5": 4,
+        "7": 2
+      },
+      "t_batch_size": 2500,
+      "sieve_limit": 50000,
+      "priority": 2
+    },
+    {
+      "family_id": "scca_fam2_p2e4_p3e10_p5e5_p11e2",
+      "exponents": {
+        "2": 4,
+        "3": 10,
+        "5": 5,
+        "11": 2
+      },
+      "t_batch_size": 2500,
+      "sieve_limit": 50000,
+      "priority": 1
+    },
+    {
+      "family_id": "scca_fam3_p2e2_p3e12_p7e4_p13e2",
+      "exponents": {
+        "2": 2,
+        "3": 12,
+        "7": 4,
+        "13": 2
+      },
+      "t_batch_size": 2500,
+      "sieve_limit": 50000,
+      "priority": 1
+    }
+  ]
+}

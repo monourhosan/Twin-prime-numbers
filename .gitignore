@@ -40,4 +40,12 @@ runs/phase4/*/*.tmp*
 runs/phase4/*/*.stop
 runs/phase4/*/*.pause
 
+# Transient Phase 5 State
+runs/phase5/*.db*
+runs/phase5/*.sqlite*
+runs/phase5/*.log
+runs/phase5/*.jsonl
+runs/phase5/*.tmp*
+
+
 

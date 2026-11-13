@@ -1,0 +1,23 @@
+{
+  "campaign": "smoke_test",
+  "policy": "BANDIT_UCB1",
+  "seed": 42,
+  "db_path": "runs/phase5/smoke_search.db",
+  "proofs_dir": "proofs/phase5",
+  "max_work_units": 3,
+  "max_discoveries": 1,
+  "families": [
+    {
+      "family_id": "scca_smoke_p2e3_p3e4_p5e2_p7e1",
+      "exponents": {
+        "2": 3,
+        "3": 4,
+        "5": 2,
+        "7": 1
+      },
+      "t_batch_size": 2000,
+      "sieve_limit": 5000,
+      "priority": 1
+    }
+  ]
+}

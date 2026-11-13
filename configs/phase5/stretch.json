@@ -1,0 +1,22 @@
+{
+  "campaign": "stretch_campaign_1510d",
+  "policy": "BANDIT_UCB1",
+  "seed": 9999,
+  "db_path": "runs/phase5/stretch_search.db",
+  "proofs_dir": "proofs/phase5",
+  "max_work_units": 5,
+  "max_discoveries": 1,
+  "families": [
+    {
+      "family_id": "scca_stretch_p2e1_p3e2100_p5e800",
+      "exponents": {
+        "2": 1,
+        "3": 2100,
+        "5": 800
+      },
+      "t_batch_size": 1000,
+      "sieve_limit": 50000,
+      "priority": 1
+    }
+  ]
+}

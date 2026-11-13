@@ -1,0 +1,82 @@
+{
+  "schema_version": "5.0",
+  "status": "PROVEN_BOTH",
+  "family": "smooth_center",
+  "family_id": "scca_fam1_p2e3_p3e8_p5e4_p7e2",
+  "parameters": {
+    "exponents": {
+      "2": 3,
+      "3": 8,
+      "5": 4,
+      "7": 2
+    },
+    "t": "104",
+    "F_decimal": "1607445000",
+    "F_odd_decimal": "200930625",
+    "odd_prime_factors": [
+      3,
+      5,
+      7
+    ]
+  },
+  "center_decimal": "167174280000",
+  "lower_decimal": "167174279999",
+  "upper_decimal": "167174280001",
+  "digits_lower": 12,
+  "digits_upper": 12,
+  "difference_proof": {
+    "expression": "B - A = (C + 1) - (C - 1) = 2",
+    "exact_difference": 2
+  },
+  "primality_proofs": {
+    "lower": {
+      "theorem": "Morrison_BLS_1975_Theorem_17",
+      "member": "A = C - 1",
+      "factored_divisor_F_odd": "200930625",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "parameter_P": 29,
+      "discriminant_D": 837,
+      "jacobi_D_mod_A": -1,
+      "lucas_U_A_plus_1_mod_A": "0",
+      "size_condition": "(F_odd - 1)^2 = 40373115661029376 > A = 167174279999",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    },
+    "upper": {
+      "theorem": "Pocklington_BLS_1975_Theorem_4",
+      "member": "B = C + 1",
+      "factored_divisor_F_odd": "200930625",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "witness_base_a": 23,
+      "fermat_congruence": "1",
+      "size_condition": "F_odd^2 = 40373116062890625 > B = 167174280001",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    }
+  },
+  "search_provenance": {
+    "git_commit": "c1e03b9f418b5e50c98e9d7dbe07152b3f2849d5",
+    "algorithm": "SCCA_Method_S1_S2",
+    "family_id": "scca_fam1_p2e3_p3e8_p5e4_p7e2",
+    "t": 104,
+    "sieve_limit": 50000,
+    "elapsed_sec": 0.16568517684936523
+  },
+  "novelty_status": "ALREADY_IN_PROJECT",
+  "created_at": "2026-11-13T14:09:57.705265+00:00",
+  "sha256": "96841d7b9d1b63630beb28a3bc786c63844b782e5c4bcfdd892be1e36f4c0ee0"
+}

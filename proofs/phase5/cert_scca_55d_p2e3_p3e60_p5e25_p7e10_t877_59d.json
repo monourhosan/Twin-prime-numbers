@@ -1,0 +1,82 @@
+{
+  "schema_version": "5.0",
+  "status": "PROVEN_BOTH",
+  "family": "smooth_center",
+  "family_id": "scca_55d_p2e3_p3e60_p5e25_p7e10",
+  "parameters": {
+    "exponents": {
+      "2": 3,
+      "3": 60,
+      "5": 25,
+      "7": 10
+    },
+    "t": "877",
+    "F_decimal": "28549320672011632005059707350173812029361724853515625000",
+    "F_odd_decimal": "3568665084001454000632463418771726503670215606689453125",
+    "odd_prime_factors": [
+      3,
+      5,
+      7
+    ]
+  },
+  "center_decimal": "25037754229354201268437363346102433149750232696533203125000",
+  "lower_decimal": "25037754229354201268437363346102433149750232696533203124999",
+  "upper_decimal": "25037754229354201268437363346102433149750232696533203125001",
+  "digits_lower": 59,
+  "digits_upper": 59,
+  "difference_proof": {
+    "expression": "B - A = (C + 1) - (C - 1) = 2",
+    "exact_difference": 2
+  },
+  "primality_proofs": {
+    "lower": {
+      "theorem": "Morrison_BLS_1975_Theorem_17",
+      "member": "A = C - 1",
+      "factored_divisor_F_odd": "3568665084001454000632463418771726503670215606689453125",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "parameter_P": 15,
+      "discriminant_D": 221,
+      "jacobi_D_mod_A": -1,
+      "lucas_U_A_plus_1_mod_A": "0",
+      "size_condition": "(F_odd - 1)^2 = 12735370481771104738578374353073700284112390729446149665471767772959157676973774756184002467095851898193359376 > A = 25037754229354201268437363346102433149750232696533203124999",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    },
+    "upper": {
+      "theorem": "Pocklington_BLS_1975_Theorem_4",
+      "member": "B = C + 1",
+      "factored_divisor_F_odd": "3568665084001454000632463418771726503670215606689453125",
+      "prime_factors": [
+        3,
+        5,
+        7
+      ],
+      "witness_base_a": 3,
+      "fermat_congruence": "1",
+      "size_condition": "F_odd^2 = 12735370481771104738578374353073700284112390729446149672609097940962065678238701593727455474436283111572265625 > B = 25037754229354201268437363346102433149750232696533203125001",
+      "factor_gcds": {
+        "3": "1",
+        "5": "1",
+        "7": "1"
+      }
+    }
+  },
+  "search_provenance": {
+    "git_commit": "c1e03b9f418b5e50c98e9d7dbe07152b3f2849d5",
+    "algorithm": "SCCA_Method_S1_S2",
+    "family_id": "scca_55d_p2e3_p3e60_p5e25_p7e10",
+    "t": 877,
+    "sieve_limit": 50000,
+    "elapsed_sec": 0.12865996360778809
+  },
+  "novelty_status": "ALREADY_IN_PROJECT",
+  "created_at": "2026-11-13T14:12:54.865179+00:00",
+  "sha256": "1399f4f46bcfbceb3d16878cbfdf575197b3a6ab77128b9315941b77249be81d"
+}
