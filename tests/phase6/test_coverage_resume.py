@@ -45,3 +45,39 @@ def test_coverage_resume_and_manifest():
         # Test reload on new instance
         cov2 = CoverageManager(db_path, manifest_path)
         assert cov2.get_max_completed_m() == 3000
+
+def test_campaign_pause_signal_handling():
+    """Verify that GITCSSCampaign safely detects a pause signal file and stops gracefully."""
+    import json
+    from src.phase6.campaign import GITCSSCampaign
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_path = Path(tmp_dir)
+        cfg = {
+            "campaign_id": "test_pause_campaign",
+            "p_min": "1000",
+            "p_max": "100000",
+            "sieve_limit": 1000,
+            "segment_size": 500,
+            "wheel_primes": [5, 7],
+            "time_budget_seconds": 60,
+            "historical_inventory": "research/phase5_audit/historical_inventory.json"
+        }
+        campaign = GITCSSCampaign(config=cfg, run_id="test_pause_run")
+        # Write .pause file into run_dir before search
+        pause_file = campaign.run_dir / ".pause"
+        pause_file.write_text("PAUSE", encoding="utf-8")
+
+        discoveries = campaign.run_bounded_search(max_segments=10)
+        assert campaign.telemetry["segments_completed"] == 0
+        assert not pause_file.exists(), "Pause file should be cleaned up upon handling"
+        # Cleanup test campaign run dir
+        import shutil, gc
+        run_dir = campaign.run_dir
+        del campaign
+        gc.collect()
+        if run_dir.exists():
+            try:
+                shutil.rmtree(run_dir)
+            except Exception:
+                pass

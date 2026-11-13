@@ -3,7 +3,7 @@
   "verifier": "src/phase6/independent_verify.py",
   "target_certificate": "cert_gitcss_m166666666667062_16d.json",
   "target_raw_sha256": "6c0b671d46a457d16edc48aea5da33f4ab3444ff179b10cd2d652b223efaf6ee",
-  "verification_timestamp_utc": "2026-11-13T23:22:15.470345+00:00",
+  "verification_timestamp_utc": "2026-11-13T23:56:59.329204+00:00",
   "result": "PASS",
   "pair": {
     "lower_prime_A": "1000000000002371",

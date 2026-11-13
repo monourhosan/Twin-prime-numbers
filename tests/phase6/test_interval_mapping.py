@@ -37,6 +37,20 @@ def test_interval_mapping_large_integers():
     assert 6 * mapping.m_max - 1 <= p_max
     assert 6 * (mapping.m_max + 1) - 1 > p_max
 
+def test_interval_mapping_350_digits():
+    """Verify exact interval mapping for 350-digit target campaign boundaries."""
+    c0 = 10**349 + 2
+    assert c0 % 6 == 0
+    m0 = c0 // 6
+    p_min = 6 * m0 - 1
+    p_max = 6 * (m0 + 100000 - 1) + 1
+    mapping = IntervalMapping.from_p_range(p_min, p_max)
+    assert mapping.m_min == m0
+    assert mapping.m_max == m0 + 99999
+    assert mapping.total_m_candidates == 100000
+    assert len(str(6 * mapping.m_min - 1)) == 350
+    assert len(str(6 * mapping.m_max + 1)) == 350
+
 def test_interval_mapping_invalid():
     """Verifies that p_min > p_max raises ValueError."""
     with pytest.raises(ValueError):

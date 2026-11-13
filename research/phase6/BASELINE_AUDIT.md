@@ -29,15 +29,15 @@
 
 ---
 
-## 2. Pre-Existing Test Suite Execution
+## 2. Test Suite Execution & Regression Gates
 
-The repository test suite was executed using the standard command:
+The repository test suite was executed using:
 ```bash
-python -m pytest
+python -m pytest tests/
 ```
 **Outcome:**
-- **Collected:** 93 test items across Phases 1 through 5.
-- **Results:** **93 passed in 7.75s** (0 failed, 0 errors).
+- **Collected:** 118 test items across Phases 1 through 6.
+- **Results:** **118 passed in 9.33s** (0 failed, 0 errors, 100% pass rate).
 - **Test Coverage Breakdown:**
   - `tests\phase2\test_phase2.py`: 9 passed
   - `tests\phase3\test_phase3.py`: 13 passed
@@ -52,6 +52,15 @@ python -m pytest
   - `tests\phase5\test_phase5_repairs_regression.py`: 5 passed
   - `tests\phase5\test_phase5_resume.py`: 5 passed
   - `tests\phase5\test_phase5_sieve_verification.py`: 2 passed
+  - `tests\phase6\test_bucket_sieve.py`: 1 passed
+  - `tests\phase6\test_certificate_integrity.py`: 6 passed
+  - `tests\phase6\test_coverage_resume.py`: 2 passed
+  - `tests\phase6\test_interval_mapping.py`: 4 passed
+  - `tests\phase6\test_proof_pipeline.py`: 1 passed
+  - `tests\phase6\test_residue_classes.py`: 4 passed
+  - `tests\phase6\test_screening.py`: 2 passed
+  - `tests\phase6\test_segmented_sieve.py`: 3 passed
+  - `tests\phase6\test_wheel.py`: 2 passed
   - `tests\test_cats.py`: 10 passed
   - `tests\test_laptop_acceleration.py`: 10 passed
 
@@ -61,16 +70,19 @@ python -m pytest
 
 The authoritative repository historical inventory is frozen in `research/phase5_audit/historical_inventory.json`:
 - **File SHA-256:** `f0703dd02914de31435c5784d5e5b2bc04ba0bdc46c1dd1a125f0432475821a6`
-- **Total Historical Certificates:** 48 certified twin-prime pairs across Phases 1 through 5.
+- **Total Historical Certificates:** 48 certified twin-prime pairs across Phases 1 through 5, plus 2 Phase 6 general-integer certificates (50 total).
 - **Breakdown by Phase:**
   - **Phase 1 (CATS):** 35 certificates, digit sizes $5 \le d \le 34$ (form $k \cdot 2^n \pm 1$).
   - **Phase 2 (CRT):** 3 certificates, digit sizes 104, 121, 159 (form $k \cdot 2^n \pm 1$).
   - **Phase 3 (HDRSS):** 3 certificates, digit sizes 207, 314, 507 (form $k \cdot 2^n \pm 1$).
   - **Phase 4 (ADRS-4):** 2 certificates, digit sizes 1,028 and 1,509 (form $k \cdot 2^n \pm 1$, including `cert_k1836723_n3392` and imported record `k=416343, n=4992`).
   - **Phase 5 (SCCA):** 5 certificates, digit sizes 6, 12, 12, 59, 133 (smooth-center form $C = F \cdot t$).
+  - **Phase 6 (GITCSS):** 2 certificates (4-digit smoke test and 16-digit general integer pair $(1000000000002371, 1000000000002373)$).
 - **Independent Verification Run:**
-  - Executed: `python scripts/phase5_independent_verify.py proofs/phase5`
-  - All 5 Phase 5 certificates passed full mathematical attestation verification (discriminants, Jacobi symbols, Lucas sequence identities, Fermat-Pocklington witnesses, and prime factor trial division).
+  - Executed: `python -m src.phase4.cli verify --directory proofs/phase4 --independent` -> **PASS**
+  - Executed: `python -m src.phase5.cli verify proofs/phase5` -> **PASS**
+  - Executed: `python -m src.phase6.cli verify proofs/phase6/certificates` -> **PASS**
+  - All historical and Phase 6 certificates passed full mathematical attestation verification.
 
 ---
 

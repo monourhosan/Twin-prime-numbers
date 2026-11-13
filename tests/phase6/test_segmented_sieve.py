@@ -31,3 +31,18 @@ def test_segment_boundary_continuity():
     
     combined = part1 + part2
     assert single == combined, "Segment splitting produced different survivors than unified segment!"
+
+def test_sieve_matches_brute_force_divisibility_oracle():
+    """Verify that segmented sieve exactly matches direct divisibility checks on test interval."""
+    from scripts.phase6_benchmarks import reference_sieve_segment
+    from src.phase6.primes import generate_primes_up_to
+
+    m_start = 50000
+    count = 1000
+    cutoff = 1000
+    primes = generate_primes_up_to(cutoff)[2:] # >= 5
+
+    oracle_survivors = reference_sieve_segment(m_start, count, primes)
+    sieve = SegmentedCenterSieve(sieve_limit=cutoff, wheel=CenterWheel([5, 7, 11]))
+    sieve_survivors = sieve.sieve_segment(m_base=m_start, segment_size=count)
+    assert sorted(oracle_survivors) == sorted(sieve_survivors), "Optimized sieve differs from brute-force oracle!"

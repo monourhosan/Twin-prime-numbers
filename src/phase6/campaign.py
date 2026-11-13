@@ -110,6 +110,24 @@ class GITCSSCampaign:
         seg_idx = 0
 
         while m_curr <= self.interval.m_max:
+            # Check pause requests
+            pause_file = self.run_dir / ".pause"
+            global_pause = Path("runs/phase6/.pause")
+            if pause_file.exists() or global_pause.exists():
+                self._log("Pause request signal detected. Saving checkpoint and halting safely.")
+                if pause_file.exists():
+                    try:
+                        pause_file.unlink()
+                    except Exception:
+                        pass
+                break
+
+            # Check time budget
+            time_budget = self.config.get("time_budget_seconds")
+            if time_budget and (time.perf_counter() - start_time) >= time_budget:
+                self._log(f"Time budget limit ({time_budget}s) reached. Halting gracefully.")
+                break
+
             if max_segments is not None and segments_done >= max_segments:
                 self._log(f"Reached max segment limit ({max_segments}). Halting.")
                 break

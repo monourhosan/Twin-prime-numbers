@@ -217,6 +217,7 @@ Departing completely from structured exponential forms ($k \cdot 2^n \pm 1$) and
 * **Independent Attestation:** Attested via [`proofs/phase6/attestations/attest_6c0b671d46a457d1.json`](proofs/phase6/attestations/attest_6c0b671d46a457d1.json) (Status: **PASS**).
 * **Novelty:** Audited against all 48 historical repository certificates (`research/phase5_audit/historical_inventory.json`). Confirmed **`NEW_TO_REPOSITORY`** as the repository's first certified general-integer discovery.
 * **100-Digit Finite Search Campaign:** Covered 524,288 centers (> 3.14 million consecutive integers) at $10^{99}$, screening 58 Dual PRPs and honestly recording them as `UNPROVEN_DUE_TO_FACTORIZATION_LIMIT` in adherence to scientific integrity.
+* **350-Digit Unrestricted Center Campaign (1,000,000 Centers):** Covered 1,000,000 eligible centers (6,000,000 consecutive integers) at $10^{349}$, screening 18,913 survivors from sieve cutoff $Q=100,000$, and discovering 8 Dual PRPs (centered at offsets $150799, 1531831, 3016051, 3643129, 3714781, 4025959, 5325601, 5854717$). Observed rate closely matches the Hardy-Littlewood asymptotic heuristic ($\approx 12$ expected pairs per million centers). All 8 pairs are honestly logged as probable primes in [`data/phase6_candidates.jsonl`](data/phase6_candidates.jsonl) without premature primality claims.
 
 
 

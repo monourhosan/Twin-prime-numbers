@@ -21,22 +21,31 @@
 To reproduce all Phase 6 research deliverables, tests, benchmarks, discoveries, and independent attestations:
 
 ```bash
-# 1. Verify 115 tests across Phases 1-6
-python -m pytest
+# 1. Environment & Inventory Audit
+python -m src.phase6.cli audit
 
-# 2. Run controlled benchmarks
-python -m scripts.phase6_benchmarks
+# 2. Verify all 118 tests across Phases 1-6
+python -m pytest tests/
 
-# 3. Discover and certify new general-integer twin-prime pair
-python -m src.phase6.cli discover --config configs/phase6/pilot_discovery.json
+# 3. Run controlled empirical benchmarks (wheel, sieve limit, reference vs optimized, screening scaling)
+python -m src.phase6.cli benchmark
 
-# 4. Execute 100-digit bounded general-integer search
-python -m src.phase6.cli discover --config configs/phase6/general_100d.json --max-segments 2
+# 4. Discover and certify new general-integer twin-prime pair (16d)
+python -m src.phase6.cli search --config configs/phase6/pilot_discovery.json
 
-# 5. Audit segment coverage for zero gaps
-python -m src.phase6.cli coverage-audit
+# 5. Execute 350-digit pilot campaign (100,000 eligible centers)
+python -m src.phase6.cli search --config configs/phase6/pilot_350d.json --no-stop
 
-# 6. Run decoupled independent verifier on proof certificates
+# 6. Execute 350-digit unrestricted campaign (1,000,000 eligible centers)
+python -m src.phase6.cli search --config configs/phase6/unrestricted_350d.json --no-stop --max-segments 4
+
+# 7. Check campaign status and candidate ledger
+python -m src.phase6.cli status
+
+# 8. Audit segment coverage for zero gaps or overlaps
+python -m src.phase6.cli coverage
+
+# 9. Run decoupled independent verifier on proof certificates
 python -m src.phase6.cli verify proofs/phase6/certificates/
 ```
 

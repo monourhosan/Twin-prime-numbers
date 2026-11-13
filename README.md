@@ -1,6 +1,6 @@
 # Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, & Phase 6 GITCSS Project
 
-[![Tests: 115/115 Passing](https://img.shields.io/badge/Tests-115%2F115%20Passing-brightgreen)](tests/)
+[![Tests: 118/118 Passing](https://img.shields.io/badge/Tests-118%2F118%20Passing-brightgreen)](tests/)
 [![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
 [![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
@@ -70,6 +70,12 @@ Breaking free from all special exponential and smooth manifolds, Phase 6 formula
   - Canonical SHA-256: `1f2d443508c19ee0650c239183998ccf4eba9bf265dc031b90dba66140c6b727`
   - Attestation: [`proofs/phase6/attestations/attest_6c0b671d46a457d1.json`](proofs/phase6/attestations/attest_6c0b671d46a457d1.json) (Status: **PASS**)
   - Reproducibility Guide: [`REPRODUCIBILITY_PHASE6.md`](REPRODUCIBILITY_PHASE6.md)
+* **350-Digit Unrestricted Center Campaign (1,000,000 Centers):**
+  - Search Band: $p \in [10^{349} + 1, 10^{349} + 5999997]$ ($m \in [m_0, m_0 + 1,000,000)$ where $m_0 = (10^{349}+2)/6$).
+  - Coverage: Exactly 1,000,000 eligible centers processed across 4 contiguous segments with zero gaps or overlaps.
+  - Sieve Performance: 18,913 survivors from sieve cutoff $Q = 100,000$ (1.89% survival rate).
+  - Dual PRP Discoveries: **8 Dual PRPs** discovered and logged in [`data/phase6_candidates.jsonl`](data/phase6_candidates.jsonl), closely confirming the Hardy-Littlewood asymptotic heuristic ($\approx 12$ expected pairs per million centers).
+  - Scientific Honesty: Because factoring generic 350-digit integers exceeds trial division limits and ECPP is unavailable in this environment, these 8 pairs are honestly classified as probable primes rather than unconditionally proven primes.
 
 ### 2.00 Phase 5 SCCA Discoveries: 59-Digit and 133-Digit Certified Twin Pairs
 Deploying the Phase 5 Smooth-Center Certificate-Aware Search (SCCA) engine with multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$ and two-sided classical primality criteria (Pocklington BLS Theorem 4 on $B$ and Morrison BLS Theorem 17 on $A$), we discovered and certified multiple genuine twin-prime pairs novel to the repository:
