@@ -1,0 +1,15 @@
+{
+  "attestation_version": "1.0",
+  "certificate_file": "cert_ades8_1511d_R13_n4987_t79783.json",
+  "target_sha256": "f29217cfe9267dd9334534e76e5bc4b023918409eec95b1a8ebdd7ddfe855263",
+  "utc_attested": "2026-11-14T08:55:30.847358+00:00",
+  "verifier": "phase8_independent_verify.py (v8.0)",
+  "results": {
+    "digits": 1511,
+    "proth_upper_prime": true,
+    "llr_lower_prime": true,
+    "difference_equals_two": true,
+    "center_divisible_by_six": true,
+    "verdict": "VERIFIED_UNCONDITIONAL_TWIN_PRIME"
+  }
+}

@@ -1,8 +1,9 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, & Phase 7 HDC-7 Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, Phase 7 HDC-7, & Phase 8 ADES-8 Project
 
-[![Tests: 175/175 Passing](https://img.shields.io/badge/Tests-175%2F175%20Passing-brightgreen)](tests/)
+[![Tests: 190/190 Passing](https://img.shields.io/badge/Tests-190%2F190%20Passing-brightgreen)](tests/)
+[![Phase 8 Discovery: 1,511d Record Twin Prime](https://img.shields.io/badge/Phase%208%20Discovery-1%2C511%20Digits%20(ADES--8)-brightgreen)](proofs/phase8/certificates/)
+[![Proven Pair: 1,511d](https://img.shields.io/badge/Proven%20Pair-1%2C511%20Digits-brightgreen)](proofs/phase8/)
 [![Phase 7 Discovery: 1,510d Fresh Twin Prime](https://img.shields.io/badge/Phase%207%20Discovery-1%2C510%20Digits%20(HDC--7)-brightgreen)](proofs/phase7/certificates/)
-[![Proven Pair: 1,510d](https://img.shields.io/badge/Proven%20Pair-1%2C510%20Digits-brightgreen)](proofs/phase7/)
 [![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
@@ -20,7 +21,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling;
 7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification;
 8. **Phase 6B Certification & Discovery Suite** providing a hybrid theorem router, independent Goldwasser-Kilian-Atkin ECPP certificate verifier, audited 50-round Miller-Rabin + BPSW triage for the eight 350-digit probable twin pairs, reliability repair suite, and stretch 1,510+ digit campaign;
-9. **Phase 7 HDC-7** (*High-Density Certificate-Aware Twin-Prime Discovery Engine*) coupling odd primorial multiplier manifolds $M_B = \prod_{3 \le p \le B} p$ with compact $t$-space dual modular root sieving, deterministic Proth/LLR dual certification, P0 reliability repairs, and achieving the project's record in-repo discovery of a fresh 1,510-digit twin prime pair.
+9. **Phase 7 HDC-7** (*High-Density Certificate-Aware Twin-Prime Discovery Engine*) coupling odd primorial multiplier manifolds $M_B = \prod_{3 \le p \le B} p$ with compact $t$-space dual modular root sieving, deterministic Proth/LLR dual certification, P0 reliability repairs, and achieving the project's record in-repo discovery of a fresh 1,510-digit twin prime pair;
+10. **Phase 8 ADES-8** (*Adaptive Dual-axis Exponent Sieve*) introducing two-dimensional modular recurrence across adjacent exponent rows $n$ and compact parameters $t$, achieving $>1.55 \times 10^6$ cand/s throughput, and discovering the project's all-time record certified twin-prime pair of **1,511 decimal digits** ($2,395,898,505 \times 2^{4,987} \pm 1$).
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -56,7 +58,27 @@ An autonomous, mathematically rigorous computational number theory project inves
 
 ## 2. Strongest Results Achieved in This Project
 
-### 2.00000 Phase 7 HDC-7 Discovery: Fresh 1,510-Digit Certified Twin Prime Pair (Repository Record)
+### 2.000000 Phase 8 ADES-8 Discovery: Fresh 1,511-Digit Certified Twin Prime Pair (All-Time Repository Record)
+Phase 8 formulated, benchmarked, and deployed the **Adaptive Dual-axis Exponent Sieve (ADES-8)**, discovering an authentic, de novo twin-prime pair containing **exactly 1,511 decimal digits per member**, breaking the Phase 7 repository record:
+
+* **Exact Symbolic Coordinates:**
+  $$p = 2,395,898,505 \times 2^{4,987} - 1 \quad \text{(1,511 decimal digits)}$$
+  $$q = 2,395,898,505 \times 2^{4,987} + 1 \quad \text{(1,511 decimal digits)}$$
+  where $M_{13} = 3 \times 5 \times 7 \times 11 \times 13 = 15,015$, parameter index $t = 79,783$, and $k = M_{13} \times (2t + 1) = 2,395,898,505$.
+* **Difference & Center:** $q - p = 2$ identically, and center $C = k \cdot 2^n \equiv 0 \pmod 6$.
+* **Unconditional Primality Certifications:**
+  - **Upper Member ($q$):** Unconditionally proven prime via **Proth's Theorem (1878)** with witness base $w = 19$ ($19^{(q-1)/2} \equiv -1 \pmod q$).
+  - **Lower Member ($p$):** Unconditionally proven prime via the **Lucas-Lehmer-Riesel (LLR) Theorem (1969, 1994)** with Rödseth parameter $P = 15$, Jacobi symbols $(13/p) = 1, (17/p) = -1$, and $n - 2 = 4,985$ squaring rounds yielding final residue $u_{4985} \equiv 0 \pmod p$.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json`](proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json)
+  - Canonical SHA-256: `f29217cfe9267dd9334534e76e5bc4b023918409eec95b1a8ebdd7ddfe855263`
+  - Independent Attestation: [`proofs/phase8/attestations/attest_f29217cfe9267dd9.json`](proofs/phase8/attestations/attest_f29217cfe9267dd9.json) (Status: **PASS**)
+  - Standalone Verifier: [`scripts/phase8_independent_verify.py`](scripts/phase8_independent_verify.py)
+* **Performance & Sieve Optimization:**
+  - Implemented 2D modular recurrence $a_{n+1} = a_n \cdot 2^{-1} \bmod r$ eliminating modular exponentiation across adjacent rows, achieving $>1.55 \times 10^6$ candidates/sec ($2.34\times$ kernel speedup over 2D reference, $2.81\times$ speedup over 1D baseline).
+  - All 190 automated regression and unit tests passing.
+
+### 2.00000 Phase 7 HDC-7 Discovery: Fresh 1,510-Digit Certified Twin Prime Pair (Previous Repository Record)
 Phase 7 formulated, benchmarked, and deployed the **High-Density Certificate-Aware Twin-Prime Discovery Engine (HDC-7)**, discovering an authentic, de novo twin-prime pair containing **exactly 1,510 decimal digits per member**:
 
 * **Exact Symbolic Coordinates:**

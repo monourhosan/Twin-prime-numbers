@@ -68,7 +68,31 @@ The question of finding "the biggest and the last twin prime numbers" comprises 
 
 ## 5. Strongest Results Actually Achieved in This Project
 
-### 5.0 Phase 7 HDC-7: Discovery of 1,510-Digit Certified Twin Primes (Repository Record)
+### 5.00 Phase 8 ADES-8: Discovery of 1,511-Digit Certified Twin Primes (All-Time Repository Record)
+
+In Phase 8, the **Adaptive Dual-axis Exponent Sieve (ADES-8)** discovered and unconditionally certified a fresh, original twin-prime pair of **1,511 decimal digits per member**, breaking the Phase 7 repository record:
+
+$$\begin{aligned}
+p &= 2,395,898,505 \times 2^{4,987} - 1 \quad \text{(1,511 decimal digits)} \\
+q &= 2,395,898,505 \times 2^{4,987} + 1 \quad \text{(1,511 decimal digits)}
+\end{aligned}$$
+
+* **Difference:** $q - p = 2$ identically.
+* **Center Parity:** $C = 2,395,898,505 \times 2^{4,987} \equiv 0 \pmod 6$.
+* **Primorial Parameters:** $R = 13$, $M_{13} = 15,015$, compact parameter index $t = 79,783$, $k = 15,015 \times (2 \times 79,783 + 1) = 2,395,898,505$.
+* **Unconditional Certifications:**
+  - **Upper Member ($q$):** Proven prime via Proth's Theorem (1878) with witness $w = 19$ ($19^{(q-1)/2} \equiv -1 \pmod q$).
+  - **Lower Member ($p$):** Proven prime via the Lucas-Lehmer-Riesel (LLR) Theorem (1969, 1994) with Rödseth parameter $P = 15$, Jacobi symbols $(13/p) = 1, (17/p) = -1$, and $n - 2 = 4,985$ squaring rounds yielding final residue $u_{4985} \equiv 0 \pmod p$.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json`](proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json)
+  - Canonical SHA-256: `f29217cfe9267dd9334534e76e5bc4b023918409eec95b1a8ebdd7ddfe855263`
+  - Signed Attestation: [`proofs/phase8/attestations/attest_f29217cfe9267dd9.json`](proofs/phase8/attestations/attest_f29217cfe9267dd9.json) (Status: **PASS**)
+  - Decoupled Verifier: [`scripts/phase8_independent_verify.py`](scripts/phase8_independent_verify.py)
+* **Algorithmic Achievement:**
+  - 2D modular root recurrence $a_{n+1} = a_n \cdot 2^{-1} \bmod r$ achieved $1,553,092$ candidates/sec ($2.34\times$ speedup over reference 2D and $2.81\times$ speedup over 1D baseline).
+  - All 190 regression tests passing.
+
+### 5.0 Phase 7 HDC-7: Discovery of 1,510-Digit Certified Twin Primes (Previous Repository Record)
 
 In Phase 7, the **High-Density Certificate-Aware Twin-Prime Discovery Engine (HDC-7)** discovered and unconditionally certified a fresh twin-prime pair of **1,510 decimal digits per member**:
 

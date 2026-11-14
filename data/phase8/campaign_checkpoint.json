@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-14T08:50:06.695555+00:00",
+  "last_tile_id": "tile_n4985_4987_t79313_89312",
+  "next_t": 89313,
+  "tiles_completed": 7,
+  "total_sieved_candidates": 210000,
+  "total_survivors": 7528,
+  "total_fermat_tested": 6994,
+  "total_dual_prps": 1,
+  "has_certified_hit": true
+}

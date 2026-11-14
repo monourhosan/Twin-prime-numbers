@@ -1,0 +1,40 @@
+{
+  "index_version": "8.0",
+  "generated_utc": "2026-11-14T08:52:45+00:00",
+  "branch": "research/phase8-adaptive-record",
+  "verified_records": [
+    {
+      "record_id": "ades8_1511d_R13_n4987_t79783",
+      "status": "VERIFIED_UNCONDITIONAL_TWIN_PRIME",
+      "digits": 1511,
+      "algebraic_form": "2395898505 * 2^4987 +/- 1",
+      "parameters": {
+        "R_primorial": 13,
+        "M_R": "15015",
+        "t": 79783,
+        "k": "2395898505",
+        "n": 4987
+      },
+      "upper_proof": {
+        "theorem": "Proth (1878)",
+        "witness_w": 19,
+        "congruence": "19^((B-1)/2) == -1 mod B",
+        "prover_latency_sec": 0.2182
+      },
+      "lower_proof": {
+        "theorem": "Lucas-Lehmer-Riesel (1969) / Rodseth (1994)",
+        "parameter_P": 15,
+        "jacobi_symbols": {
+          "(13/A)": 1,
+          "(17/A)": -1
+        },
+        "llr_rounds": 4985,
+        "final_residue": 0,
+        "prover_latency_sec": 0.0355
+      },
+      "canonical_sha256": "f29217cfe9267dd9334534e76e5bc4b023918409eec95b1a8ebdd7ddfe855263",
+      "certificate_path": "proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json",
+      "attestation_path": "proofs/phase8/attestations/attest_f29217cfe9267dd9.json"
+    }
+  ]
+}

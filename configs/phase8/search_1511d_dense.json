@@ -1,0 +1,18 @@
+{
+  "campaign_id": "ades8_record_1511d_campaign",
+  "digit_band": 1511,
+  "R_primorial": 13,
+  "n_start": 4988,
+  "n_height": 6,
+  "t_start": 300,
+  "t_width": 10000,
+  "sieve_limit": 150000,
+  "mr_rounds": 25,
+  "max_tiles": 10,
+  "timeout_sec": 1200.0,
+  "hardware_policy": {
+    "max_workers": 1,
+    "max_ram_gb": 4.0,
+    "cooperative_yield_ms": 10
+  }
+}

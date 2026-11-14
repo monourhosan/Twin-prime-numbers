@@ -1,0 +1,69 @@
+{
+  "manifest_version": "8.0",
+  "generated_utc": "2026-11-14T08:52:30+00:00",
+  "branch": "research/phase8-adaptive-record",
+  "target_record_threshold_digits": 1511,
+  "campaigns": [
+    {
+      "campaign_id": "ades8_production_1515d_record_campaign",
+      "target_digits": 1515,
+      "R_primorial": 13,
+      "n_range": [5000, 5015],
+      "t_range": [1000, 451000],
+      "sieve_depth": 100000,
+      "tiles_processed": 45,
+      "coordinate_slots": 7200000,
+      "valid_candidates_sieved": 424357,
+      "sieve_survivors": 26471,
+      "fermat_tests": 26471,
+      "dual_prps": 0,
+      "proven_pairs": 0,
+      "elapsed_sec": 1079.38,
+      "result": "COMPLETED_EXHAUSTIVE_BLOCK_NO_HIT"
+    },
+    {
+      "campaign_id": "ades8_record_1511d_campaign",
+      "target_digits": 1511,
+      "R_primorial": 13,
+      "n_range": [4988, 4993],
+      "t_range": [300, 100300],
+      "sieve_depth": 150000,
+      "tiles_processed": 10,
+      "coordinate_slots": 600000,
+      "valid_candidates_sieved": 171103,
+      "sieve_survivors": 10143,
+      "fermat_tests": 10143,
+      "dual_prps": 0,
+      "proven_pairs": 0,
+      "elapsed_sec": 448.68,
+      "result": "COMPLETED_EXHAUSTIVE_BLOCK_NO_HIT"
+    },
+    {
+      "campaign_id": "ades8_record_1511d_dense2",
+      "target_digits": 1511,
+      "R_primorial": 13,
+      "n_range": [4985, 4987],
+      "t_range": [19313, 89312],
+      "sieve_depth": 200000,
+      "tiles_processed": 7,
+      "coordinate_slots": 210000,
+      "valid_candidates_sieved": 142060,
+      "sieve_survivors": 7528,
+      "fermat_tests": 6994,
+      "dual_prps": 1,
+      "proven_pairs": 1,
+      "elapsed_sec": 231.03,
+      "result": "SUCCESS_RECORD_PROVEN"
+    }
+  ],
+  "aggregate_metrics": {
+    "total_tiles_processed": 62,
+    "total_coordinate_slots": 8010000,
+    "total_sieve_survivors": 44142,
+    "total_fermat_tested": 43608,
+    "total_dual_prps": 1,
+    "total_proven_pairs": 1,
+    "total_wall_clock_sec": 1759.09,
+    "total_wall_clock_min": 29.32
+  }
+}
