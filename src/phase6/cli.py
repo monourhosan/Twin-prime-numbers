@@ -1,6 +1,12 @@
 """
-Command-Line Interface for Phase 6 GITCSS Engine.
-Supports operations: audit, benchmark, search, status, pause, verify, coverage.
+Command-Line Interface for Phase 6 (QCP-6 and GITCSS).
+Supports noninteractive CLI commands:
+- python -m src.phase6 audit --repo .
+- python -m src.phase6 benchmark --config configs/phase6/pilot.json
+- python -m src.phase6 discover --config configs/phase6/primary.json [--dry-run] [--resume]
+- python -m src.phase6 status --campaign primary
+- python -m src.phase6 pause --campaign primary
+- python -m src.phase6 verify proofs/phase6/
 """
 
 import sys
@@ -8,237 +14,202 @@ import os
 import json
 import argparse
 import platform
+import subprocess
 from pathlib import Path
-from datetime import datetime, timezone
+from typing import Dict, Any
 
-from src.phase6.independent_verify import verify_file
-from src.phase6.campaign import GITCSSCampaign
-from src.phase6.models import IntervalMapping
+from .search import DiscoveryRunner
+from .benchmark import run_comprehensive_benchmark
+from .ledger import SearchLedger
 
-def cmd_audit(args):
-    """Audits system environment, hardware, dependencies, and historical inventory."""
-    print("=== Phase 6 Environment & Historical Inventory Audit ===")
+
+def cmd_audit(args: argparse.Namespace) -> int:
+    repo_root = Path(args.repo) if hasattr(args, "repo") and args.repo else Path.cwd()
+    print("============================================================")
+    print("PHASE 6 REPOSITORY & COMPUTATIONAL ENVIRONMENT AUDIT (QCP-6)")
+    print("============================================================")
+    
+    # Git commit
+    try:
+        git_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+        git_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"], text=True).strip()
+    except Exception:
+        git_commit = "unknown"
+        git_branch = "unknown"
+
+    print(f"Git Branch: {git_branch}")
+    print(f"Git Commit: {git_commit}")
     print(f"OS / Platform: {platform.system()} {platform.release()} ({platform.machine()})")
-    print(f"Python: {sys.version}")
+    print(f"Python Runtime: {sys.version.split()[0]} ({sys.platform})")
+
     try:
         import gmpy2
-        print(f"gmpy2: {gmpy2.__version__} (GMP backend: {gmpy2.mp_version()})")
+        print(f"gmpy2: Installed (version {gmpy2.__version__}, backend: {gmpy2.mp_version()})")
     except ImportError:
         print("gmpy2: NOT installed")
+
     try:
         import sympy
-        print(f"sympy: {sympy.__version__}")
+        print(f"sympy: Installed (version {sympy.__version__})")
     except ImportError:
         print("sympy: NOT installed")
-        
-    cpu_count = os.cpu_count()
-    print(f"Available CPU logical cores: {cpu_count}")
 
-    inv_file = Path("research/phase5_audit/historical_inventory.json")
+    # Historical inventory check
+    inv_file = repo_root / "data" / "phase6" / "exclusion_index.json"
+    if not inv_file.exists():
+        inv_file = repo_root / "research" / "phase5_audit" / "historical_inventory.json"
+
     if inv_file.exists():
         with open(inv_file, "r", encoding="utf-8") as f:
-            inv = json.load(f)
-        print(f"Authoritative Historical Inventory: {len(inv)} certified pairs loaded.")
+            data = json.load(f)
+        print(f"\nExclusion Inventory: {len(data)} unique historical centers loaded.")
     else:
-        print("WARNING: Historical inventory not found at research/phase5_audit/historical_inventory.json")
+        print("\nWARNING: No historical exclusion inventory found!")
 
-    # Audit proof certificates
-    proof_dirs = {
-        "Phase 1": list(Path("proofs").glob("cert_*.json")),
-        "Phase 2": list(Path("proofs/phase2").glob("*.json")) if Path("proofs/phase2").exists() else [],
-        "Phase 3": list(Path("proofs/phase3").glob("*.json")) if Path("proofs/phase3").exists() else [],
-        "Phase 4": list(Path("proofs/phase4").glob("*.json")) if Path("proofs/phase4").exists() else [],
-        "Phase 5": list(Path("proofs/phase5").glob("*.json")) if Path("proofs/phase5").exists() else [],
-        "Phase 6": list(Path("proofs/phase6/certificates").glob("*.json")) if Path("proofs/phase6/certificates").exists() else [],
-    }
-    total_certs = sum(len(c) for c in proof_dirs.values())
-    print(f"\nProof Certificates Inventory ({total_certs} total files):")
-    for phase, certs in proof_dirs.items():
-        print(f"  - {phase}: {len(certs)} certificate(s)")
+    # Check proofs
+    certs = sorted(list((repo_root / "proofs").glob("**/cert_*.json")) + list((repo_root / "proofs").glob("**/imported_cert_*.json")))
+    print(f"Total proof certificates in repository: {len(certs)}")
 
-    print("\nAudit completed successfully. Status: OK")
-    sys.exit(0)
+    print("\nPhase 6 Environment Audit: PASSED (Status: READY)")
+    print("============================================================")
+    return 0
 
-def cmd_benchmark(args):
-    """Executes controlled benchmark suite."""
-    print("=== Launching Phase 6 Controlled Benchmarks ===")
-    from scripts.phase6_benchmarks import run_benchmarks
-    run_benchmarks()
-    sys.exit(0)
 
-def cmd_verify(args):
-    """Independently verifies certificate or directory of certificates."""
-    target = Path(args.target)
-    if not target.exists():
-        print(f"ERROR: Target path does not exist: {target}")
-        sys.exit(1)
-        
-    all_ok = True
-    if target.is_dir():
-        cert_files = sorted(list(target.glob("cert_*.json")))
-        if not cert_files:
-            print(f"No certificate files matching cert_*.json found in {target}")
-            sys.exit(0)
-        for cf in cert_files:
-            if not verify_file(cf):
-                all_ok = False
-    else:
-        all_ok = verify_file(target)
-        
-    sys.exit(0 if all_ok else 1)
-
-def cmd_search(args):
-    """Executes a bounded discovery search campaign."""
+def cmd_benchmark(args: argparse.Namespace) -> int:
     cfg_path = Path(args.config)
     if not cfg_path.exists():
-        print(f"ERROR: Configuration file not found: {cfg_path}")
-        sys.exit(1)
-        
+        print(f"Error: Config file not found: {cfg_path}")
+        return 1
+
     with open(cfg_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-        
-    campaign = GITCSSCampaign(config=config, run_id=args.run_id, resume=args.resume)
-    discoveries = campaign.run_bounded_search(
-        max_segments=args.max_segments,
-        stop_on_discovery=not args.no_stop
-    )
-    if discoveries:
-        print(f"\nSUCCESS: Discovered {len(discoveries)} new certified twin-prime pair(s)!")
-    else:
-        print("\nCampaign finished: No new twin-prime pair discovered in tested range.")
-    sys.exit(0)
 
-def cmd_status(args):
-    """Shows status of active/completed campaigns, candidates, and coverage."""
-    print("=== Phase 6 GITCSS Campaign Status ===")
-    campaigns_dir = Path("runs/phase6/campaigns")
-    if not campaigns_dir.exists():
-        print("No campaigns directory found.")
-        sys.exit(0)
-        
-    runs = sorted(list(campaigns_dir.iterdir()), key=lambda p: p.stat().st_mtime, reverse=True)
-    if not runs:
-        print("No campaign runs recorded.")
-        sys.exit(0)
-        
-    target_runs = runs[:5] if not args.run_id else [campaigns_dir / args.run_id]
-    for r in target_runs:
-        if not r.exists():
-            print(f"Run directory not found: {r}")
-            continue
-        print(f"\nRun: {r.name}")
-        report_file = r / "final_report.md"
-        if report_file.exists():
-            with open(report_file, "r", encoding="utf-8") as f:
-                lines = [line.strip() for line in f.readlines() if line.strip().startswith("- **")]
-            for l in lines:
-                print(f"  {l}")
-        else:
-            print("  (Run in progress or incomplete)")
-            
-    # Check candidate ledger
-    cand_file = Path("data/phase6_candidates.jsonl")
-    if cand_file.exists():
-        with open(cand_file, "r", encoding="utf-8") as f:
-            total_cands = sum(1 for _ in f)
-        print(f"\nTotal Candidates in Ledger: {total_cands:,}")
-    sys.exit(0)
+    res = run_comprehensive_benchmark(config, repo_root=Path.cwd())
+    print("Benchmark run complete.")
+    return 0
 
-def cmd_pause(args):
-    """Signals a running campaign to halt safely at the next segment checkpoint."""
-    print("=== Signaling Pause to Phase 6 Campaign ===")
-    if args.run_id:
-        target_dir = Path("runs/phase6/campaigns") / args.run_id
-        if not target_dir.exists():
-            print(f"ERROR: Specified run directory does not exist: {target_dir}")
-            sys.exit(1)
-        pause_file = target_dir / ".pause"
-    else:
-        pause_file = Path("runs/phase6/.pause")
-        pause_file.parent.mkdir(parents=True, exist_ok=True)
-        
-    pause_file.write_text(f"PAUSE requested at {datetime.now(timezone.utc).isoformat()}\n", encoding="utf-8")
-    print(f"Pause signal written to: {pause_file}")
-    print("The active campaign will complete its current segment, record coverage, save the checkpoint, and exit gracefully.")
-    sys.exit(0)
 
-def cmd_coverage(args):
-    """Audits coverage manifest for gaps and integrity."""
-    manifest_path = Path(args.manifest)
-    if not manifest_path.exists():
-        print(f"No coverage manifest found at {manifest_path}")
-        sys.exit(1)
-        
-    with open(manifest_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-        
-    segments = data.get("segments", [])
-    print(f"Auditing {len(segments)} completed segments in manifest {manifest_path}...")
-    
-    # Check disjoint and contiguous
-    has_gaps = False
-    for i in range(len(segments) - 1):
-        s1 = segments[i]
-        s2 = segments[i + 1]
-        if int(s1["m_end"]) != int(s2["m_start"]):
-            print(f"GAP OR OVERLAP DETECTED between segment {s1['segment_id']} (ends {s1['m_end']}) and segment {s2['segment_id']} (starts {s2['m_start']})!")
-            has_gaps = True
-            
-    if not has_gaps:
-        print("COVERAGE AUDIT PASS: All recorded segments are strictly contiguous with zero gaps or overlaps.")
-        sys.exit(0)
-    else:
-        sys.exit(1)
+def cmd_discover(args: argparse.Namespace) -> int:
+    cfg_path = Path(args.config)
+    if not cfg_path.exists():
+        print(f"Error: Config file not found: {cfg_path}")
+        return 1
 
-def main():
-    parser = argparse.ArgumentParser(description="Phase 6 GITCSS Engine CLI")
-    subparsers = parser.add_subparsers(dest="subcommand", help="Available subcommands")
+    with open(cfg_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+
+    if hasattr(args, "dry_run") and args.dry_run:
+        config["dry_run"] = True
+
+    resume_flag = bool(getattr(args, "resume", False))
+    runner = DiscoveryRunner(config, repo_root=Path.cwd())
+    res = runner.run(resume=resume_flag)
+
+    print("\n=== Discovery Summary ===")
+    print(f"Status: {res['status']}")
+    print(f"Campaign: {res['campaign_id']}")
+    print(f"Candidates Tested: {res['tested_candidates']}")
+    print(f"Sieve Survivors: {res['sieve_survivors']}")
+    print(f"Dual PRP Hits: {res['prp_hits']}")
+    print(f"Elapsed Time: {res['elapsed_seconds']:.2f}s")
+    if res.get("certificate_path"):
+        print(f"Certificate: {res['certificate_path']}")
+    return 0
+
+
+def cmd_status(args: argparse.Namespace) -> int:
+    campaign_id = args.campaign
+    db_path = Path.cwd() / "runs" / "phase6" / campaign_id / "ledger.db"
+    if not db_path.exists():
+        print(f"No ledger found for campaign '{campaign_id}' at {db_path}")
+        return 1
+
+    ledger = SearchLedger(db_path)
+    status = ledger.get_campaign_status(campaign_id)
+    print(f"=== Campaign Status: {campaign_id} ===")
+    for k, v in status.items():
+        print(f"  {k}: {v}")
+    return 0
+
+
+def cmd_pause(args: argparse.Namespace) -> int:
+    campaign_id = args.campaign
+    run_dir = Path.cwd() / "runs" / "phase6" / campaign_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    pause_file = run_dir / ".pause"
+    pause_file.write_text("PAUSED", encoding="utf-8")
+
+    db_path = run_dir / "ledger.db"
+    if db_path.exists():
+        ledger = SearchLedger(db_path)
+        ledger.set_campaign_status(campaign_id, "PAUSED")
+
+    print(f"Campaign '{campaign_id}' successfully PAUSED (.pause written).")
+    return 0
+
+
+def cmd_verify(args: argparse.Namespace) -> int:
+    from scripts.phase6_independent_verify import main as verify_main
+    sys.argv = ["phase6_independent_verify.py", args.path]
+    return verify_main()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Phase 6 Number Theory Search & Verification Engine")
+    subparsers = parser.add_subparsers(dest="subcommand", help="Subcommand to execute")
 
     # audit
-    p_audit = subparsers.add_parser("audit", help="Run baseline environment and historical audit")
-    p_audit.set_defaults(func=cmd_audit)
+    p_audit = subparsers.add_parser("audit", help="Audit environment and historical repository inventory")
+    p_audit.add_argument("--repo", default=".", help="Repository root path")
 
     # benchmark
-    p_bench = subparsers.add_parser("benchmark", help="Run controlled benchmark suite")
-    p_bench.set_defaults(func=cmd_benchmark)
+    p_bench = subparsers.add_parser("benchmark", help="Run empirical benchmarks")
+    p_bench.add_argument("--config", required=True, help="Path to benchmark JSON configuration")
 
-    # search / discover
-    for sc in ["search", "discover"]:
-        p_search = subparsers.add_parser(sc, help="Run general-integer discovery search campaign")
-        p_search.add_argument("--config", required=True, help="Path to campaign configuration JSON")
-        p_search.add_argument("--run-id", default=None, help="Optional run identifier")
-        p_search.add_argument("--resume", action="store_true", default=True, help="Resume from last checkpoint")
-        p_search.add_argument("--max-segments", type=int, default=None, help="Maximum segments to process")
-        p_search.add_argument("--no-stop", action="store_true", default=False, help="Do not stop on first discovery")
-        p_search.set_defaults(func=cmd_search)
+    # discover / search
+    p_disc = subparsers.add_parser("discover", help="Execute discovery campaign")
+    p_disc.add_argument("--config", required=True, help="Path to campaign JSON configuration")
+    p_disc.add_argument("--dry-run", action="store_true", help="Validate setup without testing candidates")
+    p_disc.add_argument("--resume", action="store_true", help="Resume an existing campaign")
+
+    p_search = subparsers.add_parser("search", help="Alias for discover")
+    p_search.add_argument("--config", required=True, help="Path to campaign JSON configuration")
+    p_search.add_argument("--dry-run", action="store_true", help="Validate setup without testing candidates")
+    p_search.add_argument("--resume", action="store_true", help="Resume an existing campaign")
 
     # status
-    p_status = subparsers.add_parser("status", help="Show active and completed campaign status")
-    p_status.add_argument("--run-id", default=None, help="Optional specific run identifier")
-    p_status.set_defaults(func=cmd_status)
+    p_stat = subparsers.add_parser("status", help="Get campaign status from persistent ledger")
+    p_stat.add_argument("--campaign", required=True, help="Campaign identifier")
 
     # pause
-    p_pause = subparsers.add_parser("pause", help="Signal campaign to pause safely at checkpoint")
-    p_pause.add_argument("--run-id", default=None, help="Optional specific run identifier")
-    p_pause.set_defaults(func=cmd_pause)
+    p_pause = subparsers.add_parser("pause", help="Cooperatively pause campaign")
+    p_pause.add_argument("--campaign", required=True, help="Campaign identifier")
 
     # verify
-    p_verify = subparsers.add_parser("verify", help="Independently verify certificates")
-    p_verify.add_argument("target", help="Path to certificate JSON file or directory")
-    p_verify.set_defaults(func=cmd_verify)
-
-    # coverage / coverage-audit
-    for sc in ["coverage", "coverage-audit"]:
-        p_cov = subparsers.add_parser(sc, help="Audit coverage manifest for gaps and integrity")
-        p_cov.add_argument("--manifest", default="data/phase6_coverage_manifest.json", help="Path to manifest JSON")
-        p_cov.set_defaults(func=cmd_coverage)
+    p_ver = subparsers.add_parser("verify", help="Independently verify certificate artifacts")
+    p_ver.add_argument("path", help="Path to certificate JSON file or directory")
 
     args = parser.parse_args()
-    if not hasattr(args, "func"):
+    if not args.subcommand:
         parser.print_help()
-        sys.exit(1)
-        
-    args.func(args)
+        return 1
+
+    if args.subcommand == "audit":
+        return cmd_audit(args)
+    elif args.subcommand == "benchmark":
+        return cmd_benchmark(args)
+    elif args.subcommand in ("discover", "search"):
+        return cmd_discover(args)
+    elif args.subcommand == "status":
+        return cmd_status(args)
+    elif args.subcommand == "pause":
+        return cmd_pause(args)
+    elif args.subcommand == "verify":
+        return cmd_verify(args)
+    else:
+        print(f"Unknown subcommand: {args.subcommand}")
+        return 1
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

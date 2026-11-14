@@ -358,6 +358,17 @@ python scripts/verify_certificate.py proofs/
 * **Phase 6 Verification Dependencies (ECPP Analysis):** [research/phase6/VERIFICATION_DEPENDENCIES.md](research/phase6/VERIFICATION_DEPENDENCIES.md)
 * **Phase 5 Reproducibility Guide:** [REPRODUCIBILITY_PHASE5.md](REPRODUCIBILITY_PHASE5.md)
 
+### Phase 6 QCP-6 Breakthrough Deliverables (108-Digit Unconditional Twin-Prime Discovery)
+* **Phase 6 Discovery Report:** [research/phase6/DISCOVERY_REPORT.md](research/phase6/DISCOVERY_REPORT.md)
+* **Phase 6 Reproducibility Manual:** [REPRODUCIBILITY_PHASE6.md](REPRODUCIBILITY_PHASE6.md)
+* **Mathematical Specification & Theorem Proofs:** [research/phase6/MATHEMATICAL_SPECIFICATION.md](research/phase6/MATHEMATICAL_SPECIFICATION.md)
+* **Prior Art & Algorithmic Differentiation:** [research/phase6/PRIOR_ART.md](research/phase6/PRIOR_ART.md)
+* **Baseline Reconnaissance & Historical Inventory Audit:** [research/phase6/BASELINE_AUDIT.md](research/phase6/BASELINE_AUDIT.md)
+* **Empirical Benchmarks & Screening Analysis:** [research/phase6/BENCHMARKS.md](research/phase6/BENCHMARKS.md)
+* **Independent First-Principles Verifier:** [scripts/phase6_independent_verify.py](scripts/phase6_independent_verify.py)
+* **Phase 6 Proof Certificates (108d & 110d):** [proofs/phase6/certificates/](proofs/phase6/certificates/)
+* **Phase 6 Attestations:** [proofs/phase6/attestations/](proofs/phase6/attestations/)
+
 ### Historical Project Deliverables
 * **Phase 2 Research Manuscript:** [paper/phase2_new_twin_prime_discovery.md](paper/phase2_new_twin_prime_discovery.md)
 * **Phase 1 Research Manuscript:** [paper/twin_prime_search_paper.md](paper/twin_prime_search_paper.md)

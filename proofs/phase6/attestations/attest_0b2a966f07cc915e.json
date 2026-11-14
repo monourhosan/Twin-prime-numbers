@@ -1,0 +1,20 @@
+{
+  "attestation_version": "1.0",
+  "verifier_engine": "phase6_independent_verify.py (zero external imports)",
+  "timestamp_utc": "2026-11-14T05:54:33.879069+00:00",
+  "target_certificate": "cert_qcp6_110d_t131295.json",
+  "target_sha256": "0b2a966f07cc915e8aad76780c122c6e4e50b9dafb1adb03a79b313e1935e377",
+  "verdict": "VERIFIED_UNCONDITIONAL_TWIN_PRIMES",
+  "verified_pair": {
+    "lower_prime_A": "17447916908869966941031812208350294605335005728270428102700931309049347627667949093195702403450392559173348639",
+    "upper_prime_B": "17447916908869966941031812208350294605335005728270428102700931309049347627667949093195702403450392559173348641",
+    "gap": 2,
+    "center_C": "17447916908869966941031812208350294605335005728270428102700931309049347627667949093195702403450392559173348640",
+    "digits_A": 110,
+    "digits_B": 110
+  },
+  "proof_theorems": [
+    "BLS (1975) Theorem 4 (Pocklington N-1)",
+    "BLS (1975) Theorem 17 (Morrison N+1 Lucas Sequence Rank)"
+  ]
+}

@@ -1,11 +1,17 @@
 {
-  "schema_version": "6.0",
-  "campaign_id": "smoke_test",
-  "p_min": "1000",
-  "p_max": "10000",
-  "sieve_limit": 1000,
-  "segment_size": 2000,
-  "wheel_primes": [5, 7],
+  "campaign_id": "smoke",
+  "method": "method_q",
+  "target_pair_digits": 12,
+  "h": 3,
+  "seed": 2026111400,
+  "t_bits": 14,
+  "j_min": 0,
+  "j_max": 5000,
+  "block_size": 1000,
+  "sieve_limit": 5000,
+  "sieve_backend": "q_segment",
+  "screening_order": "A_first",
   "mr_rounds": 25,
-  "historical_inventory": "research/phase5_audit/historical_inventory.json"
+  "stop_on_first_certified": true,
+  "wall_clock_seconds": 30.0
 }

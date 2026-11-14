@@ -1,161 +1,130 @@
-# Phase 6 Discovery and Verification Report: Discovery of a General-Integer Twin-Prime Pair
+# Phase 6 Discovery and Verification Report: Discovery of Unconditionally Proven 108-Digit Twin-Prime Pair
 
-**Document ID:** `PHASE6-DISCOVERY-REPORT-001`  
-**Date:** 2026-11-14T05:21:00+06:00  
-**Phase:** Phase 6 (General-Integer Twin-Center Segmented Sieve - GITCSS)  
-**Authoritative Discovery Status:** **`DISCOVERY_CERTIFIED_AND_ATTESTED`**
-
----
-
-## 1. Discovered Twin-Prime Pair
-
-- **Exact Lower Prime ($A$):**
-  ```text
-  1000000000002371
-  ```
-- **Exact Upper Prime ($B$):**
-  ```text
-  1000000000002373
-  ```
-- **Difference:**
-  $$B - A = 1000000000002373 - 1000000000002371 = 2$$
-- **Decimal Digit Count:**
-  - Lower Prime $A$: **16 decimal digits**
-  - Upper Prime $B$: **16 decimal digits**
-- **Center Representation:**
-  $$C = 6m = 1000000000002372, \qquad m = 166666666667062$$
-  $$A = 6m - 1, \qquad B = 6m + 1$$
-- **Search Interval:**
-  - $p \in [10^{15}, 10^{15} + 10^6]$
-  - $m \in [166666666666667, 166666666833333]$
-- **Timestamp of Discovery:** 2026-11-13T23:11:24.481478+00:00 (UTC)
+**Document ID:** `PHASE6-DISCOVERY-REPORT-002`  
+**Date:** 2026-11-14T11:55:00+06:00  
+**Phase:** Phase 6: Quadratic Co-Factor Proof Search (QCP-6)  
+**Authoritative Discovery Status:** **`CERTIFIED_FRESH_PAIR`**  
+**Independent Verification Attestation:** `proofs/phase6/attestations/attest_a79f1ceabb2f5f00.json`  
 
 ---
 
-## 2. Complete Prime Factorization of Center $6m$
+## 1. Discovered Twin-Prime Pair Summary
 
-To prove both primes deterministically using classical BLS criteria, the center $6m = 1,000,000,000,002,372$ was factored into its prime constituents:
-
-$$6m = 2^2 \times 3^1 \times 83333333333531^1$$
-
-### Deterministic Factor Primality Proof:
-1. $2$: Prime (base case).
-2. $3$: Prime (base case).
-3. $q = 83333333333531$ (14 decimal digits):
-   - Proven prime unconditionally via deterministic trial division up to $\sqrt{q} \approx 9,128,709$.
-   - Tested by zero-dependency independent verifier in 0.32 seconds.
-   - Zero prime factors exist below $\sqrt{q}$.
+- **Primary Discovered Twin-Prime Pair:**
+  - **Exact Lower Prime ($A$):**
+    ```text
+    580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867
+    ```
+  - **Exact Upper Prime ($B$):**
+    ```text
+    580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640869
+    ```
+  - **Exact Integer Center ($C = (A + B) // 2$):**
+    ```text
+    580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640868
+    ```
+  - **Twin Gap:**
+    $$B - A = 2$$
+  - **Decimal Digit Counts:**
+    - $\text{len}(A) = 108\text{ digits}$
+    - $\text{len}(B) = 108\text{ digits}$
+  - **Center Divisibility by 6:**
+    $$C \equiv 0 \pmod 6 \quad (C = 6 \cdot 96738241227512278696022586268889388086836028878247770132732768476927347625393822972510689844049111391273478)$$
 
 ---
 
-## 3. Deterministic Primality Certifications
+## 2. Compact Algebraic Representation (Method Q Family)
 
-### 3.1 Upper Member ($B = 1000000000002373$): Pocklington BLS Theorem 4 Proof
-- **Theorem:** Brillhart, Lehmer, and Selfridge (1975), Theorem 4 ($N-1$ test).
-- **Factored Part:** $F_B = B - 1 = 6m = 1,000,000,000,002,372$.
-- **Remainder:** $R_B = 1$.
-- **Factored Fraction:** $F_B / B = 1.0$ (100% factored, $F_B > \sqrt{B}$ holds by 8 orders of magnitude).
-- **Prime Factor Set:** $\mathcal{F} = \{2, 3, 83333333333531\}$.
-- **Witness Base:** $a = 2$.
-  - Fermat Congruence:
-    $$2^{B - 1} \equiv 1 \pmod B \quad (\text{PASS})$$
-  - Coprimality Conditions:
-    - For $q = 2$: $\gcd(2^{(B-1)/2} - 1, B) = 1$
-    - For $q = 3$: $\gcd(2^{(B-1)/3} - 1, B) = 1$
-    - For $q = 83333333333531$: $\gcd(2^{(B-1)/q} - 1, B) = 1$
-- **Conclusion:** $B$ is unconditionally, deterministically prime.
+The discovery was produced under the quadratic co-factor parameter family:
+$$x = S \cdot t$$
+$$C = x(x - h)$$
+$$A = x^2 - hx - 1$$
+$$B = x^2 - hx + 1$$
 
-### 3.2 Lower Member ($A = 1000000000002371$): Morrison BLS Theorem 17 Proof
-- **Theorem:** Brillhart, Lehmer, and Selfridge (1975), Theorem 17 ($N+1$ test).
-- **Odd Factored Part:** $F_{\text{odd}} = 3 \times 83333333333531 = 250,000,000,000,593$.
+with parameters:
+- **Polynomial Offset ($h$):** $h = 3$
+- **Factored Anchor ($S$):** 50 decimal digits, seed `2026111402`:
+  $$S = 31814390296223916158011157598224064684469095400701$$
+  Prime factors of $S$:
+  $$S = 3^1 \cdot 10006721^1 \cdot 10048373^1 \cdot 10051141^1 \cdot 10075687^1 \cdot 10091327^1 \cdot 10139953^1 \cdot 10177487^1$$
+- **Candidate Index ($t$):** $t = 23947$ ($t = 2j + 1$ with $j = 11973$).
+  Prime factors of $t$:
+  $$t = 7^1 \cdot 11^1 \cdot 311^1$$
+- **Proof Factor ($F = x = S \cdot t$):** 54 decimal digits:
+  $$F = 761859204423674120235893191004671676998981427560586847$$
+  Full prime factorization of $F$:
+  $$F = 3^1 \cdot 7^1 \cdot 11^1 \cdot 311^1 \cdot 10006721^1 \cdot 10048373^1 \cdot 10051141^1 \cdot 10075687^1 \cdot 10091327^1 \cdot 10139953^1 \cdot 10177487^1$$
+  Every prime factor of $F$ is strictly $< 1.1 \times 10^7$ and unconditionally proven prime by trial division.
+
+---
+
+## 3. Unconditional Primality Proofs
+
+### 3.1 Upper Member $B$ (108 Digits)
+- **Theorem:** Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington $N-1$)
+- **Factorization:** $B - 1 = F \cdot (x - 3) = F \cdot 761859204423674120235893191004671676998981427560586844$
 - **Size Condition:**
-  $$(F_{\text{odd}} - 1)^2 \approx (2.5\times 10^{14})^2 = 6.25 \times 10^{28} \gg 10^{15} = A$$
-- **Lucas Parameter:** $P = 5, Q = 1$.
-- **Discriminant:** $D = P^2 - 4 = 21$.
-- **Jacobi Symbol:**
-  $$\left(\frac{21}{A}\right) = -1 \quad (\text{PASS})$$
-- **Lucas Sequence Congruence:**
-  $$U_{A + 1}(5, 1) \equiv 0 \pmod A \quad (\text{PASS})$$
-- **Coprimality Conditions:**
-  - For $q = 3$: $\gcd(U_{(A+1)/3}(5, 1), A) = 1$
-  - For $q = 83333333333531$: $\gcd(U_{(A+1)/q}(5, 1), A) = 1$
-- **Conclusion:** $A$ is unconditionally, deterministically prime.
+  $$F^2 = 580429447365073672176135517613336328521016173269486623081974224132586446460042510849079170061238951029401409 > B$$
+  Holds strictly: $F^2 - B = 3x - 1 > 0$.
+- **Witnesses:**
+  Base $a = 2$ satisfies:
+  1. $2^{B - 1} \equiv 1 \pmod B$
+  2. $\gcd(2^{(B - 1)/q} - 1, B) = 1$ for all 11 prime factors $q \in \{3, 7, 11, 311, 10006721, 10048373, 10051141, 10075687, 10091327, 10139953, 10177487\}$.
+- **Conclusion:** Upper member $B$ is unconditionally proven prime.
+
+### 3.2 Lower Member $A$ (108 Digits)
+- **Theorem:** Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank)
+- **Factorization:** $A + 1 = F \cdot (x - 3)$
+- **Size Condition:**
+  $$(F - 1)^2 = 580429447365073672176135517613336328521016173269486621558255815285238205988256128839735816063276095908227716 > A$$
+  Holds strictly: $(F - 1)^2 - A = x + 2 > 0$.
+- **Lucas Sequence Parameters:**
+  - $P = 3, \quad Q = 1, \quad D = P^2 - 4 = 5$
+  - Non-degeneracy: $\gcd(A, 2 \cdot 5) = 1$
+  - Jacobi Symbol: $\left(\frac{5}{A}\right) = -1$
+- **Lucas Congruence and Coprimality Checks:**
+  1. $U_{A + 1}(3, 1) \equiv 0 \pmod A$
+  2. $\gcd(U_{(A + 1)/q}(3, 1), A) = 1$ for all 11 prime factors $q \mid F$.
+- **Conclusion:** Lower member $A$ is unconditionally proven prime.
 
 ---
 
-## 4. Independent Verification and Attestation
+## 4. Independent Verification & Cryptographic Integrity
 
-The certificate was validated by the decoupled, zero-dependency independent verifier (`src/phase6/independent_verify.py`):
-```bash
-python -m src.phase6 verify proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json
-```
-**Verifier Output:**
-```text
-VERIFICATION SUCCESS: cert_gitcss_m166666666667062_16d.json
-  Digits: 16 / 16
-  Attestation: proofs\phase6\attestations\attest_6c0b671d46a457d1.json
-```
-- **Certificate Path:** `proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json`
-- **Canonical Payload SHA-256:** `1f2d443508c19ee0650c239183998ccf4eba9bf265dc031b90dba66140c6b727`
-- **Raw File SHA-256:** `6c0b671d46a457d16edc48aea5da33f4ab3444ff179b10cd2d652b223efaf6ee`
-- **Attestation Path:** `proofs/phase6/attestations/attest_6c0b671d46a457d1.json`
+- **Certificate Artifact:** `proofs/phase6/certificates/cert_qcp6_108d_t23947.json`
+- **Canonical SHA-256 Digest:** `a79f1ceabb2f5f00f1f24dcc6d6df82aa65fee73fae77292f2238524c857ef79`
+- **Independent Attestation:** `proofs/phase6/attestations/attest_a79f1ceabb2f5f00.json`
+- **Verifier:** `scripts/phase6_independent_verify.py`
+  - Recomputed all mathematical checks from first principles.
+  - Zero imports from `src.phase6`.
+  - Recomputed Lucas sequence $U_k(3, 1) \pmod A$ using independent standard-library 2x2 companion matrix exponentiation.
+  - Verified 100% of factor primality, modular congruences, gcd conditions, and canonical byte hashes.
 
 ---
 
-## 5. Duplicate and Novelty Audit
+## 5. Repository Novelty and Global Search Status
 
-1. **Repository Novelty Audit:**
-   - Canonical Key: `1000000000002371:1000000000002373`
-   - Compared against all 48 historical certificates in `research/phase5_audit/historical_inventory.json` (frozen SHA-256 `f0703dd...`).
-   - Match Count: 0.
-   - Result: **`NEW_TO_REPOSITORY`** (the first general-integer twin-prime discovery in repository history).
-2. **Global Novelty Disclaimer:**
-   - In accordance with Non-Negotiable Rule 5, this pair is certified as **new to this repository's research history**. It is not claimed to be the largest twin prime in the world, nor claimed to be globally unprecedented, as twin primes in the 16-digit range fall within reach of distributed searches.
-
----
-
-## 6. 100-Digit Search Campaign Findings
-
-As specified in Stage D, an exhaustive general-integer campaign was also executed in the 100-digit band:
-- **Interval Searched:** $p \in [10^{99}, 10^{99} + 3,145,728]$
-- **Centers Screened:** 524,288 candidate centers
-- **Survivors Screened ($L=50,000$):** 11,004 survivors
-- **Dual PRP Hits Found:** 58 pairs at 100 decimal digits passed Fermat base-2 and 25-round Miller-Rabin tests.
-- **Proof Outcome:** In accordance with Non-Negotiable Rule 4 ("Do not report a probable prime as a proven prime"), each 100-digit Dual PRP hit was evaluated for complete center factorization. Because general 100-digit centers have prime factors exceeding trial-division bounds ($> 10^7$) and require ECPP for certification, these 58 candidates were honestly recorded as `UNPROVEN_DUE_TO_FACTORIZATION_LIMIT`.
-- **Honest Status:** `NO_NEW_PAIR_FOUND_IN_TESTED_RANGE` for the 100-digit band. No fabricated proofs were emitted.
+1. **Repository Novelty:**
+   - Compared against canonical repository exclusion index of all 50 historical centers from Phases 1–5 and prior tests (`data/phase6/exclusion_index.json`).
+   - The integer center $C$ is **100% NEW to the repository**.
+2. **Global Novelty & Record Assessment:**
+   - As of 2026-11-14, the world record twin-prime pair is $2996863034895 \cdot 2^{1290000} \pm 1$ (388,342 digits).
+   - The PrimePages Top 20 entry threshold is 71,298 digits.
+   - At 108 digits, this pair is an independent computational discovery within the primary target band, but does not qualify for the PrimePages Top 20 world ranking.
+   - No match was found in checked repository records; external priority is unestablished.
 
 ---
 
-## 7. 350-Digit Unrestricted Campaign Findings (1,000,000 Centers)
+## 6. Campaign Execution Metrics
 
-Following the Phase 6 research brief instructions, an unrestricted campaign in the 350-digit band starting at the smallest multiple of 6 $\ge 10^{349}$ was executed:
-
-```text
-Campaign ID: unrestricted_350d_campaign
-Search method: GITCSS (General-Integer Twin-Center Segmented Sieve, Wheel 30/210, Q=100,000)
-Search interval: m in [1666...6667, 1666...7666667] (p in [10^349 + 1, 10^349 + 5999997])
-Number of eligible centers processed: 1,000,000
-Sieve cutoff: 100,000
-Total sieve survivors: 18,913
-Probable-prime candidates: 8 Dual PRPs
-Proof attempts: 8
-Accepted lower prime: NOT FOUND (FACTORIZATION_LIMIT_REACHED)
-Accepted upper prime: NOT FOUND (FACTORIZATION_LIMIT_REACHED)
-Exact difference: N/A (dual PRPs have difference exactly 2)
-Decimal digits per member: 350
-Lower-member proof method: Unconditionally unproven (exceeds general integer factorization bound without ECPP)
-Upper-member proof method: Unconditionally unproven (exceeds general integer factorization bound without ECPP)
-Independent verification result: N/A (candidates preserved in ledger data/phase6_candidates.jsonl)
-Duplicate check result: All 8 Dual PRPs are newly discovered by this campaign and absent from repository
-Certificate SHA-256: N/A (unproven)
-Coverage status: COMPLETE_AND_CONTIGUOUS (1,000,000 centers in 4 contiguous segments)
-Total runtime: 37.87 s
-Hardware/software environment: Intel i5-10210U, 12GB RAM, Windows 11, Python 3.12.10, gmpy2 2.3.2 (GMP 6.3.0)
-Reproduction command: python -m src.phase6.cli search --config configs/phase6/unrestricted_350d.json --no-stop --max-segments 4
-```
-
-### Empirical Alignment with Hardy-Littlewood Heuristic:
-- **Heuristic Expectation:** $\frac{12 C_2}{(\ln 10^{350})^2} \times 10^6 \approx 12$ twin pairs per million eligible centers.
-- **Observed Dual PRPs:** **8 Dual PRPs** (close empirical agreement with theoretical density).
-- **Candidates Logged:** All 8 dual PRPs (centered at offsets $150799, 1531831, 3016051, 3643129, 3714781, 4025959, 5325601, 5854717$) are recorded in `data/phase6_candidates.jsonl`.
-- **Scientific Integrity:** None of the 350-digit probable primes are falsely labeled as proven primes. The checkpoint and coverage manifest are fully preserved.
+| Metric | Measured Value |
+|---|---|
+| **Campaign ID** | `primary` |
+| **Sieve Depth ($Q_{\max}$)** | 100,000 primes |
+| **Candidates Sifted** | 25,000 ($j \in [10000, 35000)$) |
+| **Sieve Survivors** | 973 (3.89% survivor fraction) |
+| **Screening Order** | $B$-first early exit |
+| **Dual PRP Hits** | 1 (Candidate $t = 23947$) |
+| **Proof Latency** | 0.018 seconds |
+| **Total Campaign Time** | 0.14 seconds |
+| **Exit Condition** | Stop on first certified pair (`stop_on_first_certified = true`) |
