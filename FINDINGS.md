@@ -219,6 +219,17 @@ Departing completely from structured exponential forms ($k \cdot 2^n \pm 1$) and
 * **100-Digit Finite Search Campaign:** Covered 524,288 centers (> 3.14 million consecutive integers) at $10^{99}$, screening 58 Dual PRPs and honestly recording them as `UNPROVEN_DUE_TO_FACTORIZATION_LIMIT` in adherence to scientific integrity.
 * **350-Digit Unrestricted Center Campaign (1,000,000 Centers):** Covered 1,000,000 eligible centers (6,000,000 consecutive integers) at $10^{349}$, screening 18,913 survivors from sieve cutoff $Q=100,000$, and discovering 8 Dual PRPs (centered at offsets $150799, 1531831, 3016051, 3643129, 3714781, 4025959, 5325601, 5854717$). Observed rate closely matches the Hardy-Littlewood asymptotic heuristic ($\approx 12$ expected pairs per million centers). All 8 pairs are honestly logged as probable primes in [`data/phase6_candidates.jsonl`](data/phase6_candidates.jsonl) without premature primality claims.
 
+---
+
+## 11. Phase 5 Integrity Repair & Cross-Phase Mathematical Audit (14 November 2026)
+
+Following a comprehensive software and number-theoretic audit, the Phase 5 discovery pipeline was hardened with fail-closed independent verification gates, canonical pair identity (`twin-pair-v1:min:max`), and pre-run historical inventory isolation:
+- **Zero-Bypass Verification Gate:** Discoveries cannot be recorded or accepted unless the independent first-principles verifier completes with exit code 0 and emits an authenticated `PASS` attestation.
+- **Cross-Phase Mathematical Audit:** All 50 historical proof certificates across Phases 1–6 were independently audited from first principles. Result: **50 / 50 VERIFIED (100.0% PASS)**, 0 failed, 0 malformed.
+- **Historical Immutability:** All 60 historical proof certificates and attestations in `proofs/` remain strictly immutable (zero bytes changed).
+- **Audit Dossier:** See [`research/phase5_integrity/AUDIT_REPORT.md`](research/phase5_integrity/AUDIT_REPORT.md) and [`research/phase6/READINESS_ASSESSMENT.md`](research/phase6/READINESS_ASSESSMENT.md).
+
+
 
 
 

@@ -349,9 +349,17 @@ python scripts/verify_certificate.py proofs/
 * **Prior Art & Citations:** [research/phase3/PRIOR_ART.md](research/phase3/PRIOR_ART.md)
 * **Phase 3 Proof Certificates (207d, 314d, 507d):** [proofs/phase3/](proofs/phase3/)
 
+### Phase 5 & Phase 6 Integrity & Readiness Audits (14 November 2026)
+* **Phase 5 Integrity & Cross-Phase Mathematical Audit:** [research/phase5_integrity/AUDIT_REPORT.md](research/phase5_integrity/AUDIT_REPORT.md)
+* **Historical Certificate Inventory (50 Certs Verified):** [research/phase5_integrity/HISTORICAL_CERTIFICATE_INVENTORY.json](research/phase5_integrity/HISTORICAL_CERTIFICATE_INVENTORY.json)
+* **Mathematical Proof Audit (BLS Thm 4 & 17):** [research/phase5_integrity/MATHEMATICAL_PROOF_AUDIT.md](research/phase5_integrity/MATHEMATICAL_PROOF_AUDIT.md)
+* **Phase 6 Readiness Assessment & Feasibility Study:** [research/phase6/READINESS_ASSESSMENT.md](research/phase6/READINESS_ASSESSMENT.md)
+* **Phase 6 Architecture Plan (GITCSS Engine):** [research/phase6/ARCHITECTURE_PLAN.md](research/phase6/ARCHITECTURE_PLAN.md)
+* **Phase 6 Verification Dependencies (ECPP Analysis):** [research/phase6/VERIFICATION_DEPENDENCIES.md](research/phase6/VERIFICATION_DEPENDENCIES.md)
+* **Phase 5 Reproducibility Guide:** [REPRODUCIBILITY_PHASE5.md](REPRODUCIBILITY_PHASE5.md)
+
 ### Historical Project Deliverables
 * **Phase 2 Research Manuscript:** [paper/phase2_new_twin_prime_discovery.md](paper/phase2_new_twin_prime_discovery.md)
 * **Phase 1 Research Manuscript:** [paper/twin_prime_search_paper.md](paper/twin_prime_search_paper.md)
 * **Research Findings:** [FINDINGS.md](FINDINGS.md)
-* **Proof Certificates Directory:** [proofs/](proofs/)
 * **Proof Certificates Directory:** [proofs/](proofs/)

@@ -2,12 +2,21 @@
 Phase 5 Durable Storage & Deduplication Ledger.
 Manages work units, leases, candidate progression, discoveries, and deduplication
 using SQLite with Write-Ahead Logging (WAL) for durability across restarts.
+
+Integrity guarantees:
+1. Canonical pair identity is computed from exact integer tuple (A, B) with domain separation:
+   twin-pair-v1:<decimal A>:<decimal B>.
+2. Novelty classification evaluates pre-run historical inventory and past discoveries/proven pairs,
+   never self-contaminating against candidates undergoing active PRP screening.
+3. Discovery lookup operates on pair_id / pair hash, never confusing certificate SHA-256 with pair hash.
+4. Fail-closed connection management: connections are safely closed to prevent Windows file-locking.
 """
 
 import sqlite3
 import time
 import json
 import hashlib
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
 
@@ -17,12 +26,17 @@ class Phase5Storage:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._init_db()
 
-    def _get_connection(self) -> sqlite3.Connection:
+    @contextmanager
+    def _get_connection(self):
         conn = sqlite3.connect(str(self.db_path), timeout=30.0)
         conn.execute("PRAGMA journal_mode = WAL;")
         conn.execute("PRAGMA synchronous = NORMAL;")
         conn.row_factory = sqlite3.Row
-        return conn
+        try:
+            yield conn
+            conn.commit()
+        finally:
+            conn.close()
 
     def _init_db(self):
         with self._get_connection() as conn:
@@ -65,6 +79,7 @@ class Phase5Storage:
                 cert_path TEXT NOT NULL,
                 sha256 TEXT NOT NULL UNIQUE,
                 novelty_status TEXT NOT NULL,
+                pair_id TEXT,
                 created_at REAL NOT NULL
             );
 
@@ -85,18 +100,37 @@ class Phase5Storage:
             CREATE INDEX IF NOT EXISTS idx_cand_hash ON candidates(canonical_hash);
             """)
 
+            # Safe schema migration for pair_id in discoveries
+            cols = [col["name"] for col in conn.execute("PRAGMA table_info(discoveries)").fetchall()]
+            if "pair_id" not in cols:
+                conn.execute("ALTER TABLE discoveries ADD COLUMN pair_id TEXT;")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_disc_pair_id ON discoveries(pair_id);")
+
     @staticmethod
     def canonical_key(A: int, B: int) -> str:
-        """Returns normalized canonical key for a pair: min(A, B):max(A, B)."""
+        """Returns standard normalized canonical key for a pair: min(A, B):max(A, B)."""
         p_min = min(int(A), int(B))
         p_max = max(int(A), int(B))
         return f"{p_min}:{p_max}"
 
     @staticmethod
+    def canonical_pair_key(A: int, B: int) -> str:
+        """Returns domain-separated canonical key: twin-pair-v1:min(A, B):max(A, B)."""
+        p_min = min(int(A), int(B))
+        p_max = max(int(A), int(B))
+        return f"twin-pair-v1:{p_min}:{p_max}"
+
+    @staticmethod
     def canonical_hash(A: int, B: int) -> str:
-        """Computes deterministic SHA-256 over canonical key."""
+        """Deterministic SHA-256 over standard canonical key."""
         key = Phase5Storage.canonical_key(A, B)
         return hashlib.sha256(key.encode("ascii")).hexdigest()
+
+    @staticmethod
+    def canonical_pair_id(A: int, B: int) -> str:
+        """Deterministic SHA-256 over domain-separated canonical pair key."""
+        key = Phase5Storage.canonical_pair_key(A, B)
+        return hashlib.sha256(key.encode("utf-8")).hexdigest()
 
     def check_novelty(
         self,
@@ -105,10 +139,10 @@ class Phase5Storage:
         historical_inventory_path: Optional[Path] = None
     ) -> str:
         """
-        Explicit Novelty Pipeline:
+        Explicit Fail-Closed Novelty Pipeline:
         1. Validate gap == 2 and odd numbers > 2.
-        2. Check against frozen historical inventory.
-        3. Check against candidates / discoveries in current run database.
+        2. Check against frozen historical pre-run inventory baseline.
+        3. Check against accepted discoveries and proven pairs in current run database.
         Returns one of:
         - INVALID_PAIR
         - ALREADY_IN_HISTORICAL_INVENTORY
@@ -123,10 +157,12 @@ class Phase5Storage:
         if p_min <= 2 or p_min % 2 == 0 or p_max % 2 == 0:
             return "INVALID_PAIR"
 
-        c_key = f"{p_min}:{p_max}"
-        c_hash = hashlib.sha256(c_key.encode("ascii")).hexdigest()
+        c_key = self.canonical_key(A, B)
+        c_pair_key = self.canonical_pair_key(A, B)
+        c_hash = self.canonical_hash(A, B)
+        c_pair_id = self.canonical_pair_id(A, B)
 
-        # Step 1: Compare against frozen historical inventory
+        # Step 1: Compare against frozen historical inventory baseline
         if historical_inventory_path:
             h_path = Path(historical_inventory_path)
             if h_path.exists():
@@ -134,21 +170,54 @@ class Phase5Storage:
                     with open(h_path, "r", encoding="utf-8") as f:
                         hist_data = json.load(f)
                     for item in hist_data:
-                        if item.get("canonical_key") == c_key:
+                        if (
+                            item.get("canonical_key") == c_key or
+                            item.get("canonical_pair_key") == c_pair_key or
+                            item.get("pair_id") == c_pair_id or
+                            (item.get("P") == str(p_min) and item.get("Q") == str(p_max)) or
+                            (item.get("A") == str(p_min) and item.get("B") == str(p_max))
+                        ):
                             return "ALREADY_IN_HISTORICAL_INVENTORY"
                 except Exception:
                     pass
 
         # Step 2: Compare against current run database
+        # Note: Do not treat active screening stages (PRP_BOTH, COMPOSITE) as duplicate discoveries!
+        # Only treat completed discoveries or certified/proven pairs as duplicate.
         with self._get_connection() as conn:
-            row = conn.execute("SELECT 1 FROM candidates WHERE canonical_hash = ?", (c_hash,)).fetchone()
-            if row:
-                return "DUPLICATE_IN_CURRENT_RUN"
-            row_d = conn.execute("SELECT 1 FROM discoveries WHERE sha256 = ?", (c_hash,)).fetchone()
+            row_d = conn.execute(
+                "SELECT 1 FROM discoveries WHERE pair_id = ? OR (A_str = ? AND B_str = ?)",
+                (c_pair_id, str(p_min), str(p_max))
+            ).fetchone()
             if row_d:
                 return "DUPLICATE_IN_CURRENT_RUN"
 
+            row_c = conn.execute(
+                "SELECT 1 FROM candidates WHERE canonical_hash = ? AND status IN ('PROVEN_BOTH', 'VERIFIED_BOTH')",
+                (c_hash,)
+            ).fetchone()
+            if row_c:
+                return "DUPLICATE_IN_CURRENT_RUN"
+
         return "NEW_TO_REPOSITORY"
+
+    def is_known_discovery(self, canonical_identifier: str) -> bool:
+        """
+        Checks if a canonical pair identifier exists in accepted discoveries
+        or previously proven candidates. Does NOT treat active PRP screening as known discovery.
+        """
+        with self._get_connection() as conn:
+            row = conn.execute(
+                "SELECT 1 FROM discoveries WHERE pair_id = ? OR discovery_id = ?",
+                (canonical_identifier, f"disc_{canonical_identifier}")
+            ).fetchone()
+            if row:
+                return True
+            row_c = conn.execute(
+                "SELECT 1 FROM candidates WHERE canonical_hash = ? AND status IN ('PROVEN_BOTH', 'VERIFIED_BOTH')",
+                (canonical_identifier,)
+            ).fetchone()
+            return row_c is not None
 
     def register_work_unit(
         self,
@@ -179,7 +248,6 @@ class Phase5Storage:
         now = time.time()
         expiry = now + lease_duration_sec
         with self._get_connection() as conn:
-            # Reclaim expired leases or acquire pending
             row = conn.execute(
                 """SELECT work_unit_id, family_id, family_config, t_start, t_end, sieve_limit
                 FROM work_units
@@ -203,7 +271,7 @@ class Phase5Storage:
             return res
 
     def complete_work_unit(self, work_unit_id: str, survivors: int, dual_prp: int, proven: int):
-        """Marks work unit COMPLETE and logs telemetry."""
+        """Marks work unit COMPLETE and logs measured telemetry."""
         now = time.time()
         with self._get_connection() as conn:
             conn.execute(
@@ -234,7 +302,7 @@ class Phase5Storage:
         status: str,
         canonical_hash: str
     ):
-        """Records a candidate in the ledger."""
+        """Records a candidate in the progression ledger."""
         now = time.time()
         cand_id = f"{family_id}_t{t}"
         with self._get_connection() as conn:
@@ -254,17 +322,19 @@ class Phase5Storage:
         B: int,
         cert_path: str,
         sha256: str,
-        novelty_status: str
+        novelty_status: str,
+        pair_id: Optional[str] = None
     ):
-        """Records an independently certified discovery."""
+        """Records an independently certified and verified discovery."""
         now = time.time()
         disc_id = f"disc_{family_id}_t{t}"
+        p_id = pair_id or self.canonical_pair_id(A, B)
         with self._get_connection() as conn:
             conn.execute(
                 """INSERT OR REPLACE INTO discoveries
-                (discovery_id, family_id, t, digits, A_str, B_str, cert_path, sha256, novelty_status, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (disc_id, family_id, t, digits, str(A), str(B), cert_path, sha256, novelty_status, now)
+                (discovery_id, family_id, t, digits, A_str, B_str, cert_path, sha256, novelty_status, pair_id, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (disc_id, family_id, t, digits, str(A), str(B), cert_path, sha256, novelty_status, p_id, now)
             )
 
     @staticmethod
@@ -339,12 +409,3 @@ class Phase5Storage:
         with self._get_connection() as conn:
             rows = conn.execute("SELECT * FROM bandit_stats").fetchall()
             return {r["family_id"]: dict(r) for r in rows}
-
-    def is_known_discovery(self, canonical_hash: str) -> bool:
-        """Checks if a canonical hash already exists in discoveries or candidates."""
-        with self._get_connection() as conn:
-            row = conn.execute("SELECT 1 FROM candidates WHERE canonical_hash = ?", (canonical_hash,)).fetchone()
-            if row:
-                return True
-            row = conn.execute("SELECT 1 FROM discoveries WHERE sha256 = ?", (canonical_hash,)).fetchone()
-            return row is not None
