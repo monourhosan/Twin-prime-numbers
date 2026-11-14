@@ -1,0 +1,134 @@
+{
+  "wheel_comparison": [
+    {
+      "config": "No_Wheel",
+      "modulus": 1,
+      "throughput_centers_per_sec": 8553798.966801286,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 30.646499995782506
+    },
+    {
+      "config": "Wheel_5",
+      "modulus": 5,
+      "throughput_centers_per_sec": 3802197.100777337,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 68.94540000212146
+    },
+    {
+      "config": "Wheel_5_7",
+      "modulus": 35,
+      "throughput_centers_per_sec": 8668439.082557585,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 30.24120000191033
+    },
+    {
+      "config": "Wheel_5_7_11",
+      "modulus": 385,
+      "throughput_centers_per_sec": 8137605.1938974075,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 32.213900005444884
+    },
+    {
+      "config": "Wheel_5_7_11_13",
+      "modulus": 5005,
+      "throughput_centers_per_sec": 6541237.061670834,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 40.07560000172816
+    }
+  ],
+  "sieve_limit_scaling": [
+    {
+      "sieve_limit": 1000,
+      "throughput_centers_per_sec": 10886830.847313302,
+      "survivors": 12861,
+      "survivor_fraction": 0.049060821533203125,
+      "median_time_ms": 24.079000002529938
+    },
+    {
+      "sieve_limit": 5000,
+      "throughput_centers_per_sec": 10367692.714920374,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 25.284700001066085
+    },
+    {
+      "sieve_limit": 20000,
+      "throughput_centers_per_sec": 10607319.884737693,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 24.713500002690125
+    },
+    {
+      "sieve_limit": 50000,
+      "throughput_centers_per_sec": 5320484.5880722245,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 49.27070000121603
+    },
+    {
+      "sieve_limit": 100000,
+      "throughput_centers_per_sec": 6239607.359042097,
+      "survivors": 8402,
+      "survivor_fraction": 0.03205108642578125,
+      "median_time_ms": 42.012899997644126
+    }
+  ],
+  "architecture_comparison": [
+    {
+      "segment_size": 65536,
+      "standard_throughput": 4176289.1599818845,
+      "bucket_throughput": 2729392.9496315545,
+      "speedup_ratio": 0.6535450121091217
+    },
+    {
+      "segment_size": 131072,
+      "standard_throughput": 3812781.8021951728,
+      "bucket_throughput": 4312444.273287924,
+      "speedup_ratio": 1.1310493222573281
+    },
+    {
+      "segment_size": 262144,
+      "standard_throughput": 7123787.991407667,
+      "bucket_throughput": 6313923.4650727585,
+      "speedup_ratio": 0.8863154648465501
+    }
+  ],
+  "reference_vs_optimized": {
+    "reference_throughput": 192389.08778702532,
+    "optimized_throughput": 1749934.3766046865,
+    "speedup_factor": 9.095808898173392,
+    "sample_size": 2000
+  },
+  "screening_scaling": [
+    {
+      "digits": 10,
+      "median_screen_us": 7.299997378140688,
+      "screens_per_sec": 136986.35056971764
+    },
+    {
+      "digits": 50,
+      "median_screen_us": 7.100003131199628,
+      "screens_per_sec": 140845.0083079102
+    },
+    {
+      "digits": 100,
+      "median_screen_us": 7.799993909429759,
+      "screens_per_sec": 128205.2283131985
+    },
+    {
+      "digits": 350,
+      "median_screen_us": 15.99999814061448,
+      "screens_per_sec": 62500.00726322553
+    },
+    {
+      "digits": 450,
+      "median_screen_us": 20.2999945031479,
+      "screens_per_sec": 49261.097082806155
+    }
+  ]
+}

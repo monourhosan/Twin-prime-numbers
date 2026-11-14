@@ -1,0 +1,17 @@
+{
+  "campaign_id": "stretch",
+  "method": "method_q",
+  "target_pair_digits": 350,
+  "h": 3,
+  "seed": 2026111404,
+  "t_bits": 24,
+  "j_min": 0,
+  "j_max": 100000,
+  "block_size": 20000,
+  "sieve_limit": 100000,
+  "sieve_backend": "q_segment",
+  "screening_order": "A_first",
+  "mr_rounds": 25,
+  "stop_on_first_certified": true,
+  "wall_clock_seconds": 300.0
+}

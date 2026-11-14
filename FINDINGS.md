@@ -201,5 +201,62 @@ Breaking out of the single-power-of-2 template ($k \cdot 2^n \pm 1$), Phase 5 in
 
 Both pairs satisfy strict integer identity $B - A = 2$, pass all preconditions of BLS Theorem 4 and Theorem 17 without floating-point error, and are independently verified from first principles with zero external codebase dependencies.
 
+---
+
+## 10. Phase 6 GITCSS Discoveries: First General-Integer Twin-Prime Discovery
+
+Departing completely from structured exponential forms ($k \cdot 2^n \pm 1$) and smooth-center families ($C = F \cdot t$), Phase 6 formulated and deployed the **General-Integer Twin-Center Segmented Sieve (GITCSS)**. Operating on the universal representation $p = 6m - 1, p+2 = 6m + 1$ over ordinary integers $m \in \mathbb{Z}^+$, GITCSS applies a two-residue segmented sieve, wheel pre-filtering ($W = 5005$), tiered Miller-Rabin screening, and dual classical primality proofs via center factorization:
+
+| Campaign | Center Index $m$ | Decimal Digits | Lower Prime $A$ | Upper Prime $B$ | Certification Theorems | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `pilot_general_discovery` | $166,666,666,667,062$ | **16 digits** | `1000000000002371` | `1000000000002373` | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=5$) | [`proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json`](proofs/phase6/certificates/cert_gitcss_m166666666667062_16d.json) |
+
+* **Exact Factorization of Center:**
+  $$6m = 1000000000002372 = 2^2 \times 3 \times 83333333333531$$
+  Every prime factor was verified unconditionally from first principles via trial division.
+* **Independent Attestation:** Attested via [`proofs/phase6/attestations/attest_6c0b671d46a457d1.json`](proofs/phase6/attestations/attest_6c0b671d46a457d1.json) (Status: **PASS**).
+* **Novelty:** Audited against all 48 historical repository certificates (`research/phase5_audit/historical_inventory.json`). Confirmed **`NEW_TO_REPOSITORY`** as the repository's first certified general-integer discovery.
+* **100-Digit Finite Search Campaign:** Covered 524,288 centers (> 3.14 million consecutive integers) at $10^{99}$, screening 58 Dual PRPs and honestly recording them as `UNPROVEN_DUE_TO_FACTORIZATION_LIMIT` in adherence to scientific integrity.
+* **350-Digit Unrestricted Center Campaign (1,000,000 Centers):** Covered 1,000,000 eligible centers (6,000,000 consecutive integers) at $10^{349}$, screening 18,913 survivors from sieve cutoff $Q=100,000$, and discovering 8 Dual PRPs (centered at offsets $150799, 1531831, 3016051, 3643129, 3714781, 4025959, 5325601, 5854717$). Observed rate closely matches the Hardy-Littlewood asymptotic heuristic ($\approx 12$ expected pairs per million centers). All 8 pairs are honestly logged as probable primes in [`data/phase6_candidates.jsonl`](data/phase6_candidates.jsonl) without premature primality claims.
+
+---
+
+## 11. Phase 5 Integrity Repair & Cross-Phase Mathematical Audit (14 November 2026)
+
+Following a comprehensive software and number-theoretic audit, the Phase 5 discovery pipeline was hardened with fail-closed independent verification gates, canonical pair identity (`twin-pair-v1:min:max`), and pre-run historical inventory isolation:
+- **Zero-Bypass Verification Gate:** Discoveries cannot be recorded or accepted unless the independent first-principles verifier completes with exit code 0 and emits an authenticated `PASS` attestation.
+- **Cross-Phase Mathematical Audit:** All 50 historical proof certificates across Phases 1–6 were independently audited from first principles. Result: **50 / 50 VERIFIED (100.0% PASS)**, 0 failed, 0 malformed.
+- **Historical Immutability:** All 60 historical proof certificates and attestations in `proofs/` remain strictly immutable (zero bytes changed).
+- **Audit Dossier:** See [`research/phase5_integrity/AUDIT_REPORT.md`](research/phase5_integrity/AUDIT_REPORT.md) and [`research/phase6/READINESS_ASSESSMENT.md`](research/phase6/READINESS_ASSESSMENT.md).
 
 
+
+
+
+
+
+---
+
+## 12. Phase 6 QCP-6 Discoveries: Quadratic Co-Factor Proof Search (14 November 2026)
+
+Resolving the ECPP dependency blocker of unrestricted general-integer searches on Windows platforms, Phase 6 formulated and deployed **Method Q (QCP-6)**, a quadratic co-factor search family:
+$$x = S \cdot t, \qquad C = x(x - h), \qquad A = x^2 - hx - 1, \qquad B = x^2 - hx + 1$$
+where $h = 3$, $S$ is an odd 50-digit anchor divisible by 3 with fully proven prime factors, and $t$ is a machine integer factored by trial division. Because $F = x = S \cdot t$ divides both $B - 1$ and $A + 1$ with $F^2 > B$ and $(F - 1)^2 > A$, both members admit unconditional deterministic primality proofs without requiring external ECPP or massive fixed smooth multipliers:
+
+| Campaign | Candidate $t$ | Decimal Digits | Lower Prime $A$ | Upper Prime $B$ | Certification Theorems | Certificate File |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `primary` | $23,947$ | **108 digits** | `58042944...0867` (108d) | `58042944...0869` (108d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_108d_t23947.json`](proofs/phase6/certificates/cert_qcp6_108d_t23947.json) |
+| `primary (resume)` | $131,295$ | **110 digits** | `17447916...8639` (110d) | `17447916...8641` (110d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_110d_t131295.json`](proofs/phase6/certificates/cert_qcp6_110d_t131295.json) |
+
+* **Exact Integers (Primary 108d Discovery):**
+  - $A = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867$
+  - $B = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640869$
+  - $C = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640868$
+  - $B - A = 2$, $C \equiv 0 \pmod 6$.
+* **Full Proof Factor Factorization ($F = x$):**
+  $$F = 3^1 \cdot 7^1 \cdot 11^1 \cdot 311^1 \cdot 10006721^1 \cdot 10048373^1 \cdot 10051141^1 \cdot 10075687^1 \cdot 10091327^1 \cdot 10139953^1 \cdot 10177487^1$$
+  Every prime factor was verified prime unconditionally by trial division from first principles.
+* **Independent Attestation:**
+  Attested via [`proofs/phase6/attestations/attest_a79f1ceabb2f5f00.json`](proofs/phase6/attestations/attest_a79f1ceabb2f5f00.json) (Status: **PASS**), recomputing Lucas sequence terms via pure-Python 2x2 companion matrix exponentiation.
+* **Novelty:**
+  Cross-checked against the complete 50-certificate repository baseline inventory (`data/phase6/exclusion_index.json`). Both discoveries are confirmed **`NEW_TO_REPOSITORY`**.

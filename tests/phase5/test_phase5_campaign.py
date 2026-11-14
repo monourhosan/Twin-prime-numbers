@@ -47,8 +47,12 @@ def test_campaign_orchestrator_lifecycle(tmp_path):
     assert resumed_campaign.telemetry["work_units_completed"] == 1
 
     # Cleanup test run directory
-    import shutil
-    if campaign.run_dir.exists():
-        shutil.rmtree(campaign.run_dir)
-    if campaign.reports_run_dir.exists():
-        shutil.rmtree(campaign.reports_run_dir)
+    import shutil, gc
+    run_dir = campaign.run_dir
+    reports_run_dir = campaign.reports_run_dir
+    del campaign, resumed_campaign
+    gc.collect()
+    if run_dir.exists():
+        shutil.rmtree(run_dir)
+    if reports_run_dir.exists():
+        shutil.rmtree(reports_run_dir)

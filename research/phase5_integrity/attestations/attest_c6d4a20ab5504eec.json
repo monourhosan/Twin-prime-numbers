@@ -1,0 +1,37 @@
+{
+  "attestation_version": "5.0",
+  "verifier": "scripts/phase5_independent_verify.py",
+  "target_certificate": "cert_scca_fam1_p2e3_p3e8_p5e4_p7e2_t90_12d.json",
+  "target_sha256": "c6d4a20ab5504eec733eb41a56abd5d6628a8c00d970785a60f1c384112634f4",
+  "verification_timestamp_utc": "2026-11-14T00:18:50.536067+00:00",
+  "result": "PASS",
+  "digits_lower": 12,
+  "digits_upper": 12,
+  "pair": {
+    "lower_prime_A": "144670049999",
+    "upper_prime_B": "144670050001",
+    "pair_id": "29ef6d1a415b2259abd064b3fbc3e6a7e994727f95a03beaa591a42709029491"
+  },
+  "errors": [],
+  "independent_evidence": {
+    "payload_sha256_verified": true,
+    "canonical_pair_id": "29ef6d1a415b2259abd064b3fbc3e6a7e994727f95a03beaa591a42709029491",
+    "A_reconstructed": "144670049999",
+    "B_reconstructed": "144670050001",
+    "pocklington_witness_a": 2,
+    "pocklington_gcd_checks": {
+      "3": 1,
+      "5": 1,
+      "7": 1
+    },
+    "morrison_parameter_P": 21,
+    "morrison_discriminant_D": 437,
+    "morrison_jacobi": -1,
+    "morrison_lucas_u_full_mod_A": 0,
+    "morrison_gcd_checks": {
+      "3": 1,
+      "5": 1,
+      "7": 1
+    }
+  }
+}
