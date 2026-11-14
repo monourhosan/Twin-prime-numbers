@@ -50,7 +50,7 @@ class GITCSSCampaign:
             self.sieve = SegmentedCenterSieve(self.sieve_limit, self.wheel)
             
         self.screener = CandidateScreener(mr_rounds=self.config.get("mr_rounds", 25))
-        self.prover = DeterministicPairProver()
+        self.prover = DeterministicPairProver(factor_timeout_sec=float(self.config.get("factor_timeout_sec", 30.0)))
         
         self.db_path = self.run_dir / "campaign.db"
         self.coverage = CoverageManager(self.db_path)
@@ -148,10 +148,13 @@ class GITCSSCampaign:
             proven_in_seg = 0
             
             # Screen survivors
+            seg_interrupted_at = None
+            screened_survivors = 0
             for m_val in survivors:
+                screened_survivors += 1
                 res = self.screener.screen_candidate(m_val)
                 
-                # Append candidate to ledger
+                # Append candidate to ledger with full PRP status breakdown
                 with open(self.candidates_jsonl, "a", encoding="utf-8") as f:
                     entry = {
                         "run_id": self.run_id,
@@ -160,6 +163,8 @@ class GITCSSCampaign:
                         "B": str(res.candidate.B),
                         "digits": res.candidate.digits,
                         "stage_passed": res.stage_passed,
+                        "is_left_prp": res.is_left_prp,
+                        "is_right_prp": res.is_right_prp,
                         "is_dual_prp": res.is_dual_prp,
                         "timestamp": datetime.now(timezone.utc).isoformat()
                     }
@@ -202,26 +207,44 @@ class GITCSSCampaign:
                             })
                             if stop_on_discovery:
                                 self._log("Stop on discovery enabled. Concluding campaign.")
+                                seg_interrupted_at = m_val
                                 break
                     else:
                         self._log(f"Proof generation timed out or unfactored for m={m_val}.")
 
             elapsed_seg = time.perf_counter() - t0
-            self.coverage.record_completed_segment(
-                segment_id=seg_idx,
-                m_start=seg_start,
-                m_end=seg_end,
-                survivors=len(survivors),
-                dual_prps=dual_prp_in_seg,
-                proven=proven_in_seg,
-                elapsed_sec=elapsed_seg,
-                timestamp_utc=datetime.now(timezone.utc).isoformat()
-            )
+            if seg_interrupted_at is not None:
+                # Segment was interrupted at m_val; record exact processed cursor
+                self.coverage.record_completed_segment(
+                    segment_id=seg_idx,
+                    m_start=seg_start,
+                    m_end=seg_interrupted_at,
+                    survivors=screened_survivors,
+                    dual_prps=dual_prp_in_seg,
+                    proven=proven_in_seg,
+                    elapsed_sec=elapsed_seg,
+                    timestamp_utc=datetime.now(timezone.utc).isoformat(),
+                    status="PARTIAL_DISCOVERY"
+                )
+                m_curr = seg_interrupted_at + 1
+                break
+            else:
+                self.coverage.record_completed_segment(
+                    segment_id=seg_idx,
+                    m_start=seg_start,
+                    m_end=seg_end,
+                    survivors=len(survivors),
+                    dual_prps=dual_prp_in_seg,
+                    proven=proven_in_seg,
+                    elapsed_sec=elapsed_seg,
+                    timestamp_utc=datetime.now(timezone.utc).isoformat(),
+                    status="COMPLETED"
+                )
 
-            segments_done += 1
-            self.telemetry["segments_completed"] += 1
-            seg_idx += 1
-            m_curr = seg_end
+                segments_done += 1
+                self.telemetry["segments_completed"] += 1
+                seg_idx += 1
+                m_curr = seg_end
             
             if discoveries and stop_on_discovery:
                 break

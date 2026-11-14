@@ -1,0 +1,70 @@
+{
+  "schema_version": "4.0",
+  "campaign_id": "phase6b_stretch_1512d",
+  "family": "odd_k_divisible_by_3_times_2_power_plus_minus_1",
+  "min_digits": 1510,
+  "exponents": [
+    5020
+  ],
+  "k_start": 3,
+  "k_end": 150003,
+  "window_k_span": 50000,
+  "sieve_strategy": "r1_tspace",
+  "sieve_depth": 50000,
+  "sieve_depth_candidates": [
+    10000,
+    30000,
+    50000,
+    100000
+  ],
+  "prp_bases": [
+    2,
+    3,
+    5
+  ],
+  "proth_witness_pool": [
+    3,
+    5,
+    7,
+    10,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37,
+    41,
+    43,
+    47
+  ],
+  "llr_parameter_pool": [
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    12,
+    14,
+    15,
+    16,
+    18,
+    20,
+    22,
+    24
+  ],
+  "workers": 2,
+  "max_wall_hours_per_session": 0.25,
+  "checkpoint_seconds": 15.0,
+  "lease_timeout_seconds": 120.0,
+  "stop_after_verified_pairs": 1,
+  "require_independent_verification": true,
+  "checkpoint_dir": "runs/phase6b/stretch_1512d",
+  "proofs_dir": "proofs/phase6b/certificates",
+  "allow_auto_start": false,
+  "use_gmpy2": true,
+  "laptop_profile": null
+}

@@ -5,6 +5,7 @@ Implements Pocklington BLS Theorem 4 on B = 6m + 1 and Morrison BLS Theorem 17 o
 
 import math
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from typing import Dict, Any, List, Optional, Tuple
 import sympy
 from sympy.ntheory import factorint
@@ -14,6 +15,28 @@ try:
     HAVE_GMPY2 = True
 except ImportError:
     HAVE_GMPY2 = False
+
+def is_prime_factor(p: int) -> bool:
+    """
+    Exact deterministic check for factor primality.
+    Unconditionally proven for p < 2^64 via exhaustive deterministic bases.
+    Factors >= 2^64 cannot be claimed as proven primes without recursive certificates.
+    """
+    if p < 2:
+        return False
+    if p in (2, 3):
+        return True
+    if p % 2 == 0 or p % 3 == 0:
+        return False
+    if p < 10000000:
+        return is_prime_trial_division(p, limit=10000000)
+    if p < (1 << 64):
+        # Deterministic BPSW / Miller-Rabin is mathematically proven without counterexamples below 2^64
+        if HAVE_GMPY2:
+            return bool(gmpy2.is_prime(gmpy2.mpz(p), 25))
+        return bool(sympy.isprime(p))
+    # Factors >= 2^64 cannot be assumed unconditionally prime without an explicit certificate
+    return False
 
 def jacobi_symbol(a: int, n: int) -> int:
     """Computes Jacobi symbol (a / n) for positive odd n."""
@@ -99,13 +122,25 @@ class DeterministicPairProver:
         self.factor_timeout_sec = factor_timeout_sec
 
     def factor_center(self, m: int) -> Optional[Dict[int, int]]:
-        """Factors center m completely. Returns factor dict {prime: exp} or None."""
+        """Factors center m completely with timeout and bounded factorization. Returns factor dict {prime: exp} or None."""
+        def _run_factor():
+            # Bounded trial division + Pollard rho + Pollard p-1
+            return factorint(m, limit=100000, use_ecm=False, use_pm1=True, use_rho=True)
+
+        executor = ThreadPoolExecutor(max_workers=1)
         try:
-            factors = factorint(m, limit=100000, use_ecm=False, use_pm1=False, use_rho=False)
-            # Verify complete factorization: product must equal m
+            future = executor.submit(_run_factor)
+            factors = future.result(timeout=self.factor_timeout_sec)
+            executor.shutdown(wait=False, cancel_futures=True)
+        except (TimeoutError, Exception):
+            executor.shutdown(wait=False, cancel_futures=True)
+            return None
+
+        # Verify complete factorization: product must equal m and all factors must be prime
+        try:
             prod = 1
             for p, exp in factors.items():
-                if not is_prime_trial_division(p):
+                if not is_prime_factor(p):
                     return None
                 prod *= (p ** exp)
             if prod == m:
@@ -167,7 +202,7 @@ class DeterministicPairProver:
             F_odd *= (q ** factors_6m[q])
             
         # Theorem 17 requires 2*F_odd > sqrt(A) + 1 or (F_odd - 1)^2 > A
-        sqrt_A = int(A**0.5)
+        sqrt_A = math.isqrt(A)
         if 2 * F_odd <= sqrt_A + 1 and (F_odd - 1) * (F_odd - 1) <= A:
             return None
 

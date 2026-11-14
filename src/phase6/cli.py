@@ -148,6 +148,54 @@ def cmd_pause(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_prove_pending(args: argparse.Namespace) -> int:
+    from .proof_router import ProofRouter
+    input_file = Path(args.input) if hasattr(args, "input") and args.input else Path("data/phase6b_pending_pairs.jsonl")
+    if not input_file.exists():
+        print(f"Error: Pending pairs file not found: {input_file}")
+        return 1
+
+    print("============================================================")
+    print("PHASE 6B HYBRID PROOF ROUTER: PROVE-PENDING")
+    print("============================================================")
+    router = ProofRouter()
+    print(f"ECPP Engine Available on Host: {router.has_ecpp_engine()} ({router.pari_gp_path or 'None'})")
+
+    with open(input_file, "r", encoding="utf-8") as f:
+        pairs = [json.loads(line) for line in f if line.strip()]
+
+    print(f"Loaded {len(pairs)} pending candidate pairs.\n")
+    updated_records = []
+    
+    for p in pairs:
+        pid = p.get("pair_id") or p.get("id") or "unknown_pair"
+        m = int(p.get("center_m") or p.get("m"))
+        digits = int(p.get("digits", 350))
+        print(f"Routing candidate [{pid}] (m={m}, {digits} digits)...")
+        plan = router.route_pair(m, digits=digits)
+        print(f"  Route: {plan['route']} -> Status: {plan['status']}")
+        if plan["status"] == "BLOCKED_NO_ECPP_ENGINE":
+            print(f"  Blocker Code: {plan['blocker_code']}")
+            print(f"  Reason: {plan['reason'][:100]}...")
+            p["proof_status"] = "BLOCKED_NO_ECPP_ENGINE"
+            p["blocker_code"] = plan["blocker_code"]
+        elif plan["status"] == "PROVEN":
+            p["proof_status"] = "BOTH_PROVEN_PENDING_ATTESTATION"
+            p["proof_artifacts"] = plan["proof"]
+            print("  Successfully proved candidate!")
+        updated_records.append(p)
+        print("-" * 50)
+
+    # Save updated ledger
+    with open(input_file, "w", encoding="utf-8") as f:
+        for r in updated_records:
+            f.write(json.dumps(r) + "\n")
+
+    print("\nPending pairs ledger updated successfully.")
+    print("============================================================")
+    return 0
+
+
 def cmd_verify(args: argparse.Namespace) -> int:
     from scripts.phase6_independent_verify import main as verify_main
     sys.argv = ["phase6_independent_verify.py", args.path]
@@ -157,6 +205,10 @@ def cmd_verify(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Phase 6 Number Theory Search & Verification Engine")
     subparsers = parser.add_subparsers(dest="subcommand", help="Subcommand to execute")
+
+    # prove-pending
+    p_prove = subparsers.add_parser("prove-pending", help="Route and prove pending probable-prime pairs")
+    p_prove.add_argument("--input", default="data/phase6b_pending_pairs.jsonl", help="Path to pending pairs JSONL")
 
     # audit
     p_audit = subparsers.add_parser("audit", help="Audit environment and historical repository inventory")
@@ -194,7 +246,9 @@ def main() -> int:
         parser.print_help()
         return 1
 
-    if args.subcommand == "audit":
+    if args.subcommand == "prove-pending":
+        return cmd_prove_pending(args)
+    elif args.subcommand == "audit":
         return cmd_audit(args)
     elif args.subcommand == "benchmark":
         return cmd_benchmark(args)

@@ -1,6 +1,6 @@
 # Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, & Phase 6 GITCSS Project
 
-[![Tests: 118/118 Passing](https://img.shields.io/badge/Tests-118%2F118%20Passing-brightgreen)](tests/)
+[![Tests: 159/159 Passing](https://img.shields.io/badge/Tests-159%2F159%20Passing-brightgreen)](tests/)
 [![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
 [![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
@@ -17,7 +17,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 4. **Phase 4 ADRS-4** (*Adaptive Dual-Residue Search, Phase 4*) with compact $t$-space block sieving ($k=6t+3$), GMP acceleration, durable SQLite WAL leases with automatic crash recovery, and decoupled $2 \times 2$ matrix-powering attestation;
 5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery;
 6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling;
-7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification.
+7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification;
+8. **Phase 6B Certification & Discovery Suite** providing a hybrid theorem router, independent Goldwasser-Kilian-Atkin ECPP certificate verifier, audited 50-round Miller-Rabin + BPSW triage for the eight 350-digit probable twin pairs, reliability repair suite, and stretch 1,510+ digit campaign.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -52,6 +53,25 @@ An autonomous, mathematically rigorous computational number theory project inves
 ---
 
 ## 2. Strongest Results Achieved in This Project
+
+### 2.0000 Phase 6B: Unrestricted Twin-Prime Certification & Discovery Suite
+Phase 6B focuses on mathematical rigor, algorithmic reliability repairs, hybrid theorem routing, and high-precision candidate verification:
+* **Recovery & Verification of Eight 350-Digit Probable Twin Pairs:**
+  - Audited, reconciled, and deduplicated the 8 candidate pairs from the 350-digit search.
+  - Independently confirmed all 8 pairs with 50-round Miller-Rabin + BPSW primality tests (`data/phase6b_pending_pairs.jsonl`).
+  - Proved that classical $N \pm 1$ factorization is obstructed ($F \le 10^6 \ll 10^{175}$), strictly requiring general ECPP.
+  - Formally registered blocker `P6B-BLOCKER-01` in accordance with scientific integrity (ECPP engine absent on host without unauthorized downloads).
+* **Reliability Repairs & Algorithmic Audits:**
+  - Enforced `factor_timeout_sec` with non-blocking worker thread pools in `src/phase6/proof_backend.py`.
+  - Staged candidate screening in `src/phase6/screening.py` to decouple left PRP verification from right member outcomes, resolving the historical 8 == 8 anomaly.
+  - Repaired campaign early-exit handling in `src/phase6/campaign.py` and `coverage.py` to record exact resume cursors and prevent premature range completion.
+  - Proved mathematically that the 3.21% survival rate benchmark anomaly is due to $\sqrt{N}$ saturation at $m = 10^6$, whereas 100d+ ranges follow Mertens' theorem monotonically.
+* **Hybrid Proof Router & Independent ECPP Verifier:**
+  - Implemented `src/phase6/proof_router.py` routing candidates across Proth/LLR, Dual-BLS, and ECPP.
+  - Implemented `scripts/phase6b_ecpp_verify.py` verifying Goldwasser-Kilian-Atkin point order certificates from first principles.
+* **Stretch Campaign (1,510+ Digits):**
+  - Formulated 1,512-digit configuration `configs/phase6/stretch_1512d.json` targeting $k \cdot 2^{5020} \pm 1$.
+  - Ran finite benchmark/search window, safely pausing on hardware memory guardrails (available RAM 0.72 GB < 2.50 GB safety threshold); outcome classified as `NO_CERTIFIED_PAIR_YET`.
 
 ### 2.000 Phase 6 GITCSS Discovery: First General-Integer Certified Twin Pair
 Breaking free from all special exponential and smooth manifolds, Phase 6 formulated and deployed the **General-Integer Twin-Center Segmented Sieve (GITCSS)** for universal twin pairs $p = 6m - 1, p+2 = 6m + 1$. We discovered and certified a genuine 16-digit twin-prime pair new to the repository:

@@ -38,10 +38,15 @@ class CoverageManager:
                     dual_prp_count INTEGER NOT NULL,
                     proven_count INTEGER NOT NULL,
                     elapsed_seconds REAL NOT NULL,
-                    completed_at TEXT NOT NULL
+                    completed_at TEXT NOT NULL,
+                    status TEXT DEFAULT 'COMPLETED'
                 );
                 CREATE INDEX IF NOT EXISTS idx_m_range ON completed_segments(m_start, m_end);
                 """)
+                try:
+                    conn.execute("ALTER TABLE completed_segments ADD COLUMN status TEXT DEFAULT 'COMPLETED'")
+                except sqlite3.OperationalError:
+                    pass
         finally:
             conn.close()
 
@@ -67,7 +72,8 @@ class CoverageManager:
         dual_prps: int,
         proven: int,
         elapsed_sec: float,
-        timestamp_utc: str
+        timestamp_utc: str,
+        status: str = "COMPLETED"
     ):
         """Records completed segment and updates JSON manifest atomically."""
         conn = self._get_connection()
@@ -77,11 +83,11 @@ class CoverageManager:
                 INSERT OR REPLACE INTO completed_segments (
                     segment_id, m_start, m_end, segment_size,
                     survivors_count, dual_prp_count, proven_count,
-                    elapsed_seconds, completed_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    elapsed_seconds, completed_at, status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     segment_id, str(m_start), str(m_end), m_end - m_start,
-                    survivors, dual_prps, proven, elapsed_sec, timestamp_utc
+                    survivors, dual_prps, proven, elapsed_sec, timestamp_utc, status
                 ))
         finally:
             conn.close()
