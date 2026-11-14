@@ -46,6 +46,9 @@ runs/phase5/*.sqlite*
 runs/phase5/*.log
 runs/phase5/*.jsonl
 runs/phase5/*.tmp*
+runs/phase5/proofs_*
+research/phase5_runs/*/*.db*
+research/phase5_runs/*/*.sqlite*
 
 
 

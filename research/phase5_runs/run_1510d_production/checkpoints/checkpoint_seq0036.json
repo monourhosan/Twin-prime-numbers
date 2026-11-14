@@ -1,0 +1,54 @@
+{
+  "checkpoint_sequence": 36,
+  "timestamp_utc": "2026-11-13T22:28:52.298482+00:00",
+  "telemetry": {
+    "run_id": "run_1510d_production",
+    "start_utc": "2026-11-13T22:26:04.106268+00:00",
+    "total_screened": 180000,
+    "total_survivors": 5097,
+    "left_prps": 41,
+    "dual_prps": 0,
+    "proven_pairs": 0,
+    "wall_time_sec": 168.192214012146,
+    "work_units_completed": 36,
+    "discoveries": []
+  },
+  "bandit_stats": {
+    "fam_1510d_multibase": {
+      "family_id": "fam_1510d_multibase",
+      "pulls": 12,
+      "cumulative_reward": 0.04974,
+      "mean_reward": 0.004145,
+      "total_time": 78.76139187812805,
+      "survivors": 2487,
+      "dual_prp": 0,
+      "proven": 0,
+      "last_reward": 0.0041,
+      "updated_at": 1794608925.9033513
+    },
+    "fam_1510d_p3_p5": {
+      "family_id": "fam_1510d_p3_p5",
+      "pulls": 12,
+      "cumulative_reward": 0.02794,
+      "mean_reward": 0.0023283333333333333,
+      "total_time": 46.13379740715027,
+      "survivors": 1397,
+      "dual_prp": 0,
+      "proven": 0,
+      "last_reward": 0.00256,
+      "updated_at": 1794608929.6245098
+    },
+    "fam_1510d_p3_p7": {
+      "family_id": "fam_1510d_p3_p7",
+      "pulls": 12,
+      "cumulative_reward": 0.024260000000000004,
+      "mean_reward": 0.002021666666666667,
+      "total_time": 42.931029081344604,
+      "survivors": 1213,
+      "dual_prp": 0,
+      "proven": 0,
+      "last_reward": 0.0017000000000000001,
+      "updated_at": 1794608932.282495
+    }
+  }
+}
