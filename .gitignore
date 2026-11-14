@@ -50,5 +50,13 @@ runs/phase5/proofs_*
 research/phase5_runs/*/*.db*
 research/phase5_runs/*/*.sqlite*
 
+# Transient Phase 6 State
+runs/phase6/*/*.db*
+runs/phase6/*/*/*.db*
+runs/phase6/*.db*
+runs/phase6/*.sqlite*
+runs/phase6/*.log
+
+
 
 
