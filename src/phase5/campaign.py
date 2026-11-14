@@ -259,6 +259,7 @@ class SCCA1510Campaign:
                 self.log(f"  BOTH PRIMES DETERMINISTICALLY CERTIFIED: {cand.digits_A} DIGITS EACH!")
 
                 # Build and Save Schema 5.0 Certificate
+                pair_id = self.storage.canonical_pair_id(cand.A, cand.B)
                 provenance = {
                     "run_id": self.run_id,
                     "git_commit": get_git_commit(),
@@ -282,17 +283,42 @@ class SCCA1510Campaign:
                 cert_data = cert.to_dict()
                 self.log(f"  Certificate persisted to: {cert_file}")
 
-                # Tier-5: First-Principles Independent Verification
+                # Tier-5: First-Principles Independent Verification (Gate P0-A)
                 self.log("  Running independent first-principles verification on proof payload...")
                 v_script = REPO_ROOT / "scripts" / "phase5_independent_verify.py"
                 v_cmd = [sys.executable, str(v_script), str(cert_file)]
-                v_res = subprocess.run(v_cmd, capture_output=True, text=True)
-                if v_res.returncode == 0:
-                    self.log(f"  INDEPENDENT VERIFICATION: SUCCESSFUL ATTESTATION PASS!")
+                verification_passed = False
+                if v_script.exists():
+                    try:
+                        v_res = subprocess.run(v_cmd, capture_output=True, text=True, timeout=60.0)
+                        if v_res.returncode == 0:
+                            # Verify that attestation was produced and reports PASS
+                            att_file = cert_file.parent / "attestations" / f"attest_{cert_data['sha256'][:16]}.json"
+                            if att_file.exists():
+                                with open(att_file, "r", encoding="utf-8") as af:
+                                    att_data = json.load(af)
+                                if att_data.get("result") == "PASS":
+                                    verification_passed = True
+                                    self.log(f"  INDEPENDENT VERIFICATION: SUCCESSFUL ATTESTATION PASS! ({att_file.name})")
+                                else:
+                                    self.log(f"  INDEPENDENT VERIFICATION: Attestation result is not PASS: {att_data.get('result')}")
+                            else:
+                                self.log(f"  INDEPENDENT VERIFICATION: Attestation file not found at {att_file}")
+                        else:
+                            self.log(f"  INDEPENDENT VERIFICATION: FAILED (code {v_res.returncode}): {v_res.stderr.strip() or v_res.stdout.strip()}")
+                    except Exception as e:
+                        self.log(f"  INDEPENDENT VERIFICATION EXCEPTION: {e}")
                 else:
-                    self.log(f"  INDEPENDENT VERIFICATION: FAILED ({v_res.stderr})")
+                    self.log(f"  INDEPENDENT VERIFICATION BLOCKED: Verifier script missing at {v_script}")
 
-                # Record discovery in storage
+                if not verification_passed:
+                    self.log(f"  CRITICAL: Candidate {fid}_t{t_val} REJECTED due to failed independent verification.")
+                    self.storage.record_candidate(fid, t_val, cand.A, cand.B, cand.digits_A, "VERIFICATION_FAILED", pair_id)
+                    continue
+
+                # Record discovery in storage only after verification PASS
+                pair_id = self.storage.canonical_pair_id(cand.A, cand.B)
+                self.storage.record_candidate(fid, t_val, cand.A, cand.B, cand.digits_A, "VERIFIED_BOTH", pair_id)
                 self.storage.record_discovery(
                     family_id=fid,
                     t=t_val,
@@ -301,14 +327,16 @@ class SCCA1510Campaign:
                     B=cand.B,
                     cert_path=str(cert_file),
                     sha256=cert_data["sha256"],
-                    novelty_status=novelty_status
+                    novelty_status=novelty_status,
+                    pair_id=pair_id
                 )
 
                 disc_record = {
                     "family_id": fid,
                     "t": t_val,
                     "digits": cand.digits_A,
-                    "canonical_key": self.storage.canonical_key(cand.A, cand.B),
+                    "canonical_key": self.storage.canonical_pair_key(cand.A, cand.B),
+                    "pair_id": pair_id,
                     "sha256": cert_data["sha256"],
                     "novelty_status": novelty_status,
                     "certificate_path": str(cert_file)

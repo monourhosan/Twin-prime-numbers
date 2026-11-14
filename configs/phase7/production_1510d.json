@@ -1,0 +1,17 @@
+{
+  "schema_version": "7.0",
+  "campaign_id": "hdc7_primary_1510d",
+  "family": "primorial_constrained_proth_llr",
+  "min_digits": 1510,
+  "B_primorial": 13,
+  "exponent": 4985,
+  "sieve_depth": 50000,
+  "batch_size": 2500,
+  "screening_order": "A_first",
+  "checkpoint_seconds": 15.0,
+  "stop_after_verified_pairs": 1,
+  "checkpoint_dir": "data/phase7",
+  "proofs_dir": "proofs/phase7/certificates",
+  "attestations_dir": "proofs/phase7/attestations",
+  "use_gmpy2": true
+}

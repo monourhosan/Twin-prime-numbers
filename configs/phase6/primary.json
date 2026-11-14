@@ -1,0 +1,17 @@
+{
+  "campaign_id": "primary",
+  "method": "method_q",
+  "target_pair_digits": 102,
+  "h": 3,
+  "seed": 2026111402,
+  "t_bits": 20,
+  "j_min": 10000,
+  "j_max": 300000,
+  "block_size": 25000,
+  "sieve_limit": 100000,
+  "sieve_backend": "q_segment",
+  "screening_order": "B_first",
+  "mr_rounds": 25,
+  "stop_on_first_certified": true,
+  "wall_clock_seconds": 300.0
+}

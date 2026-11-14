@@ -1,0 +1,21 @@
+{
+  "campaign_id": "hdc7_primary_1510d",
+  "status": "COMPLETED_TARGET_DISCOVERED",
+  "utc_checkpoint": "2026-11-14T07:33:15.086956+00:00",
+  "cursor_t": 15659,
+  "t_min": 7725,
+  "t_max": 77252,
+  "exponent_n": 4985,
+  "B_primorial": 13,
+  "M_B": "15015",
+  "target_digits": 1510,
+  "raw_centers_checked": 7934,
+  "sieve_survivors": 737,
+  "left_prps": 3,
+  "right_prps": 1,
+  "dual_prps": 1,
+  "certified_pairs": 1,
+  "elapsed_seconds": 9.064730099998997,
+  "sieve_depth": 50000,
+  "screening_order": "A_first"
+}

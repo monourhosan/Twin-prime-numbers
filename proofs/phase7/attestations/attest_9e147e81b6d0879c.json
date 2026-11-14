@@ -1,0 +1,23 @@
+{
+  "schema_version": "7.0",
+  "attestation_type": "INDEPENDENT_STRICT_MATHEMATICAL_VERIFICATION",
+  "target_certificate": "cert_hdc7_1510d_B13_n4985_t15658.json",
+  "target_sha256": "9e147e81b6d0879cd87edcb7cc577ba1e220519154901ed240de4319bb2ccc1e",
+  "utc_attested": "2026-11-14T07:33:32.527629+00:00",
+  "digits": 1510,
+  "representation": {
+    "B_primorial": 13,
+    "M_B": "15015",
+    "t": 15658,
+    "k": "470224755",
+    "n": 4985
+  },
+  "verifications": {
+    "difference_check": "PASS (B - A == 2)",
+    "center_mod_6": "PASS (C == 0 mod 6)",
+    "proth_upper_member": "PASS (witness w=23)",
+    "llr_lower_member": "PASS (parameter P=15, u_{n-2} == 0)",
+    "u0_matrix_powering": "PASS (independent 2x2 matrix matches)"
+  },
+  "verdict": "UNCONDITIONALLY_VERIFIED"
+}
