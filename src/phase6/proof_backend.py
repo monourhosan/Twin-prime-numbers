@@ -5,16 +5,42 @@ Implements Pocklington BLS Theorem 4 on B = 6m + 1 and Morrison BLS Theorem 17 o
 
 import math
 import time
-from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from typing import Dict, Any, List, Optional, Tuple
-import sympy
-from sympy.ntheory import factorint
 
-try:
-    import gmpy2
-    HAVE_GMPY2 = True
-except ImportError:
-    HAVE_GMPY2 = False
+def miller_rabin_deterministic_64(n: int) -> bool:
+    """
+    Jiang & Deng (2014) / Sinclair (2011) deterministic Miller-Rabin test
+    for n < 2^64 using 7 proven bases:
+    [2, 325, 9375, 28178, 450775, 9780504, 1795265022].
+    Provably zero pseudoprimes below 2^64.
+    """
+    if n < 2:
+        return False
+    small_primes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
+    for sp in small_primes:
+        if n == sp:
+            return True
+        if n % sp == 0:
+            return False
+    d = n - 1
+    s = 0
+    while d % 2 == 0:
+        d //= 2
+        s += 1
+    bases = (2, 325, 9375, 28178, 450775, 9780504, 1795265022)
+    for a in bases:
+        if a % n == 0:
+            continue
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(s - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
 
 def is_prime_factor(p: int) -> bool:
     """
@@ -31,10 +57,7 @@ def is_prime_factor(p: int) -> bool:
     if p < 10000000:
         return is_prime_trial_division(p, limit=10000000)
     if p < (1 << 64):
-        # Deterministic BPSW / Miller-Rabin is mathematically proven without counterexamples below 2^64
-        if HAVE_GMPY2:
-            return bool(gmpy2.is_prime(gmpy2.mpz(p), 25))
-        return bool(sympy.isprime(p))
+        return miller_rabin_deterministic_64(p)
     # Factors >= 2^64 cannot be assumed unconditionally prime without an explicit certificate
     return False
 
@@ -122,32 +145,104 @@ class DeterministicPairProver:
         self.factor_timeout_sec = factor_timeout_sec
 
     def factor_center(self, m: int) -> Optional[Dict[int, int]]:
-        """Factors center m completely with timeout and bounded factorization. Returns factor dict {prime: exp} or None."""
-        def _run_factor():
-            # Bounded trial division + Pollard rho + Pollard p-1
-            return factorint(m, limit=100000, use_ecm=False, use_pm1=True, use_rho=True)
-
-        executor = ThreadPoolExecutor(max_workers=1)
-        try:
-            future = executor.submit(_run_factor)
-            factors = future.result(timeout=self.factor_timeout_sec)
-            executor.shutdown(wait=False, cancel_futures=True)
-        except (TimeoutError, Exception):
-            executor.shutdown(wait=False, cancel_futures=True)
+        """
+        Factors center m completely with strict deadline and bounded algorithms.
+        Uses trial division up to limit followed by bounded Pollard's rho.
+        Guarantees termination without runaway background threads.
+        """
+        if m <= 0:
             return None
+        if m == 1:
+            return {}
 
-        # Verify complete factorization: product must equal m and all factors must be prime
-        try:
-            prod = 1
-            for p, exp in factors.items():
-                if not is_prime_factor(p):
+        deadline = time.perf_counter() + self.factor_timeout_sec
+        factors: Dict[int, int] = {}
+        rem = m
+
+        # 1. Trial division up to 100,000 with deadline check
+        for p in (2, 3):
+            if rem % p == 0:
+                cnt = 0
+                while rem % p == 0:
+                    cnt += 1
+                    rem //= p
+                factors[p] = cnt
+
+        d = 5
+        step = 2
+        while d * d <= rem and d <= 100000:
+            if time.perf_counter() > deadline:
+                return None
+            if rem % d == 0:
+                cnt = 0
+                while rem % d == 0:
+                    cnt += 1
+                    rem //= d
+                factors[d] = cnt
+            d += step
+            step = 6 - step
+
+        if rem == 1:
+            return factors
+
+        # Check if remainder is already prime
+        if rem < (1 << 64) and is_prime_factor(rem):
+            factors[rem] = factors.get(rem, 0) + 1
+            return factors
+
+        # 2. Bounded Pollard's rho for remaining composite
+        def _pollard_rho_bounded(n: int, max_steps: int = 5000) -> Optional[int]:
+            if n % 2 == 0:
+                return 2
+            x = 2
+            y = 2
+            c = 1
+            g = 1
+            steps = 0
+            while g == 1 and steps < max_steps:
+                steps += 1
+                if steps % 100 == 0 and time.perf_counter() > deadline:
                     return None
-                prod *= (p ** exp)
-            if prod == m:
-                return factors
+                x = (x * x + c) % n
+                y = (y * y + c) % n
+                y = (y * y + c) % n
+                g = math.gcd(abs(x - y), n)
+                if g == n:
+                    c += 1
+                    x = 2
+                    y = 2
+                    g = 1
+            if 1 < g < n:
+                return g
             return None
-        except Exception:
-            return None
+
+        # Queue of composite factors to resolve
+        queue = [rem]
+        while queue:
+            if time.perf_counter() > deadline:
+                return None
+            curr = queue.pop()
+            if curr == 1:
+                continue
+            if curr < (1 << 64) and is_prime_factor(curr):
+                factors[curr] = factors.get(curr, 0) + 1
+                continue
+
+            divisor = _pollard_rho_bounded(curr, max_steps=5000)
+            if divisor is None:
+                return None
+            queue.append(divisor)
+            queue.append(curr // divisor)
+
+        # Verification of complete factorization
+        prod = 1
+        for p, exp in factors.items():
+            if not is_prime_factor(p):
+                return None
+            prod *= (p ** exp)
+        if prod == m:
+            return factors
+        return None
 
     def prove_upper_pocklington(self, B: int, factors_6m: Dict[int, int]) -> Optional[Dict[str, Any]]:
         """

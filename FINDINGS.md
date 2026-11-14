@@ -68,6 +68,26 @@ The question of finding "the biggest and the last twin prime numbers" comprises 
 
 ## 5. Strongest Results Actually Achieved in This Project
 
+### 5.0 Phase 7 HDC-7: Discovery of 1,510-Digit Certified Twin Primes (Repository Record)
+
+In Phase 7, the **High-Density Certificate-Aware Twin-Prime Discovery Engine (HDC-7)** discovered and unconditionally certified a fresh twin-prime pair of **1,510 decimal digits per member**:
+
+$$\begin{aligned}
+A &= 470,224,755 \times 2^{4,985} - 1 \quad \text{(1,510 decimal digits)} \\
+B' &= 470,224,755 \times 2^{4,985} + 1 \quad \text{(1,510 decimal digits)}
+\end{aligned}$$
+
+* **Difference:** $B' - A = 2$ identically.
+* **Center Factorization:** $C = k \cdot 2^n = 15,015 \times 31,317 \times 2^{4,985} = 470,224,755 \times 2^{4,985} \equiv 0 \pmod 6$.
+* **Upper Prime Proof:** Unconditionally certified by **Proth's Theorem (1878)** with witness $w = 23$ ($23^{(B'-1)/2} \equiv -1 \pmod{B'}$).
+* **Lower Prime Proof:** Unconditionally certified by the **Lucas-Lehmer-Riesel (LLR) Theorem (1969, 1994)** with parameter $P = 15$, Jacobi symbols $(13/A) = 1, (17/A) = -1$, and $4,983$ squaring rounds ($u_{4983} \equiv 0 \pmod A$).
+* **Verification & Novelty:** Verified from first principles via standalone verifier (`scripts/phase7_independent_verify.py`), producing attestation `attest_9e147e81b6d0879c.json`. Novelty confirmed against all 52 historical repository certificates and public databases (`NEW_TO_REPOSITORY`, `NO_PUBLIC_MATCH_FOUND_IN_CHECKED_SOURCES`).
+* **Artifacts:**
+  - Certificate: `proofs/phase7/certificates/cert_hdc7_1510d_B13_n4985_t15658.json`
+  - Canonical SHA-256: `9e147e81b6d0879cd87edcb7cc577ba1e220519154901ed240de4319bb2ccc1e`
+  - Independent Attestation: `proofs/phase7/attestations/attest_9e147e81b6d0879c.json`
+  - Raw Attestation SHA-256: `f69af93b4522f3373422b621fa511a8b686d2612f02bed431fbae7cc87a49426`
+
 Using our newly designed and implemented **CATS** (*Certificate-Aware Adaptive Twin-prime Sieve*) engine, we executed reproducible computational experiments on the local system:
 
 ### 5.1 Certified Largest Twin-Prime Pairs in Finite Intervals

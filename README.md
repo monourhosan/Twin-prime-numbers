@@ -1,7 +1,8 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, & Phase 6 GITCSS Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, & Phase 7 HDC-7 Project
 
-[![Tests: 159/159 Passing](https://img.shields.io/badge/Tests-159%2F159%20Passing-brightgreen)](tests/)
-[![Proven Pair: 1,509d](https://img.shields.io/badge/Proven%20Pair-1%2C509%20Digits-brightgreen)](proofs/phase4/)
+[![Tests: 175/175 Passing](https://img.shields.io/badge/Tests-175%2F175%20Passing-brightgreen)](tests/)
+[![Phase 7 Discovery: 1,510d Fresh Twin Prime](https://img.shields.io/badge/Phase%207%20Discovery-1%2C510%20Digits%20(HDC--7)-brightgreen)](proofs/phase7/certificates/)
+[![Proven Pair: 1,510d](https://img.shields.io/badge/Proven%20Pair-1%2C510%20Digits-brightgreen)](proofs/phase7/)
 [![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
@@ -18,7 +19,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 5. **Laptop Hardware Acceleration Engine (CPU + NVIDIA GeForce MX250)** with pure Windows driver-level PTX JIT sieving (sm_61, 4.1x–17.8x speedup), adaptive thermal guardrails, and automated recovery;
 6. **Phase 5 SCCA** (*Smooth-Center Certificate-Aware Search*) breaking beyond the single-power-of-2 template to multi-factor smooth centers $C = F \cdot t = 2^a \cdot 3^b \cdot 5^c \cdot 7^d \cdots t$, with two-sided classical certification via Pocklington BLS Theorem 4 ($N-1$) on the upper member and Morrison BLS Theorem 17 ($N+1$) on the lower member, coupled with Method S1 CRT walking/segment filtering and Method S2 multi-family Bandit (UCB1) portfolio scheduling;
 7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification;
-8. **Phase 6B Certification & Discovery Suite** providing a hybrid theorem router, independent Goldwasser-Kilian-Atkin ECPP certificate verifier, audited 50-round Miller-Rabin + BPSW triage for the eight 350-digit probable twin pairs, reliability repair suite, and stretch 1,510+ digit campaign.
+8. **Phase 6B Certification & Discovery Suite** providing a hybrid theorem router, independent Goldwasser-Kilian-Atkin ECPP certificate verifier, audited 50-round Miller-Rabin + BPSW triage for the eight 350-digit probable twin pairs, reliability repair suite, and stretch 1,510+ digit campaign;
+9. **Phase 7 HDC-7** (*High-Density Certificate-Aware Twin-Prime Discovery Engine*) coupling odd primorial multiplier manifolds $M_B = \prod_{3 \le p \le B} p$ with compact $t$-space dual modular root sieving, deterministic Proth/LLR dual certification, P0 reliability repairs, and achieving the project's record in-repo discovery of a fresh 1,510-digit twin prime pair.
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -54,7 +56,27 @@ An autonomous, mathematically rigorous computational number theory project inves
 
 ## 2. Strongest Results Achieved in This Project
 
-### 2.0000 Phase 6B: Unrestricted Twin-Prime Certification & Discovery Suite
+### 2.00000 Phase 7 HDC-7 Discovery: Fresh 1,510-Digit Certified Twin Prime Pair (Repository Record)
+Phase 7 formulated, benchmarked, and deployed the **High-Density Certificate-Aware Twin-Prime Discovery Engine (HDC-7)**, discovering an authentic, de novo twin-prime pair containing **exactly 1,510 decimal digits per member**:
+
+* **Exact Symbolic Coordinates:**
+  $$A = 470,224,755 \times 2^{4,985} - 1 \quad \text{(1,510 decimal digits)}$$
+  $$B' = 470,224,755 \times 2^{4,985} + 1 \quad \text{(1,510 decimal digits)}$$
+  where $M_{13} = 3 \times 5 \times 7 \times 11 \times 13 = 15,015$, compact sieve index $t = 15,658$, and $k = M_{13} \times (2t + 1) = 470,224,755$.
+* **Difference & Center:** $B' - A = 2$ identically, and center $C = k \cdot 2^n \equiv 0 \pmod 6$.
+* **Unconditional Primality Certifications:**
+  - **Upper Member ($B'$):** Unconditionally proven prime via **Proth's Theorem (1878)** with witness base $w = 23$ ($23^{(B'-1)/2} \equiv -1 \pmod{B'}$).
+  - **Lower Member ($A$):** Unconditionally proven prime via the **Lucas-Lehmer-Riesel (LLR) Theorem (1969, 1994)** with Rödseth parameter $P = 15$, Jacobi symbols $(13/A) = 1, (17/A) = -1$, and $n - 2 = 4,983$ squaring rounds yielding final residue $u_{4983} \equiv 0 \pmod A$.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase7/certificates/cert_hdc7_1510d_B13_n4985_t15658.json`](proofs/phase7/certificates/cert_hdc7_1510d_B13_n4985_t15658.json)
+  - Canonical SHA-256: `9e147e81b6d0879cd87edcb7cc577ba1e220519154901ed240de4319bb2ccc1e`
+  - Independent Attestation: [`proofs/phase7/attestations/attest_9e147e81b6d0879c.json`](proofs/phase7/attestations/attest_9e147e81b6d0879c.json) (Status: **PASS**)
+  - Standalone Verifier: [`scripts/phase7_independent_verify.py`](scripts/phase7_independent_verify.py)
+* **P0 Proof & Reliability Repairs:**
+  - Repaired ECPP verifier over rings $\mathbb{Z}/N\mathbb{Z}$ requiring unit discriminant $\gcd(4a^3 + 27b^2, N) = 1$, exact integer Goldwasser-Kilian-Atkin condition $q > (N^{1/4} + 1)^2$, clean factor extraction during non-invertible denominator doubling, exact Hasse-Weil $(N+1-m)^2 \le 4N$, and 64-bit deterministic Miller-Rabin test (Jiang & Deng 2014).
+  - Implemented real production-grade PARI/GP subprocess adapter and safe vector parser in `src/phase6/proof_router.py`.
+  - Replaced un-cancellable factorization threads with cooperative millisecond-bounded algorithms in `src/phase6/proof_backend.py`.
+  - Added 16 new automated regression and unit tests (all 175 repository tests passing).
 Phase 6B focuses on mathematical rigor, algorithmic reliability repairs, hybrid theorem routing, and high-precision candidate verification:
 * **Recovery & Verification of Eight 350-Digit Probable Twin Pairs:**
   - Audited, reconciled, and deduplicated the 8 candidate pairs from the 350-digit search.
