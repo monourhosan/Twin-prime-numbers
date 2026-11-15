@@ -1,0 +1,15 @@
+{
+  "campaign_id": "paqcs_smoke_test",
+  "target_digits": 50,
+  "y_anchor": 50,
+  "h": 3,
+  "Q_bound": 2000,
+  "current_t": 10295675,
+  "t_min": 10285675,
+  "candidates_searched": 5000,
+  "sieve_survivors_count": 1448,
+  "single_prp_count": 161,
+  "dual_prp_count": 16,
+  "discoveries_count": 15,
+  "utc_checkpoint": "2026-11-15T06:31:40.934013+00:00"
+}

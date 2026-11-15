@@ -1,0 +1,22 @@
+[2026-11-15T06:31:54.266580+00:00] Starting PAQCS Campaign: paqcs_primary_1511d
+[2026-11-15T06:31:54.268589+00:00] Target digits: 1511, Anchor y: 1780 (S_y digits: 751)
+[2026-11-15T06:31:54.268589+00:00] t_min: 39045, h: 3, Q: 200000, Workers: 6
+[2026-11-15T06:31:54.270621+00:00] Preparing sieve prime plan...
+[2026-11-15T06:31:54.533637+00:00] Sieve plan ready: 13275 primes in (1780, 200000] (0.26s)
+[2026-11-15T06:31:54.549459+00:00] Block [39045 .. 89043]: 25000 candidates, 9408 survivors (37.63%) in 21.8ms
+[2026-11-15T06:33:57.648005+00:00]   Screened 9408 survivors in 123.09s (76.4 cand/s). Singles: 73, Duals: 0
+[2026-11-15T06:33:57.678219+00:00] Block [89045 .. 139043]: 25000 candidates, 9597 survivors (38.39%) in 24.1ms
+[2026-11-15T06:35:53.484098+00:00]   Screened 9597 survivors in 115.80s (82.9 cand/s). Singles: 81, Duals: 1
+[2026-11-15T06:35:53.488954+00:00] *** PROVING DUAL PRP at t=110891 ***
+[2026-11-15T06:42:04.758401+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_1511d_t110891.json
+[2026-11-15T06:46:58.724031+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: cd5a4bafd77112bbc3130a0784ee648d4232b1e98d577c92637d44e85b812cbc
+[2026-11-15T06:46:58.728012+00:00]   [Verifier] Exact decimal digits: 1511
+[2026-11-15T06:46:58.729147+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:46:58.730824+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:46:58.732490+00:00]   [Verifier] Distinct prime factors in x: 274
+[2026-11-15T06:46:58.733552+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:46:58.734113+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:46:58.735278+00:00]   [Verifier] Attestation written to: attest_cd5a4bafd77112bb.json
+[2026-11-15T06:46:58.736429+00:00] *** VERIFICATION SUCCESS: cert_paqcs_1511d_t110891.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:46:58.738138+00:00] Stopping on first confirmed discovery as requested.
+[2026-11-15T06:46:58.739737+00:00] Campaign finished. Total searched: 50000, Survivors: 19005, Single PRPs: 154, Dual PRPs: 1, Discoveries: 1
