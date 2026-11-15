@@ -134,6 +134,8 @@ class MethodQFamily:
 
         # Add distinct primes of ~7-8 digits (well within 64-bit deterministic trial division)
         prime_candidate = 10000000 + rng.randint(100, 100000)
+        if prime_candidate % 2 == 0:
+            prime_candidate += 1
         while len(str(cur_S)) < target_S_digits:
             while not is_prime_deterministic_u64(prime_candidate) or prime_candidate == 3:
                 prime_candidate += 2

@@ -1,0 +1,17 @@
+{
+  "campaign_id": "stretch_1512d_qcp",
+  "method": "method_q",
+  "target_pair_digits": 1512,
+  "h": 3,
+  "seed": 2026111503,
+  "t_bits": 20,
+  "j_min": 0,
+  "j_max": 200000,
+  "block_size": 20000,
+  "sieve_limit": 500000,
+  "sieve_backend": "q_segment",
+  "screening_order": "A_first",
+  "mr_rounds": 15,
+  "stop_on_first_certified": true,
+  "wall_clock_seconds": 3600.0
+}

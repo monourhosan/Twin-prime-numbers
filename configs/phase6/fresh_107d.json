@@ -1,0 +1,17 @@
+{
+  "campaign_id": "fresh_107d",
+  "method": "method_q",
+  "target_pair_digits": 115,
+  "h": 3,
+  "seed": 2026111501,
+  "t_bits": 20,
+  "j_min": 0,
+  "j_max": 20000,
+  "block_size": 5000,
+  "sieve_limit": 100000,
+  "sieve_backend": "q_segment",
+  "screening_order": "A_first",
+  "mr_rounds": 25,
+  "stop_on_first_certified": true,
+  "wall_clock_seconds": 120.0
+}
