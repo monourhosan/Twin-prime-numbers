@@ -84,11 +84,11 @@ B &= C + 1 = 6 x^3 + 2 x^2 + 1 \quad \text{(364 decimal digits)}
 * **Multiplier:** $t = 1129$ (prime).
 * **Unconditional Dual-BLS Certifications:**
   - **Upper Member ($B$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington $N-1$)** with verified size condition $F^2 > B$ ($F = 2x^2$, exceeding $\sqrt{B}$ by 61 orders of magnitude) and witnesses discovered for all 62 distinct prime factors.
-  - **Lower Member ($A$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank)** with verified size condition $(F_{\text{odd}} - 1)^2 > A$ (exceeding $\sqrt{A}$ by 59 orders of magnitude), parameter $P = 15$, discriminant $D = 221$, Jacobi symbol $(221/A) = -1$, zero congruence $U_{A+1}(15, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(15, 1), A) = 1$ for all 61 odd prime factors.
+  - **Lower Member ($A$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank)** with verified size condition $(F_{\text{odd}} - 1)^2 > A$ (exceeding $\sqrt{A}$ by 59 orders of magnitude), parameter $P = 295$, discriminant $D = 87021$, Jacobi symbol $(87021/A) = -1$, zero congruence $U_{A+1}(295, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(295, 1), A) = 1$ for all 61 odd prime factors.
 * **Cryptographic & Verification Artifacts:**
   - Certificate: [`proofs/phase9/certificates/cert_paccm9_364d_t1129.json`](proofs/phase9/certificates/cert_paccm9_364d_t1129.json)
   - Canonical SHA-256: `62d13fd6011ec338f9324a0c9532bc90be297eb505a0f5ef0eebef349625b190`
-  - Signed Attestation: [`proofs/phase9/attestations/attest_62d13fd6011ec338.json`](proofs/phase9/attestations/attest_62d13fd6011ec338.json) (Status: **UNCONDITIONALLY_VERIFIED**)
+  - Independent Attestation: [`proofs/phase9/attestations/attest_62d13fd6011ec338.json`](proofs/phase9/attestations/attest_62d13fd6011ec338.json) (Status: **UNCONDITIONALLY_VERIFIED**)
   - Decoupled Standalone Verifier: [`scripts/phase9_independent_verify.py`](scripts/phase9_independent_verify.py)
 * **Hardware Sieve Acceleration:**
   - Sieve throughput **10.5 million candidates/sec** on the **NVIDIA GeForce MX250** GPU (`sm_61`, PTX JIT driver API), delivering a $5.47\times$ speedup over vectorized CPU sieving.

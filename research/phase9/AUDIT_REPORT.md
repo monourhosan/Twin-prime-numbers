@@ -40,9 +40,9 @@ An exhaustive multi-layer audit was conducted across the Phase 9 research artifa
   - Every prime factor $q \in \{2, 3, 5, \dots, 283, 1129\}$ (62 distinct primes) has an independently verified witness $w_i$ satisfying $w_i^{B-1} \equiv 1 \pmod B$ and $\gcd(w_i^{(B-1)/q} - 1, B) = 1$.
 - **Lower Member $A$:** Morrison-BLS (1975, Theorem 17):
   - $A + 1 = F_{\text{odd}} \cdot R'$, $\gcd(F_{\text{odd}}, R') = 1, F_{\text{odd}} > \sqrt{A+1}$.
-  - Parameter $P = 15, D = 221$, Jacobi symbol $(221 / A) = -1$.
-  - Lucas zero congruence: $U_{A+1}(15, 1) \equiv 0 \pmod A$.
-  - Lucas rank gcd condition: $\gcd(U_{(A+1)/q}(15, 1), A) = 1$ for all 61 odd prime factors in $F$.
+  - Parameter $P = 295, D = 87021$, Jacobi symbol $(87021 / A) = -1$.
+  - Lucas zero congruence: $U_{A+1}(295, 1) \equiv 0 \pmod A$.
+  - Lucas rank gcd condition: $\gcd(U_{(A+1)/q}(295, 1), A) = 1$ for all 61 odd prime factors in $F$.
 
 ---
 

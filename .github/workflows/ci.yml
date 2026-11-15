@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "research/**" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install libgmp and libmpfr (Ubuntu)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgmp-dev libmpfr-dev libmpc-dev
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run pytest test suite (236+ tests)
+      run: |
+        python -m pytest -v
+
+    - name: Independent Verification of Phase 9 Certificates
+      run: |
+        python scripts/phase9_independent_verify.py proofs/phase9/certificates/cert_paccm9_364d_t1129.json
+        python scripts/phase9_independent_verify.py proofs/phase9/certificates/cert_paccm9_10d_t29.json
+        python scripts/phase9_independent_verify.py proofs/phase9/certificates/cert_paccm9_9d_t13.json
+

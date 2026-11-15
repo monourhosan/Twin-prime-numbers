@@ -25,7 +25,8 @@ def test_campaign_resumption_integrity():
             batch_size=10,
             use_gpu=False,
             stop_on_first_discovery=False,
-            data_dir=tmp_path
+            data_dir=tmp_path,
+            proofs_dir=tmp_path / "proofs"
         )
         s1 = orch1.run()
         first_current_t = orch1.current_t
@@ -42,7 +43,8 @@ def test_campaign_resumption_integrity():
             batch_size=10,
             use_gpu=False,
             stop_on_first_discovery=False,
-            data_dir=tmp_path
+            data_dir=tmp_path,
+            proofs_dir=tmp_path / "proofs"
         )
         assert orch2.current_t == first_current_t
         assert orch2.sieve_candidates_total == first_candidates

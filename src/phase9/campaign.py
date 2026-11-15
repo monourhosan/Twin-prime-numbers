@@ -61,7 +61,8 @@ class CampaignOrchestrator:
         use_gpu: bool = True,
         cross_check_cpu: bool = False,
         stop_on_first_discovery: bool = True,
-        data_dir: Optional[Path] = None
+        data_dir: Optional[Path] = None,
+        proofs_dir: Optional[Path] = None
     ):
         self.campaign_id = campaign_id
         self.anchor_y = anchor_y
@@ -75,9 +76,13 @@ class CampaignOrchestrator:
 
         self.data_dir = data_dir or (REPO_ROOT / "data" / "phase9")
         self.data_dir.mkdir(parents=True, exist_ok=True)
-        self.proofs_cert_dir = REPO_ROOT / "proofs" / "phase9" / "certificates"
+        if proofs_dir:
+            self.proofs_cert_dir = proofs_dir / "certificates"
+            self.proofs_att_dir = proofs_dir / "attestations"
+        else:
+            self.proofs_cert_dir = REPO_ROOT / "proofs" / "phase9" / "certificates"
+            self.proofs_att_dir = REPO_ROOT / "proofs" / "phase9" / "attestations"
         self.proofs_cert_dir.mkdir(parents=True, exist_ok=True)
-        self.proofs_att_dir = REPO_ROOT / "proofs" / "phase9" / "attestations"
         self.proofs_att_dir.mkdir(parents=True, exist_ok=True)
 
         self.checkpoint_file = self.data_dir / f"{self.campaign_id}_checkpoint.json"
@@ -241,12 +246,16 @@ class CampaignOrchestrator:
                         if ok:
                             print(f"[VERIFIED] {cert_path.name} unconditionally verified by independent verifier!")
                             self.proven_pairs_count += 1
+                            try:
+                                rel_path = str(cert_path.relative_to(REPO_ROOT)).replace("\\", "/")
+                            except ValueError:
+                                rel_path = str(cert_path).replace("\\", "/")
                             pair_info = {
                                 "t": t_cand,
                                 "digits": digits_A,
                                 "A": str(A),
                                 "B": str(B),
-                                "certificate_path": str(cert_path.relative_to(REPO_ROOT)).replace("\\", "/"),
+                                "certificate_path": rel_path,
                                 "sha256": cert["sha256"],
                                 "proof_time_sec": t1_proof - t0_proof
                             }

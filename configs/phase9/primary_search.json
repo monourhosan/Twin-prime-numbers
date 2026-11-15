@@ -6,7 +6,7 @@
   "expected_digits": 355,
   "t_start": 1,
   "t_end": 50000,
-  "sieve_depth": 100000,
+  "sieve_depth": 50000,
   "batch_size": 5000,
   "use_gpu": true,
   "stop_on_first_discovery": true,

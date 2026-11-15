@@ -13,7 +13,7 @@
 
 ### 2. Detailed Campaign Audit: `phase9_primary_355d`
 
-- **Execution Timestamp:** 2026-11-15 13:59:27 UTC
+- **Execution Timestamp:** 2026-11-15 07:59:24 UTC (discovery) / 07:59:43 UTC (attestation) [recorded locally as 13:59:27 UTC+6]
 - **Configuration Path:** `configs/phase9/primary_search.json`
 - **Algebraic Manifold:** PACCM-9 ($C = 2x^2(3x + 1), A = C - 1, B = C + 1$)
 - **Primorial Anchor Bound:** $y = 283$
@@ -40,9 +40,9 @@
     - All 62 distinct prime factors in $F$ witnessed unconditionally
   - Lower Member $A$: Morrison-BLS (1975) Theorem 17 ($N+1$ test) with $F_{\text{odd}}$
     - Size condition: $(F_{\text{odd}} - 1)^2 > A$ (Margin: 59 orders of magnitude)
-    - Parameter $P = 15, D = 221$, Jacobi symbol $(221 / A) = -1$
-    - Lucas sequence zero congruence: $U_{A+1}(15, 1) \equiv 0 \pmod A$
-    - Lucas sequence rank gcd condition: $\gcd(U_{(A+1)/q_i}(15, 1), A) = 1$ for all 61 odd prime factors
+    - Parameter $P = 295, D = 87021$, Jacobi symbol $(87021 / A) = -1$
+    - Lucas sequence zero congruence: $U_{A+1}(295, 1) \equiv 0 \pmod A$
+    - Lucas sequence rank gcd condition: $\gcd(U_{(A+1)/q_i}(295, 1), A) = 1$ for all 61 odd prime factors
   - Certification Wall Time: 5.95 seconds
   - Certificate Path: `proofs/phase9/certificates/cert_paccm9_364d_t1129.json`
   - Canonical Proof Payload SHA-256: `62d13fd6011ec338f9324a0c9532bc90be297eb505a0f5ef0eebef349625b190`
