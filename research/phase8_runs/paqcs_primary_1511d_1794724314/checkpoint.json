@@ -1,0 +1,15 @@
+{
+  "campaign_id": "paqcs_primary_1511d",
+  "target_digits": 1511,
+  "y_anchor": 1780,
+  "h": 3,
+  "Q_bound": 200000,
+  "current_t": 139045,
+  "t_min": 39045,
+  "candidates_searched": 50000,
+  "sieve_survivors_count": 19005,
+  "single_prp_count": 154,
+  "dual_prp_count": 1,
+  "discoveries_count": 1,
+  "utc_checkpoint": "2026-11-15T06:46:58.736979+00:00"
+}

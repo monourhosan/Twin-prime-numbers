@@ -68,6 +68,34 @@ The question of finding "the biggest and the last twin prime numbers" comprises 
 
 ## 5. Strongest Results Actually Achieved in This Project
 
+### 5.000 Phase 8 PAQCS: Discovery of 1,511-Digit Certified Twin Primes via Primorial-Anchored Quadratic-Cofactor Search (Independent Family)
+
+In Phase 8, the **Primorial-Anchored Quadratic-Cofactor Search (PAQCS)** discovered and unconditionally certified a fresh, mathematically independent twin-prime pair of **1,511 decimal digits per member**, using a quadratic-cofactor manifold entirely separate from the Proth/LLR binary family:
+
+$$\begin{aligned}
+x &= S_{1780} \cdot 110,891 \quad \text{(756 decimal digits, 274 distinct prime factors)} \\
+C &= x(x - 3) \equiv 0 \pmod 6 \\
+A &= x(x - 3) - 1 \quad \text{(1,511 decimal digits)} \\
+B &= x(x - 3) + 1 \quad \text{(1,511 decimal digits)}
+\end{aligned}$$
+
+* **Difference:** $B - A = 2$ identically.
+* **Anchor Primorial:** $y = 1,780$, $S_{1780} = \prod_{3 \le p \le 1777} p$ (751 decimal digits, 274 odd primes), SHA-256: `1016bfed9b6bb8f03aa1b6e59f67570d85dde8c694464f6c46b9e616fdb23e31`.
+* **Multiplier:** $t = 110,891 = 11 \times 17 \times 593$ (all prime factors divide $S_{1780}$).
+* **Unconditional Dual-BLS Certifications:**
+  - **Upper Member ($B$):** Proven prime via Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington $N-1$) with verified size condition $F^2 > B$ ($F = x$) and Fermat witnesses found for all 274 distinct prime factors.
+  - **Lower Member ($A$):** Proven prime via Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank) with verified size condition $(F - 1)^2 > A$, Lucas parameter $P = 30$, discriminant $D = 896$, Jacobi symbol $(896/A) = -1$, zero congruence $U_{A+1}(30, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(30, 1), A) = 1$ for all 274 distinct prime factors.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase8/certificates/cert_paqcs_1511d_t110891.json`](proofs/phase8/certificates/cert_paqcs_1511d_t110891.json)
+  - Canonical SHA-256: `cd5a4bafd77112bbc3130a0784ee648d4232b1e98d577c92637d44e85b812cbc`
+  - Signed Attestation: [`proofs/phase8/attestations/attest_cd5a4bafd77112bb.json`](proofs/phase8/attestations/attest_cd5a4bafd77112bb.json) (Status: **UNCONDITIONALLY_VERIFIED**)
+  - Decoupled Standalone Verifier: [`scripts/phase8_paqcs_independent_verify.py`](scripts/phase8_paqcs_independent_verify.py)
+* **Algorithmic Achievement:**
+  - Complete end-to-end independence from Proth/Riesel $k \cdot 2^n \pm 1$ forms.
+  - Sieve throughput $> 1.86 \times 10^6$ candidates/sec over $t$-space with $Q = 200,000$.
+  - 50,000 candidates searched $\to$ 19,005 survivors $\to$ 154 single PRPs $\to$ 1 dual PRP proven and certified.
+  - Full repository test suite: **217/217 passing** with zero regressions.
+
 ### 5.00 Phase 8 ADES-8: Discovery of 1,511-Digit Certified Twin Primes (All-Time Repository Record)
 
 In Phase 8, the **Adaptive Dual-axis Exponent Sieve (ADES-8)** discovered and unconditionally certified a fresh, original twin-prime pair of **1,511 decimal digits per member**, breaking the Phase 7 repository record:

@@ -1,0 +1,176 @@
+[2026-11-15T06:31:39.709569+00:00] Starting PAQCS Campaign: paqcs_smoke_test
+[2026-11-15T06:31:39.723249+00:00] Target digits: 50, Anchor y: 50 (S_y digits: 18)
+[2026-11-15T06:31:39.724982+00:00] t_min: 10285675, h: 3, Q: 2000, Workers: 4
+[2026-11-15T06:31:39.726099+00:00] Preparing sieve prime plan...
+[2026-11-15T06:31:39.728986+00:00] Sieve plan ready: 216 primes in (50, 2000] (0.00s)
+[2026-11-15T06:31:39.731512+00:00] Block [10285675 .. 10295673]: 5000 candidates, 1448 survivors (28.96%) in 1.3ms
+[2026-11-15T06:31:40.404559+00:00]   Screened 1448 survivors in 0.67s (2155.4 cand/s). Singles: 161, Duals: 16
+[2026-11-15T06:31:40.408937+00:00] *** PROVING DUAL PRP at t=10286487 ***
+[2026-11-15T06:31:40.420055+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10286487.json
+[2026-11-15T06:31:40.443492+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 8704e20e74e445339ed5acb475d547977627b58b34eb8f12d7c438955b7b7b89
+[2026-11-15T06:31:40.445507+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.446629+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.447183+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.448304+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.448846+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.449911+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.450449+00:00]   [Verifier] Attestation written to: attest_8704e20e74e44533.json
+[2026-11-15T06:31:40.451525+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10286487.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.452059+00:00] *** PROVING DUAL PRP at t=10286645 ***
+[2026-11-15T06:31:40.463691+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10286645.json
+[2026-11-15T06:31:40.478776+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: be6c261a6a2f4594411cb7c94c2fcce061763751aa5c4ff55bf1b517469aaa4b
+[2026-11-15T06:31:40.479688+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.480791+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.481945+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.483045+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.484151+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.484707+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.485772+00:00]   [Verifier] Attestation written to: attest_be6c261a6a2f4594.json
+[2026-11-15T06:31:40.486302+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10286645.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.487357+00:00] *** PROVING DUAL PRP at t=10287159 ***
+[2026-11-15T06:31:40.496570+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10287159.json
+[2026-11-15T06:31:40.510367+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 63ab1b9396e861a0d3d336e870be30d5e17b362afdb6e43cb28204d5dd7c79dc
+[2026-11-15T06:31:40.511083+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.512814+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.514597+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.516373+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.517479+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.518549+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.519685+00:00]   [Verifier] Attestation written to: attest_63ab1b9396e861a0.json
+[2026-11-15T06:31:40.520829+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10287159.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.521413+00:00] *** PROVING DUAL PRP at t=10288141 ***
+[2026-11-15T06:31:40.530724+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10288141.json
+[2026-11-15T06:31:40.542112+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: ac28403d40fa5fac4ff55c72ab71d892f9754ac761f6af4815b7d13447e437fa
+[2026-11-15T06:31:40.546532+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.547687+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.548808+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.549864+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.550412+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.551509+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.552574+00:00]   [Verifier] Attestation written to: attest_ac28403d40fa5fac.json
+[2026-11-15T06:31:40.553104+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10288141.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.553634+00:00] *** PROVING DUAL PRP at t=10288379 ***
+[2026-11-15T06:31:40.565242+00:00] Proof failed for t=10288379: Lower member proof failed: Could not find valid Lucas parameter P within 100 trials
+[2026-11-15T06:31:40.568153+00:00] *** PROVING DUAL PRP at t=10288839 ***
+[2026-11-15T06:31:40.576508+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10288839.json
+[2026-11-15T06:31:40.590044+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: d312321a6e9d29f9f45c10ca3ba7202ddcf2cb08a0332e46a37e1eae558a3fb0
+[2026-11-15T06:31:40.593119+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.594204+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.594733+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.595925+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.596505+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.597055+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.598727+00:00]   [Verifier] Attestation written to: attest_d312321a6e9d29f9.json
+[2026-11-15T06:31:40.599287+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10288839.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.600385+00:00] *** PROVING DUAL PRP at t=10289703 ***
+[2026-11-15T06:31:40.611878+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10289703.json
+[2026-11-15T06:31:40.627088+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: c150a33ede587b13caf32a4058fb5cf34375dfc87b392aabfa1fe4b71f987272
+[2026-11-15T06:31:40.628754+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.629882+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.630438+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.632186+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.632726+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.633800+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.635035+00:00]   [Verifier] Attestation written to: attest_c150a33ede587b13.json
+[2026-11-15T06:31:40.636110+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10289703.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.637199+00:00] *** PROVING DUAL PRP at t=10290157 ***
+[2026-11-15T06:31:40.646525+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10290157.json
+[2026-11-15T06:31:40.657799+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 9a2674c81ecaedc333dfa6bf4489a6d19dadf4bda8bb8336d2f537fb68bf2598
+[2026-11-15T06:31:40.661677+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.662822+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.663355+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.664615+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.665184+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.666874+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.667406+00:00]   [Verifier] Attestation written to: attest_9a2674c81ecaedc3.json
+[2026-11-15T06:31:40.668476+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10290157.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.669006+00:00] *** PROVING DUAL PRP at t=10290267 ***
+[2026-11-15T06:31:40.678836+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10290267.json
+[2026-11-15T06:31:40.690017+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 473a59c66a358afc395cc45b45d9b3a6d02d28e65351aeaa80fe8a1a63fdee6c
+[2026-11-15T06:31:40.693488+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.694622+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.695697+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.696855+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.697953+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.699096+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.699628+00:00]   [Verifier] Attestation written to: attest_473a59c66a358afc.json
+[2026-11-15T06:31:40.701221+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10290267.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.701771+00:00] *** PROVING DUAL PRP at t=10290641 ***
+[2026-11-15T06:31:40.709929+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10290641.json
+[2026-11-15T06:31:40.723278+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: d574634ec76131fc662cc41cd60bac2d5ef330e07ead57fe5d350330e4a6d22f
+[2026-11-15T06:31:40.726750+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.727848+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.728917+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.729443+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.731129+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.732251+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.733327+00:00]   [Verifier] Attestation written to: attest_d574634ec76131fc.json
+[2026-11-15T06:31:40.733861+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10290641.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.734400+00:00] *** PROVING DUAL PRP at t=10291063 ***
+[2026-11-15T06:31:40.744445+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10291063.json
+[2026-11-15T06:31:40.757572+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 210a36b67f0aa8c244a4c6e71e6c599af1368c57e2d575fc4114cc42b8b5b9b0
+[2026-11-15T06:31:40.761230+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.762297+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.763359+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.764484+00:00]   [Verifier] Distinct prime factors in x: 17
+[2026-11-15T06:31:40.765043+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.766184+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.767279+00:00]   [Verifier] Attestation written to: attest_210a36b67f0aa8c2.json
+[2026-11-15T06:31:40.768357+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10291063.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.768891+00:00] *** PROVING DUAL PRP at t=10292651 ***
+[2026-11-15T06:31:40.779736+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10292651.json
+[2026-11-15T06:31:40.791027+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 515a9885624393e70840681b95ae9b0603c058626c6b2d885a8c33ac28a7b215
+[2026-11-15T06:31:40.794914+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.795495+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.797255+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.798368+00:00]   [Verifier] Distinct prime factors in x: 15
+[2026-11-15T06:31:40.799458+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.799996+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.800530+00:00]   [Verifier] Attestation written to: attest_515a9885624393e7.json
+[2026-11-15T06:31:40.801791+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10292651.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.802915+00:00] *** PROVING DUAL PRP at t=10292683 ***
+[2026-11-15T06:31:40.809999+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10292683.json
+[2026-11-15T06:31:40.821300+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 81d96fb1aab56c0fccf742472dc607853fa1078c540dc356a239aa099e51befa
+[2026-11-15T06:31:40.824541+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.825654+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.826779+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.827861+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.828953+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.830083+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.831212+00:00]   [Verifier] Attestation written to: attest_81d96fb1aab56c0f.json
+[2026-11-15T06:31:40.831812+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10292683.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.832944+00:00] *** PROVING DUAL PRP at t=10293249 ***
+[2026-11-15T06:31:40.839943+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10293249.json
+[2026-11-15T06:31:40.851446+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 67ef56127e8603237697ed75428f7f348929578df81104724dceefc7b76e88b7
+[2026-11-15T06:31:40.851446+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.851446+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.851446+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.851446+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.859641+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.860785+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.861320+00:00]   [Verifier] Attestation written to: attest_67ef56127e860323.json
+[2026-11-15T06:31:40.862389+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10293249.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.862957+00:00] *** PROVING DUAL PRP at t=10295331 ***
+[2026-11-15T06:31:40.872335+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10295331.json
+[2026-11-15T06:31:40.884047+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 9b5ab92fadd3e3f3b7b72c4c7ae1915d50c3c6e0460cdb2d94752e6e74e68e5d
+[2026-11-15T06:31:40.889559+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.890098+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.891293+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.892378+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.893490+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.895128+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.896244+00:00]   [Verifier] Attestation written to: attest_9b5ab92fadd3e3f3.json
+[2026-11-15T06:31:40.896866+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10295331.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.898775+00:00] *** PROVING DUAL PRP at t=10295535 ***
+[2026-11-15T06:31:40.906447+00:00] Saved certificate: proofs\phase8\certificates\cert_paqcs_50d_t10295535.json
+[2026-11-15T06:31:40.918642+00:00]   [Verifier] Canonical Proof Payload SHA-256 verified: 014702dbec48136ce5e65e4373152986b1c7626cd8d025c788ca48821c9d52c5
+[2026-11-15T06:31:40.923750+00:00]   [Verifier] Exact decimal digits: 50
+[2026-11-15T06:31:40.925439+00:00]   [Verifier] Center C mod 6: 0
+[2026-11-15T06:31:40.926654+00:00]   [Verifier] Difference B - A: 2
+[2026-11-15T06:31:40.927786+00:00]   [Verifier] Distinct prime factors in x: 16
+[2026-11-15T06:31:40.928931+00:00]   [Verifier] Pocklington BLS Theorem 4 primality unconditionally verified for upper member B
+[2026-11-15T06:31:40.930645+00:00]   [Verifier] Morrison BLS Theorem 17 primality unconditionally verified for lower member A
+[2026-11-15T06:31:40.932331+00:00]   [Verifier] Attestation written to: attest_014702dbec48136c.json
+[2026-11-15T06:31:40.933448+00:00] *** VERIFICATION SUCCESS: cert_paqcs_50d_t10295535.json UNCONDITIONALLY CERTIFIED! ***
+[2026-11-15T06:31:40.935073+00:00] Stopping on first confirmed discovery as requested.
+[2026-11-15T06:31:40.936149+00:00] Campaign finished. Total searched: 5000, Survivors: 1448, Single PRPs: 161, Dual PRPs: 16, Discoveries: 15

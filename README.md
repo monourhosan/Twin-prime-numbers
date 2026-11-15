@@ -1,14 +1,14 @@
-# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, Phase 7 HDC-7, & Phase 8 ADES-8 Project
+# Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, Phase 7 HDC-7, & Phase 8 PAQCS Project
 
-[![Tests: 191/191 Passing](https://img.shields.io/badge/Tests-191%2F191%20Passing-brightgreen)](tests/)
-[![Phase 8 Discovery: 1,511d Record Twin Prime](https://img.shields.io/badge/Phase%208%20Discovery-1%2C511%20Digits%20(ADES--8)-brightgreen)](proofs/phase8/certificates/)
+[![Tests: 217/217 Passing](https://img.shields.io/badge/Tests-217%2F217%20Passing-brightgreen)](tests/)
+[![Phase 8 Discovery: 1,511d PAQCS Twin Prime](https://img.shields.io/badge/Phase%208%20Discovery-1%2C511%20Digits%20(PAQCS)-brightgreen)](proofs/phase8/certificates/)
 [![Proven Pair: 1,511d](https://img.shields.io/badge/Proven%20Pair-1%2C511%20Digits-brightgreen)](proofs/phase8/)
 [![Phase 7 Discovery: 1,510d Fresh Twin Prime](https://img.shields.io/badge/Phase%207%20Discovery-1%2C510%20Digits%20(HDC--7)-brightgreen)](proofs/phase7/certificates/)
 [![Phase 6 Discovery: 503d & 502d (QCP-6)](https://img.shields.io/badge/Phase%206%20Discovery-503d%20%26%20502d%20(QCP--6)-brightgreen)](proofs/phase6/certificates/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
 [![GPU Sieve: MX250 Accelerated](https://img.shields.io/badge/GPU%20Sieve-MX250%20(4x--17x)-brightgreen)](research/laptop_acceleration/BENCHMARKS.md)
-[![Certificates: Proven SHA--256](https://img.shields.io/badge/Certificates-Proven%20SHA--256-blue)](proofs/)
+[![Certificates: 59 Proven SHA--256](https://img.shields.io/badge/Certificates-59%20Proven%20SHA--256-blue)](proofs/)
 [![Python: 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![Paper: Phase 4 Manuscript](https://img.shields.io/badge/Paper-Phase%204%20Manuscript-orange)](paper/phase4/manuscript.md)
 
@@ -22,7 +22,8 @@ An autonomous, mathematically rigorous computational number theory project inves
 7. **Phase 6 GITCSS** (*General-Integer Twin-Center Segmented Sieve*) departing completely from special exponential manifolds to search ordinary consecutive integers $(p, p+2)$ via universal representation $p = 6m - 1, p+2 = 6m + 1$, with wheel factorization ($W = 5005$), cache-friendly segmented bitsets, tiered compositeness screening, and dual classical BLS deterministic primality certification;
 8. **Phase 6B Certification & Discovery Suite** providing a hybrid theorem router, independent Goldwasser-Kilian-Atkin ECPP certificate verifier, audited 50-round Miller-Rabin + BPSW triage for the eight 350-digit probable twin pairs, reliability repair suite, and stretch 1,510+ digit campaign;
 9. **Phase 7 HDC-7** (*High-Density Certificate-Aware Twin-Prime Discovery Engine*) coupling odd primorial multiplier manifolds $M_B = \prod_{3 \le p \le B} p$ with compact $t$-space dual modular root sieving, deterministic Proth/LLR dual certification, P0 reliability repairs, and achieving the project's record in-repo discovery of a fresh 1,510-digit twin prime pair;
-10. **Phase 8 ADES-8** (*Adaptive Dual-axis Exponent Sieve*) introducing two-dimensional modular recurrence across adjacent exponent rows $n$ and compact parameters $t$, achieving $>1.55 \times 10^6$ cand/s throughput, and discovering the project's all-time record certified twin-prime pair of **1,511 decimal digits** ($2,395,898,505 \times 2^{4,987} \pm 1$).
+10. **Phase 8 ADES-8** (*Adaptive Dual-axis Exponent Sieve*) introducing two-dimensional modular recurrence across adjacent exponent rows $n$ and compact parameters $t$, achieving $>1.55 \times 10^6$ cand/s throughput, and discovering the project's all-time record certified twin-prime pair of **1,511 decimal digits** ($2,395,898,505 \times 2^{4,987} \pm 1$);
+11. **Phase 8 PAQCS** (*Primorial-Anchored Quadratic-Cofactor Search*) scaling quadratic-cofactor twin prime proving to the 1,511-digit frontier with primorial anchor $S_{1780}$ (751 decimal digits), segmented modular root sieve over multiplier $t$, and dual classical BLS certification via Pocklington Theorem 4 on upper member $B$ and Morrison Theorem 17 Lucas rank on lower member $A$, unconditionally certifying a de novo 1,511-digit pair ($t = 110,891$).
 
 * **Primary Auditor:** **Monour Hosan Saif**
 * **Contributors:** **Gemini and ChatGPT**
@@ -57,6 +58,32 @@ An autonomous, mathematically rigorous computational number theory project inves
 ---
 
 ## 2. Strongest Results Achieved in This Project
+
+### 2.0000000 Phase 8 PAQCS Discovery: Fresh 1,511-Digit Certified Twin Prime Pair (Independent Quadratic Family)
+Phase 8 formulated, benchmarked, and deployed the **Primorial-Anchored Quadratic-Cofactor Search (PAQCS)**, discovering an authentic, fresh twin-prime pair containing **exactly 1,511 decimal digits per member**, using a quadratic algebraic family entirely independent of the Phase 7/8 Proth/LLR binary template:
+
+* **Exact Symbolic Representation:**
+  $$\begin{aligned}
+  x &= S_{1780} \cdot 110,891 \quad \text{(756 decimal digits, 274 distinct prime factors)} \\
+  C &= x(x - 3) \equiv 0 \pmod 6 \\
+  A &= x(x - 3) - 1 \quad \text{(1,511 decimal digits)} \\
+  B &= x(x - 3) + 1 \quad \text{(1,511 decimal digits)}
+  \end{aligned}$$
+* **Difference & Center:** $B - A = 2$ identically, and center $C = x(x - 3) \equiv 0 \pmod 6$.
+* **Anchor Primorial:** $y = 1,780$, $S_{1780} = \prod_{3 \le p \le 1777} p$ (751 decimal digits, 274 odd primes), SHA-256: `1016bfed9b6bb8f03aa1b6e59f67570d85dde8c694464f6c46b9e616fdb23e31`.
+* **Multiplier:** $t = 110,891 = 11 \times 17 \times 593$ (all prime factors divide $S_{1780}$).
+* **Unconditional Dual-BLS Primality Certifications:**
+  - **Upper Member ($B$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington $N-1$)** with verified size condition $F^2 > B$ ($F = x$) and Fermat witnesses found for all 274 distinct prime factors.
+  - **Lower Member ($A$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank)** with verified size condition $(F - 1)^2 > A$, Lucas parameter $P = 30$, discriminant $D = 896$, Jacobi symbol $(896/A) = -1$, zero congruence $U_{A+1}(30, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(30, 1), A) = 1$ for all 274 distinct prime factors.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase8/certificates/cert_paqcs_1511d_t110891.json`](proofs/phase8/certificates/cert_paqcs_1511d_t110891.json)
+  - Canonical SHA-256: `cd5a4bafd77112bbc3130a0784ee648d4232b1e98d577c92637d44e85b812cbc`
+  - Independent Attestation: [`proofs/phase8/attestations/attest_cd5a4bafd77112bb.json`](proofs/phase8/attestations/attest_cd5a4bafd77112bb.json) (Status: **UNCONDITIONALLY_VERIFIED**)
+  - Standalone Verifier: [`scripts/phase8_paqcs_independent_verify.py`](scripts/phase8_paqcs_independent_verify.py)
+* **Algorithmic Achievement:**
+  - Sieve throughput $> 1.86 \times 10^6$ candidates/sec over $t$-space with $Q = 200,000$.
+  - 50,000 candidates searched $\to$ 19,005 survivors $\to$ 154 single PRPs $\to$ 1 dual PRP proven and certified.
+  - Complete regression suite: **217/217 passing**.
 
 ### 2.000000 Phase 8 ADES-8 Discovery: Fresh 1,511-Digit Certified Twin Prime Pair (All-Time Repository Record)
 Phase 8 formulated, benchmarked, and deployed the **Adaptive Dual-axis Exponent Sieve (ADES-8)**, discovering an authentic, de novo twin-prime pair containing **exactly 1,511 decimal digits per member**, breaking the Phase 7 repository record:

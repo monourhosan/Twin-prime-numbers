@@ -1,0 +1,12 @@
+{
+  "campaign_id": "paqcs_primary_1511d",
+  "method": "PAQCS",
+  "target_digits": 1511,
+  "y_anchor": 1780,
+  "h": 3,
+  "Q_bound": 200000,
+  "block_size": 25000,
+  "max_candidates": 250000,
+  "workers": 6,
+  "stop_on_first_discovery": true
+}

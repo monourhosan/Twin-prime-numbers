@@ -1,0 +1,12 @@
+{
+  "campaign_id": "paqcs_smoke_test",
+  "method": "PAQCS",
+  "target_digits": 50,
+  "y_anchor": 50,
+  "h": 3,
+  "Q_bound": 2000,
+  "block_size": 5000,
+  "max_candidates": 20000,
+  "workers": 4,
+  "stop_on_first_discovery": true
+}
