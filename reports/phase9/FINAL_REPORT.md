@@ -12,7 +12,7 @@ Phase 9 achieved its primary research and discovery objective: the formulation o
 - **Primality Proof Status:** Both members are **UNCONDITIONALLY PROVEN PRIMES**:
   - Upper Member $B$: Certified via Brillhart-Lehmer-Selfridge (1975) Theorem 4 ($N-1$ test) with factored divisor $F = 2 x^2 > \sqrt{B}$.
   - Lower Member $A$: Certified via Brillhart-Lehmer-Selfridge (1975) Theorem 17 ($N+1$ rank test / Morrison-BLS) with factored divisor $F_{\text{odd}} > \sqrt{A}$.
-- **Independent Verification:** The discovery passed zero-import verification via `scripts/phase9_independent_verify.py` with signed attestation `proofs/phase9/attestations/attest_62d13fd6011ec338.json`.
+- **Independent Verification:** The discovery passed zero-import verification via `scripts/phase9_independent_verify.py` with attestation `proofs/phase9/attestations/attest_62d13fd6011ec338.json` (Status: `UNCONDITIONALLY_VERIFIED`).
 - **Repository Novelty:** `NEW_TO_REPOSITORY` (0 matches across all 59 pre-existing historical pairs).
 - **Public Novelty:** `NO_PUBLIC_MATCH_FOUND_IN_CHECKED_SOURCES` across The PrimePages, Tony Forbes' Prime $k$-tuple registry, and PrimeGrid.
 
@@ -59,18 +59,18 @@ Phase 9 achieved its primary research and discovery objective: the formulation o
 - **Application:**
   - Factored Divisor: $F_{\text{odd}} = S_{283}^2 \cdot 1129^2 / 4$ (242 decimal digits).
   - Size Margin: $(F_{\text{odd}} - 1)^2 > A$ holds by 59 orders of magnitude.
-  - Parameters: $P = 15, Q = 1, D = 221$, Jacobi symbol $(221 / A) = -1$.
-  - Lucas Sequence: $U_{A+1}(15, 1) \equiv 0 \pmod A$ verified.
-  - Factor Gcds: $\gcd(U_{(A+1)/q}(15, 1), A) = 1$ verified for all 61 odd prime factors.
+  - Parameters: $P = 295, Q = 1, D = 87021$, Jacobi symbol $(87021 / A) = -1$.
+  - Lucas Sequence: $U_{A+1}(295, 1) \equiv 0 \pmod A$ verified.
+  - Factor Gcds: $\gcd(U_{(A+1)/q}(295, 1), A) = 1$ verified for all 61 odd prime factors.
 
 ---
 
-### 4. Verification and Cryptographic Integrity
+### 4. Verification and Attestation Integrity
 
 - **Proof Certificate Path:** `proofs/phase9/certificates/cert_paccm9_364d_t1129.json`
 - **Canonical Proof Payload SHA-256:**
   `62d13fd6011ec338f9324a0c9532bc90be297eb505a0f5ef0eebef349625b190`
-- **Signed Attestation Path:** `proofs/phase9/attestations/attest_62d13fd6011ec338.json`
+- **Independent Attestation Path:** `proofs/phase9/attestations/attest_62d13fd6011ec338.json`
 - **Verification Command:**
   ```powershell
   python scripts/phase9_independent_verify.py proofs/phase9/certificates/cert_paccm9_364d_t1129.json

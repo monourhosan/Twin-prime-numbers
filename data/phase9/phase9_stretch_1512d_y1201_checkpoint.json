@@ -1,0 +1,16 @@
+{
+  "campaign_id": "phase9_stretch_1512d_y1201",
+  "anchor_y": 1201,
+  "t_start": 1,
+  "t_end": 20000,
+  "current_t": 20001,
+  "sieve_depth": 50000,
+  "use_gpu": true,
+  "sieve_candidates_total": 10000,
+  "sieve_survivors_total": 4247,
+  "single_prp_count": 6,
+  "dual_prp_count": 0,
+  "proven_pairs_count": 0,
+  "proven_pairs": [],
+  "timestamp_utc": "2026-11-15T10:57:55.307709+00:00"
+}

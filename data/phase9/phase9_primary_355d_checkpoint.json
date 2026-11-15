@@ -1,14 +1,14 @@
 {
   "campaign_id": "phase9_primary_355d",
   "anchor_y": 283,
-  "t_start": 1,
+  "t_start": 10003,
   "t_end": 50000,
-  "current_t": 10003,
+  "current_t": 50001,
   "sieve_depth": 50000,
   "use_gpu": true,
-  "sieve_candidates_total": 5001,
-  "sieve_survivors_total": 1421,
-  "single_prp_count": 2,
+  "sieve_candidates_total": 25000,
+  "sieve_survivors_total": 6658,
+  "single_prp_count": 14,
   "dual_prp_count": 1,
   "proven_pairs_count": 1,
   "proven_pairs": [
@@ -22,5 +22,5 @@
       "proof_time_sec": 5.950649300000805
     }
   ],
-  "timestamp_utc": "2026-11-15T07:59:27.481528+00:00"
+  "timestamp_utc": "2026-11-15T10:46:57.758852+00:00"
 }
