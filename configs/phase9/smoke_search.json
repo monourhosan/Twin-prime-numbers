@@ -1,0 +1,16 @@
+{
+  "campaign_id": "phase9_smoke_search",
+  "method": "PACCM-9",
+  "manifold_equation": "C = 2*x^2*(3x + 1), A = C - 1, B = C + 1",
+  "anchor_y": 11,
+  "expected_digits": 15,
+  "t_start": 1,
+  "t_end": 500,
+  "sieve_depth": 1000,
+  "batch_size": 250,
+  "use_gpu": true,
+  "stop_on_first_discovery": false,
+  "temperature_soft_throttle_c": 80.0,
+  "temperature_hard_pause_c": 85.0,
+  "max_cpu_workers": 2
+}

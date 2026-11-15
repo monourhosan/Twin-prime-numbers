@@ -1,0 +1,76 @@
+{
+  "schema_version": "9.0",
+  "campaign_id": "test_resume",
+  "method": "PACCM-9",
+  "discovery_type": "DETERMINISTIC_TWIN_PRIME_DISCOVERY",
+  "timestamp_utc": "2026-11-15T08:05:37.763494+00:00",
+  "representation": {
+    "family": "primorial_anchored_cubic_cofactor",
+    "manifold_equation": "C = 2*x^2*(3x + 1), A = C - 1, B = C + 1",
+    "y_bound": 5,
+    "S_y_digits": 2,
+    "S_y_decimal": "30",
+    "t": 29,
+    "x_decimal": "870",
+    "F_decimal": "1513800",
+    "F_odd_decimal": "189225",
+    "prime_factors_count": 4,
+    "distinct_primes": [
+      2,
+      3,
+      5,
+      29
+    ],
+    "factors_F": {
+      "2": 3,
+      "3": 2,
+      "5": 2,
+      "29": 2
+    }
+  },
+  "pair": {
+    "difference": 2,
+    "digits": 10,
+    "center_decimal": "3952531800",
+    "lower_decimal": "3952531799",
+    "upper_decimal": "3952531801"
+  },
+  "proofs": {
+    "upper_member": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington N-1)",
+      "candidate": "3952531801",
+      "digits": 10,
+      "proof_factor_F": "1513800",
+      "size_condition": "PASS (F^2 > B)",
+      "witnesses": {
+        "2": 17,
+        "3": 2,
+        "5": 5,
+        "29": 2
+      },
+      "status": "PROVEN_PRIME"
+    },
+    "lower_member": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison N+1 Rank)",
+      "candidate": "3952531799",
+      "digits": 10,
+      "proof_factor_F_odd": "189225",
+      "size_condition": "PASS ((F_odd - 1)^2 > A)",
+      "parameter_P": 15,
+      "parameter_Q": 1,
+      "discriminant_D": 221,
+      "jacobi_symbol": -1,
+      "verification": {
+        "lucas_zero_congruence": "U_{A+1}(15, 1) = 0 mod A",
+        "factor_gcds": {
+          "3": "1",
+          "5": "1",
+          "29": "1"
+        }
+      },
+      "status": "PROVEN_PRIME"
+    }
+  },
+  "status": "PROVEN",
+  "sha256": "00d388c2c274704a5db269641fdee37851a3180edd8a53b4fbc89fafeb621c59"
+}

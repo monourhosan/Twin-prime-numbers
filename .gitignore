@@ -58,6 +58,10 @@ runs/phase6/*.sqlite*
 runs/phase6/*.log
 runs/phase6b/
 
+# Transient Phase 9 State
+runs/phase9/
+
+
 
 
 

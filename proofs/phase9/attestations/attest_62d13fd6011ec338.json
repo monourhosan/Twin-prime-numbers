@@ -1,0 +1,22 @@
+{
+  "schema_version": "9.0",
+  "attestation_type": "INDEPENDENT_STRICT_MATHEMATICAL_VERIFICATION",
+  "method": "PACCM-9",
+  "target_certificate": "cert_paccm9_364d_t1129.json",
+  "target_sha256": "62d13fd6011ec338f9324a0c9532bc90be297eb505a0f5ef0eebef349625b190",
+  "utc_attested": "2026-11-15T07:59:43.793911+00:00",
+  "digits": 364,
+  "representation": {
+    "y_bound": 283,
+    "t": 1129,
+    "prime_factors_count": 62
+  },
+  "verifications": {
+    "difference_check": "PASS (B - A == 2)",
+    "center_mod_6": "PASS (C == 0 mod 6)",
+    "pocklington_upper_member": "PASS (BLS Theorem 4 unconditional)",
+    "morrison_lower_member": "PASS (BLS Theorem 17 unconditional, P=295)"
+  },
+  "notice": "SHA-256 detects payload modifications relative to a declared digest; it is not a cryptographic digital signature and does not establish authorship.",
+  "verdict": "UNCONDITIONALLY_VERIFIED"
+}
