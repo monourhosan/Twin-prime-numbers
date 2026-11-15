@@ -1,0 +1,13 @@
+{
+  "campaign_id": "ades8_pilot_smoke",
+  "digit_band": 1515,
+  "R_primorial": 13,
+  "n_start": 5000,
+  "n_height": 4,
+  "t_start": 23576,
+  "t_width": 2000,
+  "sieve_limit": 20000,
+  "mr_rounds": 15,
+  "max_tiles": 1,
+  "timeout_sec": 60.0
+}

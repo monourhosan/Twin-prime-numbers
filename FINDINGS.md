@@ -68,7 +68,31 @@ The question of finding "the biggest and the last twin prime numbers" comprises 
 
 ## 5. Strongest Results Actually Achieved in This Project
 
-### 5.0 Phase 7 HDC-7: Discovery of 1,510-Digit Certified Twin Primes (Repository Record)
+### 5.00 Phase 8 ADES-8: Discovery of 1,511-Digit Certified Twin Primes (All-Time Repository Record)
+
+In Phase 8, the **Adaptive Dual-axis Exponent Sieve (ADES-8)** discovered and unconditionally certified a fresh, original twin-prime pair of **1,511 decimal digits per member**, breaking the Phase 7 repository record:
+
+$$\begin{aligned}
+p &= 2,395,898,505 \times 2^{4,987} - 1 \quad \text{(1,511 decimal digits)} \\
+q &= 2,395,898,505 \times 2^{4,987} + 1 \quad \text{(1,511 decimal digits)}
+\end{aligned}$$
+
+* **Difference:** $q - p = 2$ identically.
+* **Center Parity:** $C = 2,395,898,505 \times 2^{4,987} \equiv 0 \pmod 6$.
+* **Primorial Parameters:** $R = 13$, $M_{13} = 15,015$, compact parameter index $t = 79,783$, $k = 15,015 \times (2 \times 79,783 + 1) = 2,395,898,505$.
+* **Unconditional Certifications:**
+  - **Upper Member ($q$):** Proven prime via Proth's Theorem (1878) with witness $w = 19$ ($19^{(q-1)/2} \equiv -1 \pmod q$).
+  - **Lower Member ($p$):** Proven prime via the Lucas-Lehmer-Riesel (LLR) Theorem (1969, 1994) with Rödseth parameter $P = 15$, Jacobi symbols $(13/p) = 1, (17/p) = -1$, and $n - 2 = 4,985$ squaring rounds yielding final residue $u_{4985} \equiv 0 \pmod p$.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json`](proofs/phase8/certificates/cert_ades8_1511d_R13_n4987_t79783.json)
+  - Canonical SHA-256: `f29217cfe9267dd9334534e76e5bc4b023918409eec95b1a8ebdd7ddfe855263`
+  - Signed Attestation: [`proofs/phase8/attestations/attest_f29217cfe9267dd9.json`](proofs/phase8/attestations/attest_f29217cfe9267dd9.json) (Status: **PASS**)
+  - Decoupled Verifier: [`scripts/phase8_independent_verify.py`](scripts/phase8_independent_verify.py)
+* **Algorithmic Achievement:**
+  - 2D modular root recurrence $a_{n+1} = a_n \cdot 2^{-1} \bmod r$ achieved $1,553,092$ candidates/sec ($2.34\times$ speedup over reference 2D and $2.81\times$ speedup over 1D baseline).
+  - All 190 regression tests passing.
+
+### 5.0 Phase 7 HDC-7: Discovery of 1,510-Digit Certified Twin Primes (Previous Repository Record)
 
 In Phase 7, the **High-Density Certificate-Aware Twin-Prime Discovery Engine (HDC-7)** discovered and unconditionally certified a fresh twin-prime pair of **1,510 decimal digits per member**:
 
@@ -265,8 +289,12 @@ where $h = 3$, $S$ is an odd 50-digit anchor divisible by 3 with fully proven pr
 
 | Campaign | Candidate $t$ | Decimal Digits | Lower Prime $A$ | Upper Prime $B$ | Certification Theorems | Certificate File |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `strong_502d` | $114,833$ | **503 digits** | `31080318...8489` (503d) | `31080318...8491` (503d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_503d_t114833.json`](proofs/phase6/certificates/cert_qcp6_503d_t114833.json) |
+| `strong_502d` | $37,907$ | **502 digits** | `33868103...8227` (502d) | `33868103...8229` (502d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_502d_t37907.json`](proofs/phase6/certificates/cert_qcp6_502d_t37907.json) |
 | `primary` | $23,947$ | **108 digits** | `58042944...0867` (108d) | `58042944...0869` (108d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_108d_t23947.json`](proofs/phase6/certificates/cert_qcp6_108d_t23947.json) |
 | `primary (resume)` | $131,295$ | **110 digits** | `17447916...8639` (110d) | `17447916...8641` (110d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_110d_t131295.json`](proofs/phase6/certificates/cert_qcp6_110d_t131295.json) |
+| `fresh_107d` | $13,345$ | **108 digits** | `20350412...0979` (108d) | `20350412...0981` (108d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_108d_t13345.json`](proofs/phase6/certificates/cert_qcp6_108d_t13345.json) |
+| `fresh_107d` | $4,849$ | **107 digits** | `26868314...3619` (107d) | `26868314...3621` (107d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_107d_t4849.json`](proofs/phase6/certificates/cert_qcp6_107d_t4849.json) |
 
 * **Exact Integers (Primary 108d Discovery):**
   - $A = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867$

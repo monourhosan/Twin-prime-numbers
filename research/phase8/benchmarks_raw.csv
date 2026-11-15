@@ -1,0 +1,20 @@
+category,variant,R,H,S,M_bits,G_R,stage,median_sec,elapsed_sec,per_op_sec,throughput_cand_per_sec,throughput,candidates,survivors,survivor_fraction,notes
+kernel_comparison,Variant A (HDC-7 1D Baseline),,,,,,,0.28982420000829734,,,552058.7997669601,,,11493,,Independent 1D modular roots
+kernel_comparison,Variant B (CPU Reference 2D),,,,,,,0.24095910000323784,,,664013.1042896908,,,11493,,Direct 2D modular roots
+kernel_comparison,Variant C (ADES-8 Recurrence 2D),,,,,,,0.10302029999729712,,,1553091.9634693146,,,11493,,O(1) modular root recurrence across rows
+primorial_scaling,,13,,,14,3.3703703703703707,,,0.06852580000122543,,1167443.5030100981,,,5719,,
+primorial_scaling,,31,,,37,5.3684194482548415,,,0.07801560001098551,,1025435.9383089415,,,9262,,
+primorial_scaling,,47,,,59,6.535356956974398,,,0.08070869999937713,,991219.0383517192,,,11275,,
+primorial_scaling,,97,,,120,8.703892617143424,,,0.05120620000525378,,1562310.8137645826,,,14794,,
+height_scaling,,,4,,,,,,0.030875600001309067,,,1295521.3825254918,40000,,,
+height_scaling,,,8,,,,,,0.05109920000541024,,,1565582.2398693096,80000,,,
+height_scaling,,,16,,,,,,0.10048629999801051,,,1592256.854946075,160000,,,
+height_scaling,,,32,,,,,,0.19187910000619013,,,1667716.807039832,320000,,,
+depth_scaling,,,,20000,,,,,0.03032470001198817,,,,,6814,0.085175,
+depth_scaling,,,,50000,,,,,0.052310999992187135,,,,,5728,0.0716,
+depth_scaling,,,,100000,,,,,0.08985979999124538,,,,,5024,0.0628,
+depth_scaling,,,,250000,,,,,0.20113580000179354,,,,,4252,0.05315,
+stage_latency,,,,,,,fermat_base2,,,0.037967416000028606,,,,,,
+stage_latency,,,,,,,miller_rabin_25,,,0.028768940000009024,,,,,,
+stage_latency,,,,,,,proth_proof,,,0.02911050000693649,,,,,,
+stage_latency,,,,,,,llr_proof_full,,,0.030761190566030563,,,,,,

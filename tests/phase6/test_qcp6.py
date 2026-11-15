@@ -147,3 +147,16 @@ def test_adversarial_negative_certificate_rejections(tmp_path):
     f4.write_text(json.dumps(c4), encoding="utf-8")
     ok4, msg4, _ = verify_certificate_file(f4)
     assert ok4 is False, f"Should reject invalid witness: {msg4}"
+
+
+def test_certified_discoveries_verification():
+    """Verify newly discovered Phase 6 107d, 108d, 502d, and 503d certificates against independent verifier."""
+    for cert_name in ["cert_qcp6_107d_t4849.json", "cert_qcp6_108d_t13345.json", "cert_qcp6_502d_t37907.json", "cert_qcp6_503d_t114833.json"]:
+        cert_path = Path("proofs/phase6/certificates") / cert_name
+        assert cert_path.exists(), f"Certificate must exist: {cert_path}"
+        ok, msg, att = verify_certificate_file(cert_path)
+        assert ok is True, f"Verification failed for {cert_name}: {msg}"
+        assert att["verdict"] == "VERIFIED_UNCONDITIONAL_TWIN_PRIMES"
+        assert att["verified_pair"]["gap"] == 2
+        assert att["verified_pair"]["digits_A"] >= 100
+
