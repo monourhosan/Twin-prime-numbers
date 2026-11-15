@@ -62,7 +62,7 @@ def main():
     p_search.add_argument("--batch-size", type=int, default=5000)
     p_search.add_argument("--no-gpu", action="store_true", help="Disable NVIDIA GPU acceleration")
     p_search.add_argument("--cross-check", action="store_true", help="Cross-check GPU against CPU bitset")
-    p_search.add_argument("--stop-on-first", action="store_true", default=True, help="Stop upon first certified pair")
+    p_search.add_argument("--stop-on-first", action=argparse.BooleanOptionalAction, default=True, help="Stop upon first certified pair (or --no-stop-on-first to complete interval)")
 
     # Verify command
     p_verify = subparsers.add_parser("verify", help="Verify certificate")

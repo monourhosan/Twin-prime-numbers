@@ -86,30 +86,31 @@ def lucas_u_mod(P: int, Q: int, k: int, mod: int) -> int:
     if k == 1:
         return 1 % mod
 
-    m00, m01 = P % mod, (-Q) % mod
-    m10, m11 = 1, 0
+    mod_mpz = gmpy2.mpz(mod)
+    m00, m01 = gmpy2.mpz(P) % mod_mpz, gmpy2.mpz(-Q) % mod_mpz
+    m10, m11 = gmpy2.mpz(1), gmpy2.mpz(0)
 
-    r00, r01 = 1, 0
-    r10, r11 = 0, 1
+    r00, r01 = gmpy2.mpz(1), gmpy2.mpz(0)
+    r10, r11 = gmpy2.mpz(0), gmpy2.mpz(1)
 
     bit_len = k.bit_length()
     for bit in range(bit_len - 1, -1, -1):
         # Square R
-        t00 = (r00 * r00 + r01 * r10) % mod
-        t01 = (r00 * r01 + r01 * r11) % mod
-        t10 = (r10 * r00 + r11 * r10) % mod
-        t11 = (r10 * r01 + r11 * r11) % mod
+        t00 = (r00 * r00 + r01 * r10) % mod_mpz
+        t01 = (r00 * r01 + r01 * r11) % mod_mpz
+        t10 = (r10 * r00 + r11 * r10) % mod_mpz
+        t11 = (r10 * r01 + r11 * r11) % mod_mpz
         r00, r01, r10, r11 = t00, t01, t10, t11
 
         if (k >> bit) & 1:
             # Multiply R by M
-            t00 = (r00 * m00 + r01 * m10) % mod
-            t01 = (r00 * m01 + r01 * m11) % mod
-            t10 = (r10 * m00 + r11 * m10) % mod
-            t11 = (r10 * m01 + r11 * m11) % mod
+            t00 = (r00 * m00 + r01 * m10) % mod_mpz
+            t01 = (r00 * m01 + r01 * m11) % mod_mpz
+            t10 = (r10 * m00 + r11 * m10) % mod_mpz
+            t11 = (r10 * m01 + r11 * m11) % mod_mpz
             r00, r01, r10, r11 = t00, t01, t10, t11
 
-    return r10
+    return int(r10)
 
 
 def find_morrison_params(

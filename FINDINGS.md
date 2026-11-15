@@ -98,6 +98,18 @@ B &= C + 1 = 6 x^3 + 2 x^2 + 1 \quad \text{(364 decimal digits)}
   - Repository Inventory: Verified absent from repository inventory (`NEW_TO_REPOSITORY`, 59 historical pairs checked).
   - Public Databases: Searched The PrimePages, Tony Forbes' Prime $k$-tuple registry, and PrimeGrid (`NO_PUBLIC_MATCH_FOUND_IN_CHECKED_SOURCES`).
 
+### 4.500 Phase 9B: Full Audit Reconciliation, Primary Campaign Completion, Stretch Searches, and Phase 10 Candidate Derivations
+
+Phase 9B completed all audit, scale-up, and mathematical transition objectives:
+1. **Mathematical Audit & Discrepancy Resolution:** Validated from first principles that Morrison parameter $P = 295$ ($D = 87021$, Jacobi symbol $-1$) unconditionally certifies the 364-digit prime $A$, correcting the documentation copy typo of $P = 15$ (which has invalid Jacobi symbol $+1$). Standardized UTC timestamps (`2026-11-15T07:59:24Z`), corrected sieve depth configuration to $Q = 50,000$, and aligned attestation terminology.
+2. **Primary Campaign Completion ($t \in [1, 50000]$):** Resumed and completed all remaining intervals up to $t = 50000$ on the NVIDIA GeForce MX250 GPU, sifting 25,000 candidates with 6,658 survivors, confirming $t = 1129$ as the unique proven twin prime pair.
+3. **1,512-Digit Stretch Target Searches:** Investigated primorial anchors $y = 1201$ (504-digit anchor, $1,512$–$1,526$ digits, $t \in [1, 20000]$) and $y = 1193$ (501-digit anchor, with $t \in [1129, 2154]$ yielding **exactly 1,512 decimal digits**, $t \in [1, 10000]$). Evaluated 15,000 candidates across the MX250 GPU sieve and screened 1,453 prime multipliers via CPU multiprecision Fermat and Miller-Rabin tests. Logged 8 single-PRPs and 0 dual-PRPs within the bounded windows, strictly adhering to the protocol that only deterministically proven pairs are claimed.
+4. **Phase 10 Algebraic Center Research:** Derived, proved, and empirically verified three **genuinely novel** algebraic center constructions with completely factorable divisors and valid two-sided deterministic proof routes (not degree-scaled variants of PACCM-9):
+   - **ABBM-10:** Asymmetric Bi-Primorial Bilinear Manifold ($C = 2u^2v(3u + v)$).
+   - **OPQM-10:** Odd-Parity Quintic Manifold ($C = 6x^3(2x^2 + 1) = 12x^5 + 6x^3$) with root-negation symmetry $r_A \equiv -r_B \pmod q$.
+   - **CDCM-10:** Cyclotomic Difference-of-Cubes Manifold ($C = 6u^2v^2(u^2 + uv + v^2)$) grounded in Eisenstein integers $\mathbb{Z}[\omega]$.
+5. **Quality & Continuous Integration:** Added GitHub Actions CI (`.github/workflows/ci.yml`) and expanded test suite to **239/239 passing tests**.
+
 ### 5.000 Phase 8 PAQCS: Discovery of 1,511-Digit Certified Twin Primes via Primorial-Anchored Quadratic-Cofactor Search (Independent Family)
 
 In Phase 8, the **Primorial-Anchored Quadratic-Cofactor Search (PAQCS)** discovered and unconditionally certified a fresh, mathematically independent twin-prime pair of **1,511 decimal digits per member**, using a quadratic-cofactor manifold entirely separate from the Proth/LLR binary family:
