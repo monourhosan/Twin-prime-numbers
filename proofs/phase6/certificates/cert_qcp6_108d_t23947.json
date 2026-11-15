@@ -1,0 +1,186 @@
+{
+  "schema_version": "6.0",
+  "phase": "Phase 6",
+  "method": "QCP-6 (Quadratic Co-Factor Proof Search)",
+  "campaign_id": "primary",
+  "timestamp_utc": "2026-11-14T05:51:25.461486+00:00",
+  "parameters": {
+    "h": 3,
+    "S": "31814390296223916158011157598224064684469095400701",
+    "t": "23947",
+    "x": "761859204423674120235893191004671676998981427560586847",
+    "seed": 2026111402
+  },
+  "pair": {
+    "lower_prime_A": "580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867",
+    "upper_prime_B": "580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640869",
+    "difference": "2",
+    "center_C": "580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640868",
+    "digits_A": 108,
+    "digits_B": 108
+  },
+  "factorization_F": {
+    "factors": {
+      "3": 1,
+      "10006721": 1,
+      "10048373": 1,
+      "10051141": 1,
+      "10075687": 1,
+      "10091327": 1,
+      "10139953": 1,
+      "10177487": 1,
+      "7": 1,
+      "11": 1,
+      "311": 1
+    },
+    "factor_proofs": {
+      "3": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10006721": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10048373": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10051141": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10075687": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10091327": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10139953": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "10177487": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "7": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "11": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      },
+      "311": {
+        "exponent": 1,
+        "verified_prime": true,
+        "proof_method": "TRIAL_DIVISION_BOUNDED_U64"
+      }
+    }
+  },
+  "proofs": {
+    "proof_lower_A": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison N+1 Rank)",
+      "candidate": "580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867",
+      "digits": 108,
+      "proof_factor_F": "761859204423674120235893191004671676998981427560586847",
+      "prime_factors_F": [
+        "3",
+        "7",
+        "11",
+        "311",
+        "10006721",
+        "10048373",
+        "10051141",
+        "10075687",
+        "10091327",
+        "10139953",
+        "10177487"
+      ],
+      "size_condition": "(F - 1)^2 = 580429447365073672176135517613336328521016173269486621558255815285238205988256128839735816063276095908227716 > A = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867",
+      "parameter_P": 3,
+      "parameter_Q": 1,
+      "discriminant_D": 5,
+      "jacobi_symbol": -1,
+      "verification": {
+        "lucas_zero_congruence": "U_{A+1}(3, 1) = 0 mod A",
+        "factor_gcds": {
+          "3": "1",
+          "7": "1",
+          "11": "1",
+          "311": "1",
+          "10006721": "1",
+          "10048373": "1",
+          "10051141": "1",
+          "10075687": "1",
+          "10091327": "1",
+          "10139953": "1",
+          "10177487": "1"
+        }
+      },
+      "status": "PROVEN_PRIME"
+    },
+    "proof_upper_B": {
+      "theorem": "Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington N-1)",
+      "candidate": "580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640869",
+      "digits": 108,
+      "proof_factor_F": "761859204423674120235893191004671676998981427560586847",
+      "prime_factors_F": [
+        "3",
+        "7",
+        "11",
+        "311",
+        "10006721",
+        "10048373",
+        "10051141",
+        "10075687",
+        "10091327",
+        "10139953",
+        "10177487"
+      ],
+      "size_condition": "F^2 = 580429447365073672176135517613336328521016173269486623081974224132586446460042510849079170061238951029401409 > B = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640869",
+      "witnesses": {
+        "3": 2,
+        "7": 2,
+        "11": 2,
+        "311": 2,
+        "10006721": 2,
+        "10048373": 2,
+        "10051141": 2,
+        "10075687": 2,
+        "10091327": 2,
+        "10139953": 2,
+        "10177487": 2
+      },
+      "factor_gcds": {
+        "3": "1",
+        "7": "1",
+        "11": "1",
+        "311": "1",
+        "10006721": "1",
+        "10048373": "1",
+        "10051141": "1",
+        "10075687": "1",
+        "10091327": "1",
+        "10139953": "1",
+        "10177487": "1"
+      },
+      "status": "PROVEN_PRIME"
+    },
+    "status": "CERTIFIED_TWIN_PRIMES"
+  },
+  "sha256": "a79f1ceabb2f5f00f1f24dcc6d6df82aa65fee73fae77292f2238524c857ef79"
+}

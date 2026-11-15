@@ -8,6 +8,7 @@ Completely decoupled from the search engine:
 - First-principles modular exponentiation and GCD checks for Pocklington theorem on B.
 - Canonical JSON SHA-256 validation.
 - Generates machine-readable Independent Verification Attestation JSON artifacts.
+- Fail-closed: returns nonzero exit codes for missing files, empty directories, and invalid proofs.
 """
 
 import sys
@@ -15,6 +16,7 @@ import os
 import json
 import math
 import hashlib
+import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Tuple, List, Dict, Any, Optional
@@ -86,6 +88,13 @@ def compute_canonical_sha256(data: Dict[str, Any]) -> str:
     clean = {k: v for k, v in data.items() if k != "sha256"}
     canonical = json.dumps(clean, sort_keys=True, separators=(',', ':'))
     return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+def canonical_pair_id(A: int, B: int) -> str:
+    """Computes deterministic canonical pair ID."""
+    p_min = min(int(A), int(B))
+    p_max = max(int(A), int(B))
+    pair_str = f"twin-pair-v1:{p_min}:{p_max}"
+    return hashlib.sha256(pair_str.encode("utf-8")).hexdigest()
 
 def verify_certificate_v5_payload(data: Dict[str, Any]) -> Tuple[bool, List[str], Dict[str, Any]]:
     """
@@ -165,14 +174,20 @@ def verify_certificate_v5_payload(data: Dict[str, Any]) -> Tuple[bool, List[str]
         errors.append(f"digits_upper mismatch: calculated {digits_B}, stated {data.get('digits_upper')}")
 
     # 5. Exact Algebraic Twins check
-    if B - A != 2:
-        errors.append(f"Gap is not 2: B - A = {B - A}")
-    if A <= 2:
+    stated_A = int(data.get("lower_decimal", A))
+    stated_B = int(data.get("upper_decimal", B))
+    if stated_B - stated_A != 2 or B - A != 2:
+        errors.append(f"Gap is not 2: B - A = {stated_B - stated_A}")
+    if stated_A <= 2 or A <= 2:
         errors.append(f"A <= 2: {A}")
-    if A % 2 == 0 or B % 2 == 0:
+    if stated_A % 2 == 0 or stated_B % 2 == 0 or A % 2 == 0 or B % 2 == 0:
         errors.append("Candidates are not odd")
-    if math.gcd(A, B) != 1:
-        errors.append(f"gcd(A, B) = {math.gcd(A, B)} != 1")
+    if math.gcd(stated_A, stated_B) != 1 or math.gcd(A, B) != 1:
+        errors.append(f"gcd(A, B) != 1")
+
+    evidence["canonical_pair_id"] = canonical_pair_id(A, B)
+    evidence["A_reconstructed"] = str(A)
+    evidence["B_reconstructed"] = str(B)
 
     # 6. Theorem Size Bounds Checks
     if F_odd * F_odd <= B:
@@ -241,15 +256,22 @@ def verify_certificate_v5_payload(data: Dict[str, Any]) -> Tuple[bool, List[str]
     is_valid = len(errors) == 0
     return is_valid, errors, evidence
 
-def verify_file(cert_path: Path, attestation_dir: Optional[Path] = None, overwrite: bool = False) -> bool:
-    """Verifies a single certificate file and writes an attestation artifact if not already present."""
+def verify_file(cert_path: Path, attestation_dir: Optional[Path] = None, overwrite: bool = False) -> Tuple[bool, Optional[Path], List[str]]:
+    """
+    Verifies a single certificate file and writes an attestation artifact if not already present.
+    Returns (is_valid, attestation_file_path, errors).
+    """
     cert_path = Path(cert_path)
     if not cert_path.exists():
         print(f"ERROR: Certificate file not found: {cert_path}")
-        return False
+        return False, None, [f"Certificate file not found: {cert_path}"]
 
-    with open(cert_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    try:
+        with open(cert_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"ERROR: Malformed JSON in {cert_path}: {e}")
+        return False, None, [f"Malformed JSON: {e}"]
 
     is_valid, errors, evidence = verify_certificate_v5_payload(data)
     
@@ -274,6 +296,11 @@ def verify_file(cert_path: Path, attestation_dir: Optional[Path] = None, overwri
             "result": "PASS" if is_valid else "FAIL",
             "digits_lower": data.get("digits_lower"),
             "digits_upper": data.get("digits_upper"),
+            "pair": {
+                "lower_prime_A": evidence.get("A_reconstructed"),
+                "upper_prime_B": evidence.get("B_reconstructed"),
+                "pair_id": evidence.get("canonical_pair_id")
+            },
             "errors": errors,
             "independent_evidence": evidence
         }
@@ -284,33 +311,50 @@ def verify_file(cert_path: Path, attestation_dir: Optional[Path] = None, overwri
         print(f"VERIFICATION SUCCESS: {cert_path.name}")
         print(f"  Digits: {data.get('digits_lower')} / {data.get('digits_upper')}")
         print(f"  Attestation: {attestation_file} {'(created)' if should_write else '(preserved)'}")
-        return True
+        return True, attestation_file, []
     else:
         print(f"VERIFICATION FAILED: {cert_path.name}")
         for err in errors:
             print(f"  - {err}")
-        return False
+        return False, attestation_file, errors
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python scripts/phase5_independent_verify.py <cert.json or cert_dir>")
+    parser = argparse.ArgumentParser(description="Strict Standalone Independent Verifier for Phase 5 Certificates")
+    parser.add_argument("target", help="Certificate JSON file or directory containing cert_*.json")
+    parser.add_argument("--attestation-dir", default=None, help="Optional directory to write attestation artifacts")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing attestation artifacts")
+    
+    args = parser.parse_args()
+    target = Path(args.target)
+    att_dir = Path(args.attestation_dir) if args.attestation_dir else None
+
+    if not target.exists():
+        print(f"ERROR: Target does not exist: {target}", file=sys.stderr)
         sys.exit(1)
 
-    target = Path(sys.argv[1])
-    all_ok = True
     if target.is_dir():
-        cert_files = list(target.glob("cert_*.json"))
+        cert_files = sorted(list(target.glob("cert_*.json")) + list(target.glob("imported_cert_*.json")))
         if not cert_files:
-            print(f"No certificate files matching cert_*.json found in {target}")
-            sys.exit(0)
-        for cf in sorted(cert_files):
-            ok = verify_file(cf)
-            if not ok:
-                all_ok = False
-    else:
-        all_ok = verify_file(target)
+            print(f"ERROR: No certificate files matching cert_*.json found in {target}", file=sys.stderr)
+            sys.exit(2)
 
-    sys.exit(0 if all_ok else 1)
+        total = len(cert_files)
+        passed = 0
+        failed = 0
+        for cf in cert_files:
+            ok, _, _ = verify_file(cf, attestation_dir=att_dir, overwrite=args.overwrite)
+            if ok:
+                passed += 1
+            else:
+                failed += 1
+
+        print(f"\nAudit Summary: Total={total}, Verified={passed}, Failed={failed}")
+        if failed > 0:
+            sys.exit(1)
+        sys.exit(0)
+    else:
+        ok, _, _ = verify_file(target, attestation_dir=att_dir, overwrite=args.overwrite)
+        sys.exit(0 if ok else 1)
 
 if __name__ == "__main__":
     main()

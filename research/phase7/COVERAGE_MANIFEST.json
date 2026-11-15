@@ -1,0 +1,60 @@
+{
+  "schema_version": "7.0",
+  "campaign_id": "hdc7_primary_1510d",
+  "engine": "HDC-7 Primorial-Constrained Proth/LLR Search",
+  "digit_scale": 1510,
+  "parameters": {
+    "family": "primorial_constrained_proth_llr",
+    "B_primorial": 13,
+    "M_B": "15015",
+    "exponent_n": 4985,
+    "sieve_depth": 50000,
+    "k_min": 231991256,
+    "k_max": 2319912554,
+    "t_min": 7725,
+    "t_max": 77252
+  },
+  "searched_intervals": [
+    {
+      "t_start": 7725,
+      "t_end": 15659,
+      "span_centers": 7934,
+      "sieve_survivors": 737,
+      "survival_rate": 0.092891353667759,
+      "left_prps": 3,
+      "right_prps": 1,
+      "dual_prps": 1,
+      "certified_pairs": 1
+    }
+  ],
+  "unsearched_intervals": [
+    {
+      "t_start": 15659,
+      "t_end": 77253,
+      "remaining_centers": 61594
+    }
+  ],
+  "totals": {
+    "total_eligible_in_family": 69528,
+    "raw_centers_checked": 7934,
+    "sieve_survivors": 737,
+    "left_prps": 3,
+    "right_prps": 1,
+    "dual_prps": 1,
+    "certified_pairs": 1,
+    "wall_clock_seconds": 29.84
+  },
+  "discoveries": [
+    {
+      "pair_id": "hdc7_1510d_B13_n4985_t15658",
+      "digits": 1510,
+      "k": "470224755",
+      "n": 4985,
+      "t": 15658,
+      "status": "CERTIFIED_FRESH_1510_PLUS",
+      "certificate": "proofs/phase7/certificates/cert_hdc7_1510d_B13_n4985_t15658.json",
+      "attestation": "proofs/phase7/attestations/attest_9e147e81b6d0879c.json",
+      "sha256": "9e147e81b6d0879cd87edcb7cc577ba1e220519154901ed240de4319bb2ccc1e"
+    }
+  ]
+}

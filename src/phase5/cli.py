@@ -1,11 +1,11 @@
 """
 Phase 5 CLI Interface.
 Provides subcommands:
-- audit: Inspects environment, hardware, test suite, and historical proof repository.
-- discover: Executes SCCA candidate search and generates deterministic Schema 5.0 certificates.
+- audit: Inspects environment, hardware, test suite, and historical proof repository with independent verification.
+- discover: Executes SCCA candidate search and generates deterministic Schema 5.0 certificates with strict fail-closed verification gating.
 - benchmark: Measures candidate generation, sieving, PRP screening, and proof throughput.
-- status: Displays campaign ledger status, lease states, and bandit performance.
-- verify: Runs independent first-principles verification on certificates.
+- status: Displays campaign ledger status, lease states, and bandit performance across configurable database paths.
+- verify: Runs independent first-principles verification on certificates and propagates exit code.
 """
 
 import sys
@@ -13,9 +13,10 @@ import os
 import time
 import json
 import argparse
+import hashlib
 import subprocess
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 from .candidates import SmoothCenterFamily, TwinPairCandidate
 from .crt_walker import SegmentedSCCAFilter, CRTWheel
@@ -54,59 +55,162 @@ def run_audit(args):
     except ImportError:
         print("sympy: Not installed")
 
-    # 2. Historical Proof Inventory
+    # 2. Historical Proof Inventory & Independent Verification
     print("\nAuditing Historical Proof Certificates:")
-    repo_root = Path(args.repo)
+    repo_root = Path(args.repo).resolve()
     proof_dirs = [
-        ("Phase 1", repo_root / "proofs", False),
-        ("Phase 2", repo_root / "proofs" / "phase2", True),
-        ("Phase 3", repo_root / "proofs" / "phase3", True),
-        ("Phase 4", repo_root / "proofs" / "phase4", True),
-        ("Phase 5", repo_root / "proofs" / "phase5", True),
+        ("Phase 1", repo_root / "proofs", False, "scripts/verify_certificate.py"),
+        ("Phase 2", repo_root / "proofs" / "phase2", True, "scripts/phase2_verify.py"),
+        ("Phase 3", repo_root / "proofs" / "phase3", True, "scripts/phase3_independent_verify.py"),
+        ("Phase 4", repo_root / "proofs" / "phase4", True, "scripts/phase4_independent_verify.py"),
+        ("Phase 5", repo_root / "proofs" / "phase5", True, "scripts/phase5_independent_verify.py"),
+        ("Phase 6", repo_root / "proofs" / "phase6" / "certificates", True, "src/phase6/independent_verify.py"),
     ]
     
     max_digits = 0
     max_pair_info = ""
     total_certs = 0
+    verified_certs = 0
+    failed_certs = 0
+    audit_records = []
     
-    for phase_label, pdir, is_sub in proof_dirs:
+    # Separate audit attestation output directory to keep historical proofs pristine
+    audit_attest_dir = repo_root / "research" / "phase5_integrity" / "attestations"
+    audit_attest_dir.mkdir(parents=True, exist_ok=True)
+
+    for phase_label, pdir, is_sub, verifier_rel in proof_dirs:
         if pdir.exists():
             if is_sub:
                 certs = sorted(list(pdir.glob("cert_*.json")) + list(pdir.glob("imported_cert_*.json")))
             else:
-                # Top-level certs only (Phase 1)
                 certs = sorted([p for p in pdir.glob("cert_*.json") if p.parent == pdir])
+            
+            verifier_path = repo_root / verifier_rel
             
             for cf in certs:
                 total_certs += 1
+                cf_bytes = cf.read_bytes()
+                cf_sha256 = hashlib.sha256(cf_bytes).hexdigest()
+                digits = 0
+                pair_id = None
+                pair_valid = False
+                issues = []
+                proof_status = "NOT_RUN"
+                return_code = None
+
                 try:
-                    with open(cf, "r", encoding="utf-8") as f:
-                        d = json.load(f)
-                    if "digits_lower" in d:
-                        digits = d["digits_lower"]
-                    elif "pair" in d and "lower_digits" in d["pair"]:
-                        digits = d["pair"]["lower_digits"]
-                    elif "digits_p_minus" in d:
-                        digits = d["digits_p_minus"]
-                    elif "digits" in d:
-                        digits = d["digits"]
-                    elif "p_minus" in d:
-                        digits = len(str(d["p_minus"]))
+                    d = json.load(open(cf, "r", encoding="utf-8"))
+                    # Extract pair integers
+                    A, B = None, None
+                    if "pair" in d and "lower_prime_A" in d["pair"] and "upper_prime_B" in d["pair"]:
+                        A = int(d["pair"]["lower_prime_A"])
+                        B = int(d["pair"]["upper_prime_B"])
+                    elif "pair" in d and "lower_decimal" in d["pair"] and "upper_decimal" in d["pair"]:
+                        A = int(d["pair"]["lower_decimal"])
+                        B = int(d["pair"]["upper_decimal"])
+                    elif "pair" in d and "p_minus" in d["pair"] and "p_plus" in d["pair"]:
+                        A = int(d["pair"]["p_minus"])
+                        B = int(d["pair"]["p_plus"])
+                    elif "lower_decimal" in d and "upper_decimal" in d:
+                        A = int(d["lower_decimal"])
+                        B = int(d["upper_decimal"])
+                    elif "p_minus" in d and "p_plus" in d:
+                        A = int(d["p_minus"])
+                        B = int(d["p_plus"])
+                    elif "parameters" in d and "t" in d["parameters"] and "exponents" in d["parameters"]:
+                        exp = {int(k): int(v) for k, v in d["parameters"]["exponents"].items()}
+                        F = 1
+                        for pr, e in exp.items():
+                            F *= (pr ** e)
+                        C = F * int(d["parameters"]["t"])
+                        A = C - 1
+                        B = C + 1
+                    elif "k" in d and "n" in d:
+                        C = int(d["k"]) * (1 << int(d["n"]))
+                        A = C - 1
+                        B = C + 1
+
+                    if A is not None and B is not None:
+                        digits = len(str(A))
+                        pair_valid = (B - A == 2) and (A > 2) and (A % 2 == 1) and (B % 2 == 1)
+                        pair_key = f"twin-pair-v1:{min(A, B)}:{max(A, B)}"
+                        pair_id = hashlib.sha256(pair_key.encode("utf-8")).hexdigest()
                     else:
-                        digits = 0
+                        issues.append("Could not extract exact (A, B) pair integers")
 
                     if digits > max_digits:
                         max_digits = digits
                         max_pair_info = f"{cf.name} ({digits} digits)"
-                    print(f"  [{phase_label}] {cf.name}: {digits} digits")
+
+                    # Run format-specific independent verifier
+                    if verifier_path.exists():
+                        cmd = [sys.executable, str(verifier_path), str(cf)]
+                        if phase_label == "Phase 5":
+                            cmd.extend(["--attestation-dir", str(audit_attest_dir)])
+                        
+                        v_res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                        return_code = v_res.returncode
+                        if return_code == 0:
+                            proof_status = "VERIFIED"
+                            verified_certs += 1
+                        else:
+                            proof_status = "FAILED"
+                            failed_certs += 1
+                            issues.append(f"Verifier returned code {return_code}: {v_res.stderr.strip() or v_res.stdout.strip()}")
+                    else:
+                        proof_status = "UNSUPPORTED_FORMAT"
+                        issues.append(f"Independent verifier script missing: {verifier_path}")
+
+                    print(f"  [{phase_label}] {cf.name}: {digits} digits -> {proof_status}")
+
                 except Exception as e:
-                    print(f"  [{phase_label}] {cf.name}: Failed to read ({e})")
-                    
+                    proof_status = "MALFORMED"
+                    failed_certs += 1
+                    issues.append(f"Exception during inspection: {e}")
+                    print(f"  [{phase_label}] {cf.name}: MALFORMED ({e})")
+
+                audit_records.append({
+                    "audit_version": "phase5-integrity-v1",
+                    "repo_commit": commit,
+                    "phase": phase_label,
+                    "certificate_path": str(cf.relative_to(repo_root)).replace("\\", "/"),
+                    "certificate_file_sha256": cf_sha256,
+                    "pair_id": pair_id,
+                    "pair_relation_valid": pair_valid,
+                    "digits": digits,
+                    "proof_verification": proof_status,
+                    "verification_tool": str(verifier_rel),
+                    "verification_return_code": return_code,
+                    "issues": issues
+                })
+
     print(f"\nTotal historical certificates audited: {total_certs}")
+    print(f"  Verified: {verified_certs} | Failed / Malformed: {failed_certs}")
     print(f"Current Repository Maximum: {max_digits} digits ({max_pair_info})")
-    print("Novelty Requirement: Discovery must be absent from all historical records above.")
-    print("Stretch Goal Target: >= 1,510 digits.")
     print("=" * 60)
+
+    # Write report if requested
+    if getattr(args, "report", None):
+        rep_path = Path(args.report)
+        rep_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(rep_path, "w", encoding="utf-8") as f:
+            json.dump({
+                "audit_version": "phase5-integrity-v1",
+                "repo_commit": commit,
+                "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "summary": {
+                    "total_certificates": total_certs,
+                    "verified": verified_certs,
+                    "failed": failed_certs,
+                    "max_digits": max_digits
+                },
+                "artifacts": audit_records
+            }, f, indent=2)
+        print(f"Saved machine-readable audit report to: {rep_path}")
+
+    if getattr(args, "strict", False) and failed_certs > 0:
+        print(f"ERROR: Strict audit failed with {failed_certs} unverified/failed certificate(s).")
+        sys.exit(1)
 
 def execute_discovery_search(
     storage: Phase5Storage,
@@ -117,15 +221,19 @@ def execute_discovery_search(
     historical_inventory_path: Optional[Path] = None,
     max_finds: int = 1,
     verbose: bool = True
-) -> List[Dict[str, Any]]:
-    """Executes SCCA search over t in [t_start, t_end)."""
+) -> Dict[str, Any]:
+    """
+    Executes SCCA search over t in [t_start, t_end) with strict fail-closed verification gating.
+    Returns dict containing:
+      - 'discoveries': List of verified and accepted discovery dicts.
+      - 'metrics': Typed per-work-unit counters (survivors, dual_prp, proven, verified, failed_v).
+    """
     fam = profile.family
     sieve_limit = profile.sieve_limit
     
     if verbose:
         print(f"\n[Worker] Starting work unit on {fam.family_id}: t in [{t_start}, {t_end}), sieve_limit={sieve_limit}")
         print(f"  F = {fam.F} ({fam.F.bit_length()} bits, {len(str(fam.F))} digits)")
-        print(f"  F_odd = {fam.F_odd}")
         print(f"  Prime factors: {fam.prime_factors}")
 
     t0 = time.time()
@@ -140,12 +248,15 @@ def execute_discovery_search(
 
     dual_prp_count = 0
     proven_count = 0
+    verified_count = 0
+    failed_v_count = 0
     discoveries = []
     
     git_commit = get_git_commit()
     
     for t_val in survivors:
         cand = fam.candidate(t_val)
+        pair_id = storage.canonical_pair_id(cand.A, cand.B)
         
         # Check size condition
         size_ok, size_err = cand.satisfies_size_condition()
@@ -167,15 +278,15 @@ def execute_discovery_search(
 
         # Stage 1: Dual PRP screening
         if not prp_test(cand.A):
-            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "COMPOSITE_A", cand.canonical_hash())
+            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "COMPOSITE_A", pair_id)
             continue
             
         if not prp_test(cand.B):
-            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "COMPOSITE_B", cand.canonical_hash())
+            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "COMPOSITE_B", pair_id)
             continue
             
         dual_prp_count += 1
-        storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "PRP_BOTH", cand.canonical_hash())
+        storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "PRP_BOTH", pair_id)
         
         if verbose:
             print(f"  [DUAL PRP HIT] t={t_val}: A={cand.A}, B={cand.B} ({cand.digits_A} digits)")
@@ -194,12 +305,12 @@ def execute_discovery_search(
                 print(f"    Morrison proof on A failed: {morr_err}")
             continue
 
-        # Both PROVEN!
+        # Both PROVEN at generation tier
         proven_count += 1
-        storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "PROVEN_BOTH", cand.canonical_hash())
+        storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "PROOF_GENERATED", pair_id)
         
         if verbose:
-            print(f"  *** [PROVEN TWIN PAIR FOUND!] ***")
+            print(f"  *** [PROVEN TWIN PAIR GENERATED] ***")
             print(f"    A = {cand.A} (Morrison proved with P={param_P})")
             print(f"    B = {cand.B} (Pocklington proved with a={witness_a})")
             print(f"    Digits: {cand.digits_A} / {cand.digits_B}")
@@ -226,34 +337,79 @@ def execute_discovery_search(
         )
         cert_path = cert.save(output_dir)
         cert_data = cert.to_dict()
+        cert_sha256 = cert_data["sha256"]
         
-        # Record discovery
-        storage.record_discovery(
-            family_id=fam.family_id,
-            t=t_val,
-            digits=cand.digits_A,
-            A=cand.A,
-            B=cand.B,
-            cert_path=str(cert_path),
-            sha256=cert_data["sha256"],
-            novelty_status=novelty_check
-        )
-        
-        # Run immediate independent verification subprocess
+        # --------------------------------------------------------------------
+        # FAIL-CLOSED INDEPENDENT VERIFICATION ACCEPTANCE GATE (P0-A)
+        # --------------------------------------------------------------------
         verifier_script = Path(__file__).resolve().parent.parent.parent / "scripts" / "phase5_independent_verify.py"
-        if verifier_script.exists():
-            v_res = subprocess.run([sys.executable, str(verifier_script), str(cert_path)], capture_output=True, text=True)
-            if v_res.returncode == 0:
-                print(f"    Independent verification: PASS ({cert_path.name})")
-            else:
-                print(f"    Independent verification: FAIL ({v_res.stderr})")
+        verification_passed = False
+        attestation_file = None
+        
+        if not verifier_script.exists():
+            print(f"    CRITICAL: Verifier script missing at {verifier_script}. Acceptance BLOCKED.")
+            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "VERIFICATION_UNAVAILABLE", pair_id)
+            failed_v_count += 1
+        else:
+            try:
+                v_res = subprocess.run(
+                    [sys.executable, str(verifier_script), str(cert_path)],
+                    capture_output=True,
+                    text=True,
+                    timeout=60.0
+                )
+                if v_res.returncode == 0:
+                    # Validate that attestation artifact exists and is a valid PASS
+                    expected_att = cert_path.parent / "attestations" / f"attest_{cert_sha256[:16]}.json"
+                    if expected_att.exists():
+                        with open(expected_att, "r", encoding="utf-8") as af:
+                            att_data = json.load(af)
+                        if (
+                            att_data.get("result") == "PASS" and
+                            att_data.get("target_sha256") == cert_sha256 and
+                            att_data.get("target_certificate") == cert_path.name
+                        ):
+                            verification_passed = True
+                            attestation_file = expected_att
+                            if verbose:
+                                print(f"    Independent verification: PASS ({cert_path.name})")
+                        else:
+                            print(f"    Independent verification attestation mismatch or not PASS in {expected_att}")
+                    else:
+                        print(f"    Independent verification attestation file not found at {expected_att}")
+                else:
+                    print(f"    Independent verification FAIL (code {v_res.returncode}): {v_res.stderr.strip() or v_res.stdout.strip()}")
+            except subprocess.TimeoutExpired:
+                print(f"    Independent verification TIMED OUT after 60s for {cert_path.name}")
+            except Exception as e:
+                print(f"    Independent verification EXCEPTION: {e}")
 
-        discoveries.append({
-            "candidate": cand,
-            "cert_path": cert_path,
-            "sha256": cert_data["sha256"],
-            "novelty_status": novelty_check
-        })
+        if verification_passed:
+            verified_count += 1
+            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "VERIFIED_BOTH", pair_id)
+            storage.record_discovery(
+                family_id=fam.family_id,
+                t=t_val,
+                digits=cand.digits_A,
+                A=cand.A,
+                B=cand.B,
+                cert_path=str(cert_path),
+                sha256=cert_sha256,
+                novelty_status=novelty_check,
+                pair_id=pair_id
+            )
+            discoveries.append({
+                "candidate": cand,
+                "cert_path": cert_path,
+                "sha256": cert_sha256,
+                "novelty_status": novelty_check,
+                "pair_id": pair_id,
+                "attestation_path": str(attestation_file)
+            })
+        else:
+            failed_v_count += 1
+            storage.record_candidate(fam.family_id, t_val, cand.A, cand.B, cand.digits_A, "VERIFICATION_FAILED", pair_id)
+            print(f"    Discovery REJECTED: Candidate {fam.family_id}_t{t_val} failed independent verification.")
 
         if len(discoveries) >= max_finds:
             break
@@ -264,10 +420,19 @@ def execute_discovery_search(
         elapsed,
         len(survivors),
         dual_prp_count,
-        proven_count,
+        verified_count,
         batch_size=(t_end - t_start)
     )
-    return discoveries
+    return {
+        "discoveries": discoveries,
+        "metrics": {
+            "survivors": len(survivors),
+            "dual_prp": dual_prp_count,
+            "proven": proven_count,
+            "verified": verified_count,
+            "failed_verification": failed_v_count
+        }
+    }
 
 def run_discover(args):
     config_path = Path(args.config)
@@ -283,7 +448,12 @@ def run_discover(args):
     storage = Phase5Storage(db_path)
 
     # Path to authoritative historical inventory
-    hist_inv_path = Path(cfg.get("historical_inventory", "research/phase5_audit/historical_inventory.json"))
+    hist_inv_path = Path(cfg.get("historical_inventory", "research/phase5_integrity/HISTORICAL_CERTIFICATE_INVENTORY.json"))
+    if not hist_inv_path.exists():
+        # Fallback to older audit inventory if present
+        alt_path = Path("research/phase5_audit/historical_inventory.json")
+        if alt_path.exists():
+            hist_inv_path = alt_path
 
     profiles = []
     for f_cfg in cfg.get("families", []):
@@ -318,7 +488,7 @@ def run_discover(args):
         print(f"\n--- Work Unit {u_idx + 1}/{max_work_units} ({wu['work_unit_id']}) ---")
         print(f"Rationale: {wu['rationale']}")
         
-        finds = execute_discovery_search(
+        search_res = execute_discovery_search(
             storage=storage,
             profile=wu["profile"],
             t_start=wu["t_start"],
@@ -328,11 +498,20 @@ def run_discover(args):
             max_finds=max_total_discoveries - total_found,
             verbose=True
         )
+        finds = search_res["discoveries"]
+        metrics = search_res["metrics"]
         total_found += len(finds)
-        storage.complete_work_unit(wu["work_unit_id"], survivors=0, dual_prp=0, proven=len(finds))
+        
+        # Persist MEASURED metrics rather than fabricated zeros (P1-F)
+        storage.complete_work_unit(
+            wu["work_unit_id"],
+            survivors=metrics["survivors"],
+            dual_prp=metrics["dual_prp"],
+            proven=len(finds)
+        )
 
         if total_found >= max_total_discoveries:
-            print(f"\nTarget discovery count reached: {total_found} certified pair(s). Stopping campaign.")
+            print(f"\nTarget discovery count reached: {total_found} verified pair(s). Stopping campaign.")
             break
 
 def run_benchmark(args):
@@ -376,10 +555,34 @@ def run_benchmark(args):
     print("=" * 60)
 
 def run_status(args):
-    db_path = Path("runs/phase5/phase5_search.db")
+    # Resolve DB path with precedence: --db, --config, then default (P1-D)
+    db_path = None
+    if getattr(args, "db", None):
+        db_path = Path(args.db)
+    elif getattr(args, "config", None):
+        cfg_path = Path(args.config)
+        if cfg_path.exists():
+            try:
+                with open(cfg_path, "r", encoding="utf-8") as f:
+                    cfg = json.load(f)
+                if "db_path" in cfg:
+                    db_path = Path(cfg["db_path"])
+            except Exception:
+                pass
+    
+    if db_path is None:
+        db_path = Path("runs/phase5/phase5_search.db")
+
+    print("=" * 60)
+    print("PHASE 5 CAMPAIGN STATUS")
+    print("=" * 60)
+    print(f"Database Path: {db_path.resolve()}")
+
     if not db_path.exists():
-        print(f"No database found at {db_path}")
+        print(f"No database found at {db_path}. (Not initialized)")
+        print("=" * 60)
         return
+
     storage = Phase5Storage(db_path)
     with storage._get_connection() as conn:
         wus = conn.execute("SELECT status, count(*) as cnt FROM work_units GROUP BY status").fetchall()
@@ -387,10 +590,7 @@ def run_status(args):
         discs = conn.execute("SELECT * FROM discoveries").fetchall()
         b_stats = conn.execute("SELECT * FROM bandit_stats").fetchall()
 
-    print("=" * 60)
-    print("PHASE 5 CAMPAIGN STATUS")
-    print("=" * 60)
-    print("Work Units:")
+    print("\nWork Units:")
     for w in wus:
         print(f"  {w['status']}: {w['cnt']}")
     print("\nCandidates:")
@@ -400,6 +600,7 @@ def run_status(args):
     for d in discs:
         print(f"  Discovery: family={d['family_id']}, t={d['t']}, digits={d['digits']}, status={d['novelty_status']}")
         print(f"    SHA-256: {d['sha256']}")
+        print(f"    Pair ID: {d['pair_id'] if 'pair_id' in d.keys() else 'N/A'}")
         print(f"    Cert: {d['cert_path']}")
     print("\nBandit Performance:")
     for b in b_stats:
@@ -442,6 +643,8 @@ def main():
     # audit
     p_audit = subparsers.add_parser("audit")
     p_audit.add_argument("--repo", default=".", help="Repository root path")
+    p_audit.add_argument("--strict", action="store_true", help="Exit with code 1 if any certificate fails verification")
+    p_audit.add_argument("--report", default=None, help="Optional output path for machine-readable JSON report")
 
     # discover
     p_disc = subparsers.add_parser("discover")
@@ -455,10 +658,14 @@ def main():
     # status
     p_stat = subparsers.add_parser("status")
     p_stat.add_argument("--campaign", default="discovery", help="Campaign name")
+    p_stat.add_argument("--config", default=None, help="Campaign config JSON path")
+    p_stat.add_argument("--db", default=None, help="Direct database path")
 
     # verify
     p_ver = subparsers.add_parser("verify")
     p_ver.add_argument("target", help="Certificate path or directory")
+    p_ver.add_argument("--attestation-dir", default=None, help="Directory to write attestations")
+    p_ver.add_argument("--overwrite", action="store_true", help="Overwrite existing attestations")
 
     args = parser.parse_args()
     if args.command == "campaign":
@@ -473,7 +680,13 @@ def main():
         run_status(args)
     elif args.command == "verify":
         v_script = Path(__file__).resolve().parent.parent.parent / "scripts" / "phase5_independent_verify.py"
-        subprocess.run([sys.executable, str(v_script), args.target])
+        cmd = [sys.executable, str(v_script), args.target]
+        if args.attestation_dir:
+            cmd.extend(["--attestation-dir", str(args.attestation_dir)])
+        if args.overwrite:
+            cmd.append("--overwrite")
+        res = subprocess.run(cmd)
+        sys.exit(res.returncode)
 
 if __name__ == "__main__":
     main()

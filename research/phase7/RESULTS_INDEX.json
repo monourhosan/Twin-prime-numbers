@@ -1,0 +1,47 @@
+{
+  "schema_version": "7.0",
+  "generated_at": "2026-11-14T07:34:00Z",
+  "total_records": 1,
+  "records": [
+    {
+      "record_id": "PHASE7-DISCOVERY-01",
+      "status": "CERTIFIED_FRESH_1510_PLUS",
+      "digits_per_member": 1510,
+      "difference": 2,
+      "center_mod_6": 0,
+      "representation": {
+        "family": "primorial_constrained_proth_llr",
+        "formula": "C = k * 2^n, k = M_B * (2t + 1)",
+        "B_primorial": 13,
+        "M_B": "15015",
+        "t": 15658,
+        "k": "470224755",
+        "n": 4985
+      },
+      "lower_prime_proof": {
+        "theorem": "Lucas-Lehmer-Riesel (1969) / Rodseth (1994)",
+        "parameter_P": 15,
+        "jacobi_symbols": "(13/A) = 1, (17/A) = -1",
+        "llr_rounds": 4983,
+        "final_residue": 0,
+        "verdict": "PROVEN_PRIME"
+      },
+      "upper_prime_proof": {
+        "theorem": "Proth (1878) Theorem",
+        "witness_w": 23,
+        "congruence": "23^((B-1)/2) == -1 mod B",
+        "verdict": "PROVEN_PRIME"
+      },
+      "artifacts": {
+        "certificate_json": "proofs/phase7/certificates/cert_hdc7_1510d_B13_n4985_t15658.json",
+        "certificate_sha256": "9e147e81b6d0879cd87edcb7cc577ba1e220519154901ed240de4319bb2ccc1e",
+        "attestation_json": "proofs/phase7/attestations/attest_9e147e81b6d0879c.json",
+        "attestation_sha256": "f69af93b4522f3373422b621fa511a8b686d2612f02bed431fbae7cc87a49426"
+      },
+      "novelty_classification": {
+        "repo_status": "NEW_TO_REPOSITORY",
+        "public_database_status": "NO_PUBLIC_MATCH_FOUND_IN_CHECKED_SOURCES"
+      }
+    }
+  ]
+}
