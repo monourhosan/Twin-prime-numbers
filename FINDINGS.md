@@ -289,8 +289,12 @@ where $h = 3$, $S$ is an odd 50-digit anchor divisible by 3 with fully proven pr
 
 | Campaign | Candidate $t$ | Decimal Digits | Lower Prime $A$ | Upper Prime $B$ | Certification Theorems | Certificate File |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `strong_502d` | $114,833$ | **503 digits** | `31080318...8489` (503d) | `31080318...8491` (503d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_503d_t114833.json`](proofs/phase6/certificates/cert_qcp6_503d_t114833.json) |
+| `strong_502d` | $37,907$ | **502 digits** | `33868103...8227` (502d) | `33868103...8229` (502d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_502d_t37907.json`](proofs/phase6/certificates/cert_qcp6_502d_t37907.json) |
 | `primary` | $23,947$ | **108 digits** | `58042944...0867` (108d) | `58042944...0869` (108d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_108d_t23947.json`](proofs/phase6/certificates/cert_qcp6_108d_t23947.json) |
 | `primary (resume)` | $131,295$ | **110 digits** | `17447916...8639` (110d) | `17447916...8641` (110d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_110d_t131295.json`](proofs/phase6/certificates/cert_qcp6_110d_t131295.json) |
+| `fresh_107d` | $13,345$ | **108 digits** | `20350412...0979` (108d) | `20350412...0981` (108d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_108d_t13345.json`](proofs/phase6/certificates/cert_qcp6_108d_t13345.json) |
+| `fresh_107d` | $4,849$ | **107 digits** | `26868314...3619` (107d) | `26868314...3621` (107d) | Pocklington Thm 4 ($B$, $a=2$) & Morrison Thm 17 ($A$, $P=3$) | [`proofs/phase6/certificates/cert_qcp6_107d_t4849.json`](proofs/phase6/certificates/cert_qcp6_107d_t4849.json) |
 
 * **Exact Integers (Primary 108d Discovery):**
   - $A = 580429447365073672176135517613336328521016173269486620796396610861564085752362937835064139064294668347640867$

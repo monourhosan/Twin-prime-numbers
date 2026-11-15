@@ -1,10 +1,10 @@
 # Discovering and Verifying Extremely Large Twin Primes: The CATS, Phase 2, Phase 3 HDRSS, Phase 4 ADRS, Phase 5 SCCA, Phase 6 GITCSS, Phase 7 HDC-7, & Phase 8 ADES-8 Project
 
-[![Tests: 190/190 Passing](https://img.shields.io/badge/Tests-190%2F190%20Passing-brightgreen)](tests/)
+[![Tests: 191/191 Passing](https://img.shields.io/badge/Tests-191%2F191%20Passing-brightgreen)](tests/)
 [![Phase 8 Discovery: 1,511d Record Twin Prime](https://img.shields.io/badge/Phase%208%20Discovery-1%2C511%20Digits%20(ADES--8)-brightgreen)](proofs/phase8/certificates/)
 [![Proven Pair: 1,511d](https://img.shields.io/badge/Proven%20Pair-1%2C511%20Digits-brightgreen)](proofs/phase8/)
 [![Phase 7 Discovery: 1,510d Fresh Twin Prime](https://img.shields.io/badge/Phase%207%20Discovery-1%2C510%20Digits%20(HDC--7)-brightgreen)](proofs/phase7/certificates/)
-[![Phase 6 Discovery: 16d General Integer](https://img.shields.io/badge/Phase%206%20Discovery-16d%20General%20Integer-brightgreen)](proofs/phase6/)
+[![Phase 6 Discovery: 503d & 502d (QCP-6)](https://img.shields.io/badge/Phase%206%20Discovery-503d%20%26%20502d%20(QCP--6)-brightgreen)](proofs/phase6/certificates/)
 [![Phase 5 Discovery: 133d & 59d (SCCA)](https://img.shields.io/badge/Phase%205%20Discovery-133d%20%26%2059d%20(SCCA)-brightgreen)](proofs/phase5/)
 [![Phase 4 Discovery: 1,028d](https://img.shields.io/badge/Phase%204%20Discovery-1%2C028%20Digits-brightgreen)](proofs/phase4/)
 [![GPU Sieve: MX250 Accelerated](https://img.shields.io/badge/GPU%20Sieve-MX250%20(4x--17x)-brightgreen)](research/laptop_acceleration/BENCHMARKS.md)
@@ -422,15 +422,16 @@ python scripts/verify_certificate.py proofs/
 * **Phase 6 Verification Dependencies (ECPP Analysis):** [research/phase6/VERIFICATION_DEPENDENCIES.md](research/phase6/VERIFICATION_DEPENDENCIES.md)
 * **Phase 5 Reproducibility Guide:** [REPRODUCIBILITY_PHASE5.md](REPRODUCIBILITY_PHASE5.md)
 
-### Phase 6 QCP-6 Breakthrough Deliverables (108-Digit Unconditional Twin-Prime Discovery)
-* **Phase 6 Discovery Report:** [research/phase6/DISCOVERY_REPORT.md](research/phase6/DISCOVERY_REPORT.md)
-* **Phase 6 Reproducibility Manual:** [REPRODUCIBILITY_PHASE6.md](REPRODUCIBILITY_PHASE6.md)
+### Phase 6 QCP-6 Breakthrough Deliverables (503-Digit & 502-Digit Strong Unconditional Twin-Prime Discoveries)
+* **Phase 6 Final Research Report:** [reports/PHASE6_FINAL_REPORT.md](reports/PHASE6_FINAL_REPORT.md)
+* **Phase 6 Baseline Audit:** [reports/PHASE6_BASELINE_AUDIT.md](reports/PHASE6_BASELINE_AUDIT.md)
+* **Phase 6 Reproducibility Protocol:** [REPRODUCIBILITY_PHASE6.md](REPRODUCIBILITY_PHASE6.md)
 * **Mathematical Specification & Theorem Proofs:** [research/phase6/MATHEMATICAL_SPECIFICATION.md](research/phase6/MATHEMATICAL_SPECIFICATION.md)
-* **Prior Art & Algorithmic Differentiation:** [research/phase6/PRIOR_ART.md](research/phase6/PRIOR_ART.md)
-* **Baseline Reconnaissance & Historical Inventory Audit:** [research/phase6/BASELINE_AUDIT.md](research/phase6/BASELINE_AUDIT.md)
+* **Prior Art & Method Selection:** [research/phase6/PRIOR_ART_AND_METHOD_SELECTION.md](research/phase6/PRIOR_ART_AND_METHOD_SELECTION.md)
+* **Proof System Selection:** [research/phase6/PROOF_SYSTEM_SELECTION.md](research/phase6/PROOF_SYSTEM_SELECTION.md)
 * **Empirical Benchmarks & Screening Analysis:** [research/phase6/BENCHMARKS.md](research/phase6/BENCHMARKS.md)
 * **Independent First-Principles Verifier:** [scripts/phase6_independent_verify.py](scripts/phase6_independent_verify.py)
-* **Phase 6 Proof Certificates (108d & 110d):** [proofs/phase6/certificates/](proofs/phase6/certificates/)
+* **Phase 6 Proof Certificates (503d, 502d, 110d, 108d, 107d):** [proofs/phase6/certificates/](proofs/phase6/certificates/)
 * **Phase 6 Attestations:** [proofs/phase6/attestations/](proofs/phase6/attestations/)
 
 ### Historical Project Deliverables
