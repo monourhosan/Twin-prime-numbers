@@ -68,6 +68,36 @@ The question of finding "the biggest and the last twin prime numbers" comprises 
 
 ## 5. Strongest Results Actually Achieved in This Project
 
+### 5.0000 Phase 9 PACCM-9: Discovery of 364-Digit Certified Twin Primes via Primorial-Anchored Cubic-Cofactor Manifold (MX250 Accelerated)
+
+In Phase 9, the **Primorial-Anchored Cubic-Cofactor Manifold (PACCM-9)** engine discovered and unconditionally certified a fresh twin-prime pair of **364 decimal digits per member**, departing from quadratic and exponential families to a degree-3 cubic manifold with super-root divisor dominance:
+
+$$\begin{aligned}
+x &= S_{283} \cdot 1129 \quad \text{(121 decimal digits, 62 distinct prime factors)} \\
+C &= 2 x^2 (3x + 1) = 6 x^3 + 2 x^2 \equiv 0 \pmod 6 \\
+A &= C - 1 = 6 x^3 + 2 x^2 - 1 \quad \text{(364 decimal digits)} \\
+B &= C + 1 = 6 x^3 + 2 x^2 + 1 \quad \text{(364 decimal digits)}
+\end{aligned}$$
+
+* **Difference & Parity:** $B - A = 2$ identically, and center $C \equiv 0 \pmod 6$.
+* **Anchor Primorial:** $y = 283$, $S_{283} = \prod_{p \le 283} p$ (118 decimal digits, 61 distinct primes).
+* **Multiplier:** $t = 1129$ (prime).
+* **Unconditional Dual-BLS Certifications:**
+  - **Upper Member ($B$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington $N-1$)** with verified size condition $F^2 > B$ ($F = 2x^2$, exceeding $\sqrt{B}$ by 61 orders of magnitude) and witnesses discovered for all 62 distinct prime factors.
+  - **Lower Member ($A$):** Unconditionally proven prime via **Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison $N+1$ Lucas Rank)** with verified size condition $(F_{\text{odd}} - 1)^2 > A$ (exceeding $\sqrt{A}$ by 59 orders of magnitude), parameter $P = 15$, discriminant $D = 221$, Jacobi symbol $(221/A) = -1$, zero congruence $U_{A+1}(15, 1) \equiv 0 \pmod A$, and $\gcd(U_{(A+1)/q}(15, 1), A) = 1$ for all 61 odd prime factors.
+* **Cryptographic & Verification Artifacts:**
+  - Certificate: [`proofs/phase9/certificates/cert_paccm9_364d_t1129.json`](proofs/phase9/certificates/cert_paccm9_364d_t1129.json)
+  - Canonical SHA-256: `62d13fd6011ec338f9324a0c9532bc90be297eb505a0f5ef0eebef349625b190`
+  - Signed Attestation: [`proofs/phase9/attestations/attest_62d13fd6011ec338.json`](proofs/phase9/attestations/attest_62d13fd6011ec338.json) (Status: **UNCONDITIONALLY_VERIFIED**)
+  - Decoupled Standalone Verifier: [`scripts/phase9_independent_verify.py`](scripts/phase9_independent_verify.py)
+* **Hardware Sieve Acceleration:**
+  - Sieve throughput **10.5 million candidates/sec** on the **NVIDIA GeForce MX250** GPU (`sm_61`, PTX JIT driver API), delivering a $5.47\times$ speedup over vectorized CPU sieving.
+  - Bit-for-bit equivalence verified against CPU reference bitset.
+  - Thermal stability confirmed: 64.0°C peak operating temperature (well below 80°C throttle limit).
+* **Novelty Status:**
+  - Repository Inventory: Verified absent from repository inventory (`NEW_TO_REPOSITORY`, 59 historical pairs checked).
+  - Public Databases: Searched The PrimePages, Tony Forbes' Prime $k$-tuple registry, and PrimeGrid (`NO_PUBLIC_MATCH_FOUND_IN_CHECKED_SOURCES`).
+
 ### 5.000 Phase 8 PAQCS: Discovery of 1,511-Digit Certified Twin Primes via Primorial-Anchored Quadratic-Cofactor Search (Independent Family)
 
 In Phase 8, the **Primorial-Anchored Quadratic-Cofactor Search (PAQCS)** discovered and unconditionally certified a fresh, mathematically independent twin-prime pair of **1,511 decimal digits per member**, using a quadratic-cofactor manifold entirely separate from the Proth/LLR binary family:

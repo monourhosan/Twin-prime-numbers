@@ -1,0 +1,38 @@
+[
+  {
+    "window_name": "Small (10k)",
+    "candidates": 5001,
+    "cpu_time_ms": 9.37,
+    "cpu_throughput_cands_sec": 533914.6,
+    "gpu_time_ms": 0.89,
+    "gpu_throughput_cands_sec": 5602733.6,
+    "speedup": 10.49,
+    "survivors_count": 1421,
+    "survivor_ratio": 0.2841,
+    "gpu_temp_c": 64.0
+  },
+  {
+    "window_name": "Medium (30k)",
+    "candidates": 15001,
+    "cpu_time_ms": 11.02,
+    "cpu_throughput_cands_sec": 1361412.9,
+    "gpu_time_ms": 1.77,
+    "gpu_throughput_cands_sec": 8458415.6,
+    "speedup": 6.21,
+    "survivors_count": 4301,
+    "survivor_ratio": 0.2867,
+    "gpu_temp_c": 64.0
+  },
+  {
+    "window_name": "Large (50k)",
+    "candidates": 25001,
+    "cpu_time_ms": 13.02,
+    "cpu_throughput_cands_sec": 1920145.6,
+    "gpu_time_ms": 2.38,
+    "gpu_throughput_cands_sec": 10506534.8,
+    "speedup": 5.47,
+    "survivors_count": 7198,
+    "survivor_ratio": 0.2879,
+    "gpu_temp_c": 64.0
+  }
+]
