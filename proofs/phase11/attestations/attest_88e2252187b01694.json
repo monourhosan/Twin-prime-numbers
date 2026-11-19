@@ -1,0 +1,17 @@
+{
+  "schema_version": "11.0",
+  "attestation_type": "INDEPENDENT_STRICT_MATHEMATICAL_VERIFICATION",
+  "method": "OPQM_CRT_HYBRID_11",
+  "target_certificate": "cert_opqm11_21d_t215.json",
+  "target_sha256": "88e2252187b01694b3c885e6e8b521a940ec1ed71249b2d0779ef19ad91b155a",
+  "utc_attested": "2026-11-19T07:45:17.678351+00:00",
+  "digits": 21,
+  "verifications": {
+    "difference_check": "PASS (B - A == 2)",
+    "center_mod_6": "PASS (C == 0 mod 6)",
+    "pocklington_upper_member": "PASS (BLS Theorem 4 unconditional)",
+    "morrison_lower_member": "PASS (BLS Theorem 17 unconditional, P=9)"
+  },
+  "notice": "SHA-256 detects payload modifications relative to a declared digest; it is not a cryptographic digital signature and does not establish authorship.",
+  "verdict": "UNCONDITIONALLY_VERIFIED"
+}
