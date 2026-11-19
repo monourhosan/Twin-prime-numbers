@@ -1,0 +1,14 @@
+metric_name,category,value,unit,baseline_ratio
+candidate_generation_rate,generation,1743603.16,cands/sec,1.25
+modular_sieve_throughput,sieve,12918227.69,cands/sec,7.96
+sieve_elimination_ratio,sieve,94.54,%,1.00
+crt_filter_reduction_factor,crt,1.0,ratio,1.00
+fermat_screening_throughput,screening,1091703.07,cands/sec,1.82
+miller_rabin_screening_latency,screening,0.0045,ms,0.01
+baillie_psw_latency,screening,0.0033,ms,0.01
+pocklington_proof_time,proof,5e-05,s,0.001
+morrison_proof_time,proof,0.00016,s,0.001
+total_certification_time,proof,0.001,s,0.001
+peak_host_ram_usage,hardware,67.8,MB,0.52
+gpu_kernel_speedup,acceleration,6.37,x,12.75
+discovery_yield,discovery,2.45,pairs/hr,1.38

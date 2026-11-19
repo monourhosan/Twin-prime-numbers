@@ -1,0 +1,14 @@
+{
+  "run_id": "stage4_discovery_y3_t25_35",
+  "method_id": "OPQM_CRT_HYBRID_11",
+  "anchor_y": 3,
+  "current_t": 35,
+  "completed_intervals": [
+    [
+      25,
+      35
+    ]
+  ],
+  "survivor_count": 1,
+  "timestamp_utc": "2026-11-19T06:10:43.346087+00:00"
+}

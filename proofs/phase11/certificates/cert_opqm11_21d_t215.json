@@ -1,0 +1,72 @@
+{
+  "method_id": "OPQM_CRT_HYBRID_11",
+  "method_version": "11.0",
+  "repository_commit": "HEAD",
+  "run_id": "phase11_stage4_y5_t215",
+  "timestamp_utc": "2026-11-19T07:44:20.191454+00:00",
+  "hardware": {
+    "platform": "windows",
+    "cpu": "Intel/AMD x86_64",
+    "memory": "16GB"
+  },
+  "parameters": {
+    "y": 5,
+    "S_y": "30",
+    "t": 215,
+    "x": "6450",
+    "F": "1610016750000",
+    "F_odd": "100626046875",
+    "R": "83205001"
+  },
+  "symbolic_center": "12*x^5 + 6*x^3",
+  "lower_prime": "133961445293766749999",
+  "upper_prime": "133961445293766750001",
+  "digit_count": 21,
+  "difference": 2,
+  "factorization": {
+    "factors_F": {
+      "2": 4,
+      "3": 4,
+      "5": 6,
+      "43": 3
+    },
+    "factors_Sy": {
+      "2": 1,
+      "3": 1,
+      "5": 1
+    },
+    "factors_t": {
+      "5": 1,
+      "43": 1
+    }
+  },
+  "proof_method_lower": "Brillhart-Lehmer-Selfridge (1975) Theorem 17 (Morrison N+1 Lucas Rank)",
+  "proof_method_upper": "Brillhart-Lehmer-Selfridge (1975) Theorem 4 (Pocklington N-1)",
+  "witnesses_lower": {
+    "parameter_P": 9,
+    "parameter_Q": 1,
+    "discriminant_D": 77,
+    "jacobi_symbol": -1,
+    "lucas_zero_congruence": "U_{A+1}(9, 1) = 0 mod A",
+    "factor_gcds": {
+      "3": "1",
+      "5": "1",
+      "43": "1"
+    }
+  },
+  "witnesses_upper": {
+    "2": 7,
+    "3": 2,
+    "5": 2,
+    "43": 2
+  },
+  "proof_conditions": {
+    "pocklington_size_condition": "F^2 > B (2592153935280562500000000 > 133961445293766750001)",
+    "morrison_size_condition": "(F_odd - 1)^2 > A (10125601309488445171876 > 133961445293766749999)",
+    "coprimality_gcd_F_R": 1,
+    "morrison_odd_divisor_guard": "factor 2 excluded from Lucas rank GCD tests"
+  },
+  "novelty_status_repository": "NOVEL_TO_REPOSITORY",
+  "novelty_status_public": "NOVEL_TO_PUBLIC_RECORDS",
+  "certificate_sha256": "88e2252187b01694b3c885e6e8b521a940ec1ed71249b2d0779ef19ad91b155a"
+}

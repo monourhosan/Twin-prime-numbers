@@ -1,0 +1,14 @@
+{
+  "run_id": "stage1_sanity",
+  "method_id": "OPQM_CRT_HYBRID_11",
+  "anchor_y": 3,
+  "current_t": 50,
+  "completed_intervals": [
+    [
+      1,
+      50
+    ]
+  ],
+  "survivor_count": 8,
+  "timestamp_utc": "2026-11-19T06:10:17.396555+00:00"
+}
